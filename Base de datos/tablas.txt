@@ -1,0 +1,64 @@
+create table usuarios (
+	username varchar(20) not null primary key,
+	password varchar(9) not null 
+		check(password like '[0-9][0-9][0-9][A-Z][A-Z][A-Z][A-Z][/W][/W]'),
+	nombre varchar(50) not null
+)
+go
+
+create table empleados (
+	usuario varchar(20) primary key,
+	carga_horaria int check(carga_horaria > 0),
+	foreign key (usuario) references usuarios (username)
+)
+go
+
+create table meteorologos (
+	usuario varchar(20) primary key,
+	telefono varchar(20) not null,
+	correo varchar(30) not null
+		check(correo like '%_@__%.__%'),
+	deleted bit not null default(0),
+	foreign key (usuario) references usuarios (username)
+)
+go
+
+create table ciudades (
+	codigo varchar(6) not null primary key
+		check(codigo like '[A-Z][A-Z][A-Z][A-Z][A-Z][A-Z]'),
+	nombre_ciudad varchar(30) not null,
+	pais varchar(20) not null,
+	deleted bit not null default(0)
+)
+go
+
+create table pronosticos_tiempo (
+	interno int not null primary key identity(1,1),
+	usuario varchar(20) not null,
+	ciudad varchar(6) not null,
+	fecha date not null
+		check(fecha >= getDate()) default(getdate()),
+	foreign key (usuario) references usuarios (username),
+	foreign key (ciudad) references ciudades (codigo),
+)
+go
+
+create table pronosticos_hora (
+	hora int not null
+		check (hora >= 0 and hora <= 2359),
+	interno int not null,
+	temp_max int not null,
+	temp_min int not null,
+	v_viento int not null,
+	tipo_cielo varchar(20) not null
+		check (tipo_cielo like 'despejado' 
+		    or tipo_cielo like 'parcialmente_nuboso'
+		    or tipo_cielo like 'nuboso'),
+	prob_lluvias int not null
+		check(prob_lluvias >= 0 and prob_lluvias <= 100),
+	prob_tormenta int not null,
+		check(prob_tormenta >= 0 and prob_tormenta <= 100),
+	primary key (interno,hora),
+	foreign key (interno) references pronosticos_tiempo (interno)
+)
+go
