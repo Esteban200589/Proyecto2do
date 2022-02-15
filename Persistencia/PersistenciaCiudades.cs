@@ -122,7 +122,66 @@ namespace Persistencia
         }
 
 
-        public List<Ciudad> ListarPeriodistas()
+        internal Ciudad BuscarCiudad(string codigo)
+        {
+            Ciudad c = null;
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            try
+            {
+                cnn.Open();
+
+                SqlCommand cmd = new SqlCommand("buscar_ciudad", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("code", codigo);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                    c = new Ciudad(dr["codigo"].ToString(), dr["nombre_ciudad"].ToString(), dr["pais"].ToString());
+
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return c;
+        }
+
+        public Ciudad BuscarCiudadActiva(string codigo)
+        {
+            Ciudad c = null;
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            try
+            {
+                cnn.Open();
+
+                SqlCommand cmd = new SqlCommand("buscar_ciudad_activa", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("code", codigo);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                    c = new Ciudad(dr["codigo"].ToString(), dr["nombre_ciudad"].ToString(), dr["pais"].ToString());
+
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return c;
+        }
+
+
+        public List<Ciudad> ListarCiudades()
         {
             List<Ciudad> lista = new List<Ciudad>();
             SqlConnection cnn = new SqlConnection(Conexion.Cnn);
@@ -156,7 +215,7 @@ namespace Persistencia
             return lista;
         }
 
-        public List<Ciudad> ListarPeriodistasSinPronosticos()
+        public List<Ciudad> ListarCiudadesSinPronosticos()
         {
             List<Ciudad> lista = new List<Ciudad>();
             SqlConnection cnn = new SqlConnection(Conexion.Cnn);

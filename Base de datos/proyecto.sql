@@ -759,12 +759,12 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO ACTIVO --			24
+	-- BUSCAR USUARIO METEOROLOGO ACTIVO --			24
 -----------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'buscar_usuario_activo')
-		drop proc buscar_usuario_activo
+	if exists (select * from sysobjects where name = 'buscar_meteorologo_activo')
+		drop proc buscar_meteorologo_activo
 	go
-	create proc buscar_usuario_activo
+	create proc buscar_meteorologo_activo
 		@user varchar(20)
 	as
 	begin
@@ -775,19 +775,64 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO --		25
+	-- BUSCAR USUARIO METEOROLOGO --		25
 -----------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'buscar_usuario')
-		drop proc buscar_usuario
+	if exists (select * from sysobjects where name = 'buscar_meteorologo')
+		drop proc buscar_meteorologo
 	go
-	create proc buscar_usuario
+	create proc buscar_meteorologo
 		@user varchar(20)
 	as
 	begin
-		select * from usuarios where username = @user
+		select * from usuarios u
+		join meteorologos m on m.usuario = u.username
+		where u.username = @user
+	end
+	go
+
+-----------------------------------------------------------------------------------------------------------
+	-- BUSCAR USUARIO EMPLEADO --		26
+-----------------------------------------------------------------------------------------------------------
+	if exists (select * from sysobjects where name = 'buscar_empleado')
+		drop proc buscar_empleado
+	go
+	create proc buscar_empleado
+		@user varchar(20)
+	as
+	begin
+		select * from usuarios u
+		join empleados e on e.usuario = u.username
+		where u.username = @user
 	end
 	go
 	
+-----------------------------------------------------------------------------------------------------------
+	-- BUSCAR CIUDAD ACTIVA --			27
+-----------------------------------------------------------------------------------------------------------
+	if exists (select * from sysobjects where name = 'buscar_ciudad_activa')
+		drop proc buscar_ciudad_activa
+	go
+	create proc buscar_ciudad_activa
+		@code varchar(6)
+	as
+	begin
+		select * from ciudades where codigo = @code and deleted = 0
+	end
+	go
+	
+-----------------------------------------------------------------------------------------------------------
+	-- BUSCAR CIUDAD --		28
+-----------------------------------------------------------------------------------------------------------
+	if exists (select * from sysobjects where name = 'buscar_ciudad')
+		drop proc buscar_ciudad
+	go
+	create proc buscar_ciudad
+		@code varchar(6)
+	as
+	begin
+		select * from ciudades where codigo = @code
+	end
+	go
 -----------------------------------------------------------------------------------------------------------
 								 /*			PERMISOS	     */
 -----------------------------------------------------------------------------------------------------------
@@ -804,6 +849,9 @@ go
 grant execute on logueo_empleado to rol_publico
 go
 grant execute on logueo_meteorologo to rol_publico
+go
+
+grant execute on buscar_ciudad_activa to rol_publico
 go
 
 exec sp_addrolemember @rolename='rol_publico', 
@@ -833,6 +881,17 @@ grant execute on modificar_ususario_empleado to rol_empleados
 go
 grant execute on modificar_ususario_meteorologo to rol_empleados
 go
+
+grant execute on buscar_ciudad_activa to rol_empleados
+go
+grant execute on buscar_ciudad to rol_empleados
+go
+grant execute on buscar_meteorologo_activo to rol_empleados
+go
+grant execute on buscar_meteorologo to rol_empleados
+go
+grant execute on buscar_empleado to rol_empleados
+go
 -----------------------------------------------------------------------------------------------------------
 		-- METEOROLOGOS
 -----------------------------------------------------------------------------------------------------------
@@ -842,6 +901,11 @@ go
 grant execute on crear_pronostico_tiempo to rol_meteorologos
 go
 grant execute on crear_pronostico_hora to rol_meteorologos
+go
+
+grant execute on buscar_ciudad_activa to rol_meteorologos
+go
+grant execute on buscar_ciudad to rol_meteorologos
 go
 
 -----------------------------------------------------------------------------------------------------------

@@ -12,7 +12,7 @@ namespace Entidades
         private DateTime fecha;
         private Ciudad ciudad;
         private Usuario usuario;
-        private List<Pronostico_hora> pronosticos_hora;
+        private List<Pronostico_hora> list_pronosticos_hora;
 
         public int Interno
         {
@@ -31,10 +31,49 @@ namespace Entidades
             }
         }
 
-        public Pronostico_tiempo(int pInt, DateTime pDate)
+        public Ciudad Ciudad
+        {
+            get { return ciudad; }
+            set
+            {
+                if (value != null)
+                    throw new Exception("Debe pertenecer a una Ciudad.");
+                else
+                    ciudad = value;
+            }
+        }
+
+        public Usuario Usuario
+        {
+            get { return usuario; }
+            set
+            {
+                if (value != null)
+                    throw new Exception("Debe tener un Usuario.");
+                else
+                    usuario = value;
+            }
+        }
+
+        public List<Pronostico_hora> LIST_pronosticos_hora
+        {
+            get { return list_pronosticos_hora; }
+            set {
+                //if (value == null || value.Count <= 0)
+                //    throw new Exception("El Pronostico debe contener al menos una hora registrada");
+                //else
+                    
+                list_pronosticos_hora = value;
+            }
+        }
+
+        public Pronostico_tiempo(int pInt, DateTime pDate, Ciudad pCity, Usuario pUser, List<Pronostico_hora> pList)
         {
             Interno = pInt;
             Fecha = pDate;
+            Ciudad = pCity;
+            Usuario = pUser;
+            LIST_pronosticos_hora = pList;
         }
     }
 }

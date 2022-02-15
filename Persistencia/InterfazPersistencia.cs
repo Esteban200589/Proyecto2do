@@ -12,13 +12,13 @@ namespace Persistencia
 {
     public interface InterfazPersistenciaEmpleados
     {
-        Empleado LoginEmpelado(string username, string password);
+        Empleado LoginEmpleado(string username, string password);
         Empleado BuscarEmpleado(string username);
     }
     public interface InterfazPersistenciaMeteorologos
     {
         Meteorologo LoginMeteorologo(string username, string password);
-        Meteorologo BuscarMeteorologo(string username);
+        Meteorologo BuscarMeteorologoActivo(string username);
     }
 
     public interface InterfazPersistenciaCiudades
@@ -27,16 +27,22 @@ namespace Persistencia
         void ModificarCiudad(Ciudad c);
         void EliminarCiudad(Ciudad c);
 
-        void ListaCiudades
+        Ciudad BuscarCiudadActiva(string codigo);
+
+        List<Ciudad> ListarCiudades();
+        List<Ciudad> ListarCiudadesSinPronosticos();
     }
 
     public interface InterfazPersistenciaPronosticosTiempo
     {
         void CrearPronosticoTiempo(Pronostico_tiempo pt);
+
+        List<Pronostico_tiempo> ListarPronosticosTodos();
+        List<Pronostico_tiempo> ListarPronosticosAnio();
     }
 
     public interface InterfazPersistenciaPronosticosHora
     {
-        void CrearPronosticoHora(Pronostico_hora ph);
+        void CrearPronosticoHora(Pronostico_hora ph, SqlTransaction trn);
     }
 }

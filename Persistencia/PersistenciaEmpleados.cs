@@ -10,7 +10,7 @@ using System.Data;
 
 namespace Persistencia
 {
-    internal class PersistenciaEmpleados
+    internal class PersistenciaEmpleados : InterfazPersistenciaEmpleados
     {
         private static PersistenciaEmpleados instancia = null;
         private PersistenciaEmpleados() { }
@@ -61,7 +61,7 @@ namespace Persistencia
             {
                 cnn.Open();
 
-                SqlCommand cmd = new SqlCommand("buscar_usuario", cnn);
+                SqlCommand cmd = new SqlCommand("buscar_empleado", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("user", username);
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -81,7 +81,5 @@ namespace Persistencia
             }
             return u;
         }
-
-
     }
 }

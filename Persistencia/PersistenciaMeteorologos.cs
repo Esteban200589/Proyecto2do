@@ -10,7 +10,7 @@ using System.Data;
 
 namespace Persistencia
 {
-    internal class PersistenciaMeteorologos
+    internal class PersistenciaMeteorologos : InterfazPersistenciaMeteorologos
     {
         private static PersistenciaMeteorologos instancia = null;
         private PersistenciaMeteorologos() { }
@@ -53,7 +53,7 @@ namespace Persistencia
             return user;
         }
 
-        public Meteorologo BuscarMeteorologo(string username)
+        internal Meteorologo BuscarMeteorologo(string username)
         {
             Meteorologo u = null;
             SqlConnection cnn = new SqlConnection(Conexion.Cnn);
@@ -61,7 +61,7 @@ namespace Persistencia
             {
                 cnn.Open();
 
-                SqlCommand cmd = new SqlCommand("buscar_usuario", cnn);
+                SqlCommand cmd = new SqlCommand("buscar_meteorologo", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("user", username);
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -82,6 +82,34 @@ namespace Persistencia
             return u;
         }
 
+        public Meteorologo BuscarMeteorologoActivo(string username)
+        {
+            Meteorologo p = null;
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            try
+            {
+                cnn.Open();
+
+                SqlCommand cmd = new SqlCommand("buscar_meteorologo_activo", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("user", username);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                    p = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(), username, dr["password"].ToString(), dr["nombre"].ToString());
+                
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return p;
+        }
 
     }
 }
