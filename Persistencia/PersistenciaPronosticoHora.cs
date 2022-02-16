@@ -59,5 +59,46 @@ namespace Persistencia
                 cnn.Close();
             }
         }
+
+        public List<Pronostico_hora> ListarPronosticosHora(int interno)
+        {
+            List<Pronostico_hora> lista = new List<Pronostico_hora>();
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+
+            try
+            {
+                cnn.Open();
+
+                SqlCommand cmd = new SqlCommand("listar_pronosticos_hora", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("interno", interno);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                Pronostico_hora p = null;
+
+                while (dr.Read())
+                {
+                    p = new Pronostico_hora(Convert.ToInt32(dr["hora"]),
+                                            Convert.ToInt32(dr["temp_max"]),
+                                            Convert.ToInt32(dr["temp_min"]),
+                                            Convert.ToInt32(dr["v_viento"]),
+                                            Convert.ToInt32(dr["prob_lluvias"]),
+                                            Convert.ToInt32(dr["prob_tormenta"]),
+                                            dr["tipo_cielo"].ToString());
+                    lista.Add(p);
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+
+            return lista;
+        }
     }
 }

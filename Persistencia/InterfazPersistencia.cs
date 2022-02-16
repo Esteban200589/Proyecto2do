@@ -37,8 +37,8 @@ namespace Persistencia
     {
         void CrearPronosticoTiempo(Pronostico_tiempo pt);
 
-        List<Pronostico_tiempo> ListarPronosticosTodos();
-        List<Pronostico_tiempo> ListarPronosticosAnio();
+        List<Pronostico_tiempo> ListarPronosticosFecha(DateTime fecha);
+        List<Pronostico_tiempo> ListarPronosticosAnioActual();
     }
 
     public interface InterfazPersistenciaPronosticosHora

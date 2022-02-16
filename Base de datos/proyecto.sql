@@ -678,21 +678,33 @@ go
 -----------------------------------------------------------------------------------------------------------
 		-- PRONOSTICOS TODOS --			19
 -----------------------------------------------------------------------------------------------------------	
-	if exists (select * from sysobjects where name = 'listar_pronosticos')
-		drop proc listar_pronosticos
+	if exists (select * from sysobjects where name = 'listar_pronosticos_fecha')
+		drop proc listar_pronosticos_fecha
 	go
-	create proc listar_pronosticos
+	create proc listar_pronosticos_fecha
+		@fecha date
 	as
 	begin
-		select * 
-		from pronosticos_tiempo t
-		inner join pronosticos_hora h on h.interno = t.interno
-		inner join meteorologos m on m.usuario = t.usuario
+		select * from pronosticos_tiempo where fecha = @fecha
 	end
 	go
 
 -----------------------------------------------------------------------------------------------------------
-		-- CIUDADES SIN PRONOSTICOS --			20
+		-- PRONOSTICOS HORA DE CADA P.TIEMPO --			20
+-----------------------------------------------------------------------------------------------------------	
+	if exists (select * from sysobjects where name = 'listar_pronosticos_hora')
+		drop proc listar_pronosticos_hora
+	go
+	create proc listar_pronosticos_hora
+		@interno int
+	as
+	begin
+		select * from pronosticos_hora where interno = @interno
+	end
+	go
+
+-----------------------------------------------------------------------------------------------------------
+		-- CIUDADES SIN PRONOSTICOS --			21
 -----------------------------------------------------------------------------------------------------------	
 
 	if exists (select * from sysobjects where name = 'listar_ciudades_sin')
@@ -707,7 +719,7 @@ go
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
-		-- METEOROLOGO SIN PRONOSTICO POR AÑO --		21
+		-- METEOROLOGO SIN PRONOSTICO POR AÑO --		22
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'listar_meteorologos_sin')
 		drop proc listar_meteorologos_sin
@@ -726,7 +738,7 @@ go
 -----------------------------------------------------------------------------------------------------------
 							   /*			BUSQUEDAS 		   */
 -----------------------------------------------------------------------------------------------------------
-	-- LOGUEO EMPLEADO --			22
+	-- LOGUEO EMPLEADO --			23
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'logueo_empleado')
 		drop proc logueo_empleado
@@ -742,7 +754,7 @@ go
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
-	-- LOGUEO METEOROLOGO --		23
+	-- LOGUEO METEOROLOGO --		24
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'logueo_meteorologo')
 		drop proc logueo_meteorologo
@@ -759,7 +771,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO METEOROLOGO ACTIVO --			24
+	-- BUSCAR USUARIO METEOROLOGO ACTIVO --			25
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_meteorologo_activo')
 		drop proc buscar_meteorologo_activo
@@ -775,7 +787,7 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO METEOROLOGO --		25
+	-- BUSCAR USUARIO METEOROLOGO --		26
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_meteorologo')
 		drop proc buscar_meteorologo
@@ -791,7 +803,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO EMPLEADO --		26
+	-- BUSCAR USUARIO EMPLEADO --		27
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_empleado')
 		drop proc buscar_empleado
@@ -807,7 +819,7 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR CIUDAD ACTIVA --			27
+	-- BUSCAR CIUDAD ACTIVA --			28
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_ciudad_activa')
 		drop proc buscar_ciudad_activa
@@ -821,7 +833,7 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR CIUDAD --		28
+	-- BUSCAR CIUDAD --		29
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_ciudad')
 		drop proc buscar_ciudad
@@ -851,11 +863,15 @@ go
 grant execute on logueo_meteorologo to rol_publico
 go
 
+grant execute on listar_pronosticos_fecha to rol_publico
+go
+grant execute on listar_pronosticos_hora to rol_publico
+go
+
 grant execute on buscar_ciudad_activa to rol_publico
 go
 
-exec sp_addrolemember @rolename='rol_publico', 
-					  @membername=[IIS APPPOOL\DefaultAppPool]
+exec sp_addrolemember @rolename='rol_publico', @membername=[IIS APPPOOL\DefaultAppPool]
 -----------------------------------------------------------------------------------------------------------
 		-- EMPLEADOS
 -----------------------------------------------------------------------------------------------------------
@@ -910,5 +926,13 @@ go
 
 -----------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
--- 25 sp
--- 14 grant
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------

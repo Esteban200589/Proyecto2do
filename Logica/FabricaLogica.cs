@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Logica
 {
-    class FabricaLogica
+    public class FabricaLogica
     {
+        public static InterfazLogicaCiudades getPersistenciaCiudades()
+        {
+            return LogicaCiudades.GetInstanciaCiudades();
+        }
     }
 }

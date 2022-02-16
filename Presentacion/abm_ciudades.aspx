@@ -26,14 +26,14 @@
                                     
                                         <div class="form-group">
                                             <label>CÓDIGO</label>
-                                            <asp:TextBox  ID="txtCodigo" class="form-control" runat="server" Width="200px" ToolTip="Introduzca el código de la noticia" ></asp:TextBox>
+                                            <asp:TextBox  ID="txtCodigo" class="form-control" runat="server" Width="200px" ToolTip=" " ></asp:TextBox>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>FECHA</label>
-                                            <asp:TextBox ID="txtfecha" class="form-control" runat="server" Width="200px" TextMode="Date"></asp:TextBox>
+                                            <label>NOMBRE</label>
+                                            <asp:TextBox ID="txtNombre" class="form-control" runat="server" Width="200px" ></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
@@ -41,59 +41,12 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>TITULO</label>
-                                                <asp:TextBox ID="txtTitulo" class="form-control" runat="server" Width="200px" ToolTip="Introduzca el titulo de la noticia" ></asp:TextBox>
+                                                <label>PAIS</label>
+                                                <asp:TextBox ID="txtPais" class="form-control" runat="server" Width="200px" ToolTip=" " ></asp:TextBox>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>SECCIÓN</label><br />
-                                                <asp:DropDownList ID="ddlSecciones" class="btn btn-default" runat="server" Width="200px" style="text-align:left;"> </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>USUARIO</label>
-                                                <asp:TextBox ID="txtUsuario" class="form-control" runat="server" Width="200px" style="text-align:left;" ReadOnly="True"></asp:TextBox>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>IMPORTANCIA</label><br />
-                                                <asp:DropDownList ID="ddlImportancia" class="btn btn-default" runat="server" Width="120px">
-                                                    <asp:ListItem Value="1">1</asp:ListItem>
-                                                    <asp:ListItem Value="2">2</asp:ListItem>
-                                                    <asp:ListItem Value="3">3</asp:ListItem>
-                                                    <asp:ListItem Value="4">4</asp:ListItem>
-                                                    <asp:ListItem Value="5">5</asp:ListItem>
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>CUERPO</label>
-                                                <asp:TextBox ID="txtCuerpo" class="form-control" runat="server" Width="350px" Height="140px" TextMode="MultiLine" 
-                                                    ToolTip="Introduzca el cuerpo de la noticia"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label>PERIODISTAS</label>
-                                            <div class="form-group">
-                                                <div class="col-12">
-                                                    <asp:DropDownList ID="ddlPeriodistas" class="btn btn-default" runat="server" Width="250px" style="text-align:left;"> 
-                                                        <asp:ListItem Value="ninguno" Selected="True"> </asp:ListItem>
-                                                    </asp:DropDownList>&nbsp;
-                                                    <asp:Button ID="btnAgregar" class="btn btn-secondary" runat="server" Text="+" Width="30px" Height="30px"/>&nbsp;
-                                                    <asp:Button ID="btnQuitar" class="btn btn-secondary" runat="server" Text="-" Width="30px" Height="30px"/>
-                                                </div>
-                                                <asp:ListBox ID="lbPeriodistasNoticia" class="form-control" runat="server"  Width="350px"> </asp:ListBox>
-                                            </div>
+                                            
                                         </div>
                                     </div>
 
@@ -139,7 +92,6 @@
     <script>
         //$("#ContentPlaceHolder1_ddlPeriodistas").append($("<option>ninguno</option>").val(0).html("Ninguno"));
         //$("#ContentPlaceHolder1_ddlPeriodistas option[value='0']").attr("selected", true);
-
         //$("#ContentPlaceHolder1_btnAgregar").click(function () {
         //    if ($("#ContentPlaceHolder1_ddlPeriodistas") == 0) {
         //        $("#ContentPlaceHolder1_lblMsj").text("Seleccione un Periodista");

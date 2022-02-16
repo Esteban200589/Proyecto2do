@@ -10,7 +10,7 @@ using System.Data;
 
 namespace Persistencia
 {
-    internal class PersistenciaPronosticoTiempo
+    internal class PersistenciaPronosticoTiempo : InterfazPersistenciaPronosticosTiempo
     {
         private static PersistenciaPronosticoTiempo instancia = null;
         private PersistenciaPronosticoTiempo() { }
@@ -72,7 +72,7 @@ namespace Persistencia
             }
         }
 
-        public List<Pronostico_tiempo> ListarPronosticosTodos()
+        public List<Pronostico_tiempo> ListarPronosticosFecha(DateTime fecha)
         {
             List<Pronostico_tiempo> lista = new List<Pronostico_tiempo>();
             SqlConnection cnn = new SqlConnection(Conexion.Cnn);
@@ -83,8 +83,9 @@ namespace Persistencia
             {
                 cnn.Open();
 
-                SqlCommand cmd = new SqlCommand("listar_pronosticos", cnn);
+                SqlCommand cmd = new SqlCommand("listar_pronosticos_fecha", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("fecha", fecha);
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 Pronostico_tiempo p = null;
@@ -93,10 +94,10 @@ namespace Persistencia
 
                 while (dr.Read())
                 {
+                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]));
                     city = PersistenciaCiudades.GetInstanciaCiudades().BuscarCiudad(dr["ciudad"].ToString());
                     user = PersistenciaMeteorologos.GetInstanciaMeteorologos().BuscarMeteorologo(dr["usuario"].ToString());
-
-                    p = new Pronostico_tiempo(1, Convert.ToDateTime(dr["fecha"]), city, user, list_ph);
+                    p = new Pronostico_tiempo(Convert.ToInt32(dr["interno"]), Convert.ToDateTime(dr["fecha"]), city, user, list_ph);
                     lista.Add(p);
                 }
                 dr.Close();
@@ -113,7 +114,7 @@ namespace Persistencia
             return lista;
         }
 
-        public List<Pronostico_tiempo> ListarPronosticosAnio()
+        public List<Pronostico_tiempo> ListarPronosticosAnioActual()
         {
             List<Pronostico_tiempo> lista = new List<Pronostico_tiempo>();
             SqlConnection cnn = new SqlConnection(Conexion.Cnn);
@@ -134,10 +135,10 @@ namespace Persistencia
 
                 while (dr.Read())
                 {
+                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]));
                     city = PersistenciaCiudades.GetInstanciaCiudades().BuscarCiudad(dr["ciudad"].ToString());
                     user = PersistenciaMeteorologos.GetInstanciaMeteorologos().BuscarMeteorologo(dr["usuario"].ToString());
-
-                    p = new Pronostico_tiempo(1, Convert.ToDateTime(dr["fecha"]), city, user, list_ph);
+                    p = new Pronostico_tiempo(Convert.ToInt32(dr["interno"]), Convert.ToDateTime(dr["fecha"]), city, user, list_ph);
                     lista.Add(p);
                 }
                 dr.Close();
