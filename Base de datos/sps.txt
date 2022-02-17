@@ -1,0 +1,44 @@
+USUARIO SQL:
+	nuevo_user_sql
+	eliminar_user_sql
+
+USUARIO BD:
+	nuevo_user_bd	
+	eliminar_user_bd
+
+EMPLEADOS
+	logueo_empleado
+	crear_usuario_empleado
+	modificar_ususario_empleado
+	eliminar_ususario_empleado
+	buscar_empleado
+
+METEOROLOGOS
+	logueo_meteorologo
+	crear_usuario_meteorologo
+	modificar_ususario_meteorologo
+	eliminar_ususario_meteorologo
+	listar_meteorologos_sin
+	buscar_meteorologo_activo
+	buscar_meteorologo
+
+CIUDADES
+	crear_ciudad
+	modificar_ciudad
+	eliminar_ciudad
+	listar_ciudades
+	listar_ciudades_sin
+	buscar_ciudad_activa
+	buscar_ciudad
+
+PRONOSTICOS
+	crear_pronostico_tiempo
+	crear_pronostico_hora
+	listar_pronosticos_anio
+	listar_pronosticos_fecha
+	listar_pronosticos_hora
+	
+
+
+
+28

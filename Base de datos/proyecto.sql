@@ -119,8 +119,8 @@ insert empleados (usuario,carga_horaria)
 go
 
 insert meteorologos (usuario,telefono,correo)
-	values ('Carlos29',   '098790944', 'estebanpiccardo1989@gmail.com'),
-		   ('Laura36663', '094143488', 'analiarodriguez123@gmail.com'),
+	values ('Carlos29',   '098790944', 'carlosfernandez@gmail.com'),
+		   ('Laura36663', '094143488', 'laura36@gmail.com'),
 		   ('Admin',	  '099099099', 'admin-sistema@gmail.com')
 go
 
@@ -632,22 +632,7 @@ go
 -----------------------------------------------------------------------------------------------------------
 								 /*			LISTADOS	    */
 -----------------------------------------------------------------------------------------------------------
-		-- PRONOSTICOS DE FECHA ACTUAL --		16
------------------------------------------------------------------------------------------------------------	
-	if exists (select * from sysobjects where name = 'listar_pronosticos_hoy')
-		drop proc listar_pronosticos_hoy
-	go
-	create proc listar_pronosticos_hoy
-	as
-	begin
-		select * 
-		from pronosticos_tiempo t
-		inner join pronosticos_hora h on h.interno = t.interno
-		where fecha = GETDATE()
-	end
-	go
------------------------------------------------------------------------------------------------------------
-		-- CIUDADES PARA DESPLEGABLE --			17
+		-- CIUDADES PARA DESPLEGABLE --			16
 -----------------------------------------------------------------------------------------------------------	
 	if exists (select * from sysobjects where name = 'listar_ciudades')
 		drop proc listar_ciudades
@@ -660,7 +645,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-		-- PRONOSTICOS DE AÑO ACTUAL --			18
+		-- PRONOSTICOS DE AÑO ACTUAL --			17
 -----------------------------------------------------------------------------------------------------------	
 	if exists (select * from sysobjects where name = 'listar_pronosticos_anio')
 		drop proc listar_pronosticos_anio
@@ -676,7 +661,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-		-- PRONOSTICOS TODOS --			19
+		-- PRONOSTICOS TODOS POR FECHA --			18
 -----------------------------------------------------------------------------------------------------------	
 	if exists (select * from sysobjects where name = 'listar_pronosticos_fecha')
 		drop proc listar_pronosticos_fecha
@@ -690,7 +675,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-		-- PRONOSTICOS HORA DE CADA P.TIEMPO --			20
+		-- PRONOSTICOS HORA DE CADA P.TIEMPO --			19
 -----------------------------------------------------------------------------------------------------------	
 	if exists (select * from sysobjects where name = 'listar_pronosticos_hora')
 		drop proc listar_pronosticos_hora
@@ -704,7 +689,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-		-- CIUDADES SIN PRONOSTICOS --			21
+		-- CIUDADES SIN PRONOSTICOS --			20
 -----------------------------------------------------------------------------------------------------------	
 
 	if exists (select * from sysobjects where name = 'listar_ciudades_sin')
@@ -719,7 +704,7 @@ go
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
-		-- METEOROLOGO SIN PRONOSTICO POR AÑO --		22
+		-- METEOROLOGO SIN PRONOSTICO POR AÑO --		21
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'listar_meteorologos_sin')
 		drop proc listar_meteorologos_sin
@@ -738,7 +723,7 @@ go
 -----------------------------------------------------------------------------------------------------------
 							   /*			BUSQUEDAS 		   */
 -----------------------------------------------------------------------------------------------------------
-	-- LOGUEO EMPLEADO --			23
+	-- LOGUEO EMPLEADO --			22
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'logueo_empleado')
 		drop proc logueo_empleado
@@ -754,7 +739,7 @@ go
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
-	-- LOGUEO METEOROLOGO --		24
+	-- LOGUEO METEOROLOGO --		23
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'logueo_meteorologo')
 		drop proc logueo_meteorologo
@@ -771,7 +756,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO METEOROLOGO ACTIVO --			25
+	-- BUSCAR USUARIO METEOROLOGO ACTIVO --			24
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_meteorologo_activo')
 		drop proc buscar_meteorologo_activo
@@ -787,7 +772,7 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO METEOROLOGO --		26
+	-- BUSCAR USUARIO METEOROLOGO --		25
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_meteorologo')
 		drop proc buscar_meteorologo
@@ -803,7 +788,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO EMPLEADO --		27
+	-- BUSCAR USUARIO EMPLEADO --		26
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_empleado')
 		drop proc buscar_empleado
@@ -819,7 +804,7 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR CIUDAD ACTIVA --			28
+	-- BUSCAR CIUDAD ACTIVA --			27
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_ciudad_activa')
 		drop proc buscar_ciudad_activa
@@ -833,7 +818,7 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR CIUDAD --		29
+	-- BUSCAR CIUDAD --		28
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_ciudad')
 		drop proc buscar_ciudad
@@ -854,18 +839,19 @@ go
 create role rol_publico
 go
 
-grant execute on listar_pronosticos_hoy to rol_publico
-go
-grant execute on listar_pronosticos to rol_publico
-go
-grant execute on logueo_empleado to rol_publico
-go
-grant execute on logueo_meteorologo to rol_publico
+grant execute on listar_ciudades to rol_publico
 go
 
+grant execute on listar_pronosticos_anio to rol_publico
+go
 grant execute on listar_pronosticos_fecha to rol_publico
 go
 grant execute on listar_pronosticos_hora to rol_publico
+go
+
+grant execute on logueo_empleado to rol_publico
+go
+grant execute on logueo_meteorologo to rol_publico
 go
 
 grant execute on buscar_ciudad_activa to rol_publico
@@ -898,8 +884,6 @@ go
 grant execute on modificar_ususario_meteorologo to rol_empleados
 go
 
-grant execute on buscar_ciudad_activa to rol_empleados
-go
 grant execute on buscar_ciudad to rol_empleados
 go
 grant execute on buscar_meteorologo_activo to rol_empleados
@@ -908,6 +892,17 @@ grant execute on buscar_meteorologo to rol_empleados
 go
 grant execute on buscar_empleado to rol_empleados
 go
+
+grant execute on listar_pronosticos_fecha to rol_empleados
+go
+grant execute on listar_ciudades_sin to rol_empleados
+go
+grant execute on listar_meteorologos_sin to rol_empleados
+go
+
+exec sp_addrolemember @rolename='rol_empleados', @membername='Esteban89'
+exec sp_addrolemember @rolename='rol_empleados', @membername='Analia123'
+exec sp_addrolemember @rolename='rol_empleados', @membername='Admin'
 -----------------------------------------------------------------------------------------------------------
 		-- METEOROLOGOS
 -----------------------------------------------------------------------------------------------------------
@@ -924,6 +919,9 @@ go
 grant execute on buscar_ciudad to rol_meteorologos
 go
 
+exec sp_addrolemember @rolename='rol_meteorologos', @membername='Carlos29'
+exec sp_addrolemember @rolename='rol_meteorologos', @membername='Laura36663'
+exec sp_addrolemember @rolename='rol_meteorologos', @membername='Admin'
 -----------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
