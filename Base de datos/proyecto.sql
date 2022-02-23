@@ -102,96 +102,12 @@ go
 
 
 -----------------------------------------------------------------------------------------------------------
-					/*/*/*/*/*/*/*/*/*/*	 DATOS		*/*/*/*/*/*/*/*/*/*/
+				  /*/*/*/*/*/*/*/*/*/*	    ROLES		*/*/*/*/*/*/*/*/*/*/
 -----------------------------------------------------------------------------------------------------------
-insert usuarios (username,password,nombre)
-	values ('Esteban89', '123este**', 'Esteban Piccardo'),
-		   ('Analia123', '123anal**', 'Analia Rodriguez'),
-		   ('Carlos29',  '129carl**', 'Carlos Techera'),
-		   ('Laura36663','123laur**', 'Larua Setevelatan'),
-		   ('Admin',     '000admi**', 'Administrador')
-go
 
-insert empleados (usuario,carga_horaria)
-	values ('Esteban89', 44),
-	       ('Analia123', 24),
-	       ('Admin',	 16)
+create role rol_empleados
 go
-
-insert meteorologos (usuario,telefono,correo)
-	values ('Carlos29',   '098790944', 'carlosfernandez@gmail.com'),
-		   ('Laura36663', '094143488', 'laura36@gmail.com'),
-		   ('Admin',	  '099099099', 'admin-sistema@gmail.com')
-go
-
-insert ciudades (codigo,nombre_ciudad,pais)
-	values ('URUMVD', 'Montevideo', 'Uruguay'),
-		   ('URUCAN', 'Canelones', 'Uruguay'),
-		   ('URULPS', 'Las Piedras', 'Uruguay'),
-		   ('URUPAN', 'Pando', 'Uruguay'),
-		   ('URUSAN', 'San Ramon', 'Uruguay'),
-		   ('URUPIR', 'Piriapoilis', 'Uruguay'),
-		   ('URUMDO', 'Maldonado', 'Uruguay'),
-		   ('URUPDE', 'Punta del Este', 'Uruguay'),
-		   ('URURCA', 'Rocha', 'Uruguay'),
-		   ('URULPM', 'La Paloma', 'Uruguay'),
-		   ('ARGBAS', 'Bs As', 'Argentina'),
-		   ('BRSSAP', 'Sao Pablo', 'Brasil')   
-go
-
-insert pronosticos_tiempo (fecha,usuario,ciudad)
-	values ('20220310 06:00:00','Carlos29','URUMVD'),
-		   ('20220310 06:15:00','Carlos29','URUCAN'),
-		   ('20220310 07:30:00','Analia123','URUCAN'),
-		   ('20220310 08:00:00','Laura36663','URUPDE'),
-		   ('20220310 09:15:00','Laura36663','URUPDE'),
-		   ('20220310 15:30:00','Carlos29','URUMVD'),
-		   ('20220310 18:00:00','Carlos29','URUPIR'),
-		   ('20220310 18:15:00','Carlos29','URUMVD'),
-		   ('20220310 18:30:00','Carlos29','URUMVD'),
-		   ('20220310 20:00:00','Laura36663','URUMVD'),
-		   ('20220310 20:15:00','Laura36663','URUPIR'),
-		   ('20220310 23:30:00','Laura36663','URUMVD'),
-		   ('20220311 06:00:00','Carlos29','URUMVD'),
-		   ('20220311 06:15:00','Carlos29','URUSAN'),
-		   ('20220311 07:30:00','Carlos29','URUSAN'),
-		   ('20220311 08:00:00','Carlos29','URUSAN'),
-		   ('20220311 09:15:00','Carlos29','URUMVD'),
-		   ('20220311 15:30:00','Carlos29','URUMVD'),
-		   ('20220312 18:00:00','Esteban89','URUMVD'),
-		   ('20220312 18:15:00','Carlos29','BRSSAP'),
-		   ('20220312 18:30:00','Esteban89','URUMVD'),
-		   ('20220313 20:00:00','Laura36663','ARGBAS'),
-		   ('20220313 20:15:00','Laura36663','URUMVD'),
-		   ('20220313 23:30:00','Laura36663','URUMVD')
-go
-
-insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob_lluvias,prob_tormenta)
-	values  (1,600,24,18,45,'despejado',60,20),
-			(2,615,24,18,45,'despejado',60,20),
-			(3,730,24,18,45,'despejado',60,20),
-			(4,800,24,18,45,'despejado',60,20),
-			(5,915,24,18,45,'despejado',60,20),
-			(6,1530,24,18,45,'despejado',60,20),
-			(7,1800,24,18,45,'despejado',60,20),
-			(8,1815,24,18,45,'parcialmente_nuboso',60,20),
-			(9,1830,24,18,45,'parcialmente_nuboso',60,20),
-			(10,2000,24,18,45,'parcialmente_nuboso',60,20),
-			(11,2015,24,18,45,'parcialmente_nuboso',60,20),
-			(12,2330,24,18,45,'parcialmente_nuboso',60,20),
-			(13,600,24,18,45,'despejado',60,20),
-			(14,615,24,18,45,'despejado',60,20),
-			(15,730,24,18,45,'despejado',60,20),
-			(16,800,24,18,45,'despejado',60,20),
-			(17,915,24,18,45,'despejado',60,20),
-			(18,1530,24,18,45,'nuboso',60,20),
-			(19,1800,24,18,45,'nuboso',60,20),
-			(20,1815,24,18,45,'despejado',60,20),
-			(21,1830,24,18,45,'nuboso',60,20),
-			(22,2000,24,18,45,'nuboso',60,20),
-			(23,2015,24,18,45,'nuboso',60,20),
-			(24,2330,24,18,45,'nuboso',60,20)
-			
+create role rol_meteorologos
 go
 
 
@@ -654,8 +570,7 @@ go
 	as
 	begin
 		select * 
-		from pronosticos_tiempo t
-		inner join pronosticos_hora h on h.interno = t.interno
+		from pronosticos_tiempo
 		where YEAR(fecha) = YEAR(GETDATE())
 	end
 	go
@@ -833,36 +748,10 @@ go
 -----------------------------------------------------------------------------------------------------------
 								 /*			PERMISOS	     */
 -----------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
-		-- PUBLICO
------------------------------------------------------------------------------------------------------------
-create role rol_publico
-go
 
-grant execute on listar_ciudades to rol_publico
-go
-
-grant execute on listar_pronosticos_anio to rol_publico
-go
-grant execute on listar_pronosticos_fecha to rol_publico
-go
-grant execute on listar_pronosticos_hora to rol_publico
-go
-
-grant execute on logueo_empleado to rol_publico
-go
-grant execute on logueo_meteorologo to rol_publico
-go
-
-grant execute on buscar_ciudad_activa to rol_publico
-go
-
-exec sp_addrolemember @rolename='rol_publico', @membername=[IIS APPPOOL\DefaultAppPool]
 -----------------------------------------------------------------------------------------------------------
 		-- EMPLEADOS
 -----------------------------------------------------------------------------------------------------------
-create role rol_empleados
-go
 
 grant execute on nuevo_user_sql to rol_empleados
 go
@@ -900,14 +789,9 @@ go
 grant execute on listar_meteorologos_sin to rol_empleados
 go
 
-exec sp_addrolemember @rolename='rol_empleados', @membername='Esteban89'
-exec sp_addrolemember @rolename='rol_empleados', @membername='Analia123'
-exec sp_addrolemember @rolename='rol_empleados', @membername='Admin'
 -----------------------------------------------------------------------------------------------------------
 		-- METEOROLOGOS
 -----------------------------------------------------------------------------------------------------------
-create role rol_meteorologos
-go
 
 grant execute on crear_pronostico_tiempo to rol_meteorologos
 go
@@ -919,18 +803,110 @@ go
 grant execute on buscar_ciudad to rol_meteorologos
 go
 
-exec sp_addrolemember @rolename='rol_meteorologos', @membername='Carlos29'
-exec sp_addrolemember @rolename='rol_meteorologos', @membername='Laura36663'
-exec sp_addrolemember @rolename='rol_meteorologos', @membername='Admin'
 -----------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
+
 -----------------------------------------------------------------------------------------------------------
+					/*/*/*/*/*/*/*/*/*/*	 DATOS		*/*/*/*/*/*/*/*/*/*/
 -----------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
+--insert usuarios (username,password,nombre)
+--	values ('Esteban89', '123este**', 'Esteban Piccardo'),
+--		   ('Analia123', '123anal**', 'Analia Rodriguez'),
+--		   ('Carlos29',  '129carl**', 'Carlos Techera'),
+--		   ('Laura36663','123laur**', 'Larua Setevelatan'),
+--		   ('Admin',     '000admi**', 'Administrador')
+--go
+
+--insert empleados (usuario,carga_horaria)
+--	values ('Esteban89', 44),
+--	       ('Analia123', 24),
+--	       ('Admin',	 16)
+--go
+
+--insert meteorologos (usuario,telefono,correo)
+--	values ('Carlos29',   '098790944', 'carlosfernandez@gmail.com'),
+--		   ('Laura36663', '094143488', 'laura36@gmail.com'),
+--		   ('Admin',	  '099099099', 'admin-sistema@gmail.com')
+--go
+
+exec crear_usuario_empleado 'Esteban89', '123este**', 'Esteban Piccardo', 44
+exec crear_usuario_empleado 'Analia123', '123anal**', 'Analia Rodriguez', 24
+exec crear_usuario_empleado 'Admin',	 '000admi**', 'Administrador',	  16
+
+exec crear_usuario_meteorologo 'Carlos29',   '129carl**', 'Carlos Techera',    '098790944**', 'carlosfernandez@gmail.com'
+exec crear_usuario_meteorologo 'Laura36663', '123laur**', 'Larua Setevelatan', '094143488',   'laura36@gmail.com'
+
+insert ciudades (codigo,nombre_ciudad,pais)
+	values ('URUMVD', 'Montevideo', 'Uruguay'),
+		   ('URUCAN', 'Canelones', 'Uruguay'),
+		   ('URULPS', 'Las Piedras', 'Uruguay'),
+		   ('URUPAN', 'Pando', 'Uruguay'),
+		   ('URUSAN', 'San Ramon', 'Uruguay'),
+		   ('URUPIR', 'Piriapoilis', 'Uruguay'),
+		   ('URUMDO', 'Maldonado', 'Uruguay'),
+		   ('URUPDE', 'Punta del Este', 'Uruguay'),
+		   ('URURCA', 'Rocha', 'Uruguay'),
+		   ('URULPM', 'La Paloma', 'Uruguay'),
+		   ('ARGBAS', 'Bs As', 'Argentina'),
+		   ('BRSSAP', 'Sao Pablo', 'Brasil')   
+go
+
+insert pronosticos_tiempo (fecha,usuario,ciudad)
+	values ('20220310 06:00:00','Carlos29','URUMVD'),
+		   ('20220310 06:15:00','Carlos29','URUCAN'),
+		   ('20220310 07:30:00','Analia123','URUCAN'),
+		   ('20220310 08:00:00','Laura36663','URUPDE'),
+		   ('20220310 09:15:00','Laura36663','URUPDE'),
+		   ('20220310 15:30:00','Carlos29','URUMVD'),
+		   ('20220310 18:00:00','Carlos29','URUPIR'),
+		   ('20220310 18:15:00','Carlos29','URUMVD'),
+		   ('20220310 18:30:00','Carlos29','URUMVD'),
+		   ('20220310 20:00:00','Laura36663','URUMVD'),
+		   ('20220310 20:15:00','Laura36663','URUPIR'),
+		   ('20220310 23:30:00','Laura36663','URUMVD'),
+		   ('20220311 06:00:00','Carlos29','URUMVD'),
+		   ('20220311 06:15:00','Carlos29','URUSAN'),
+		   ('20220311 07:30:00','Carlos29','URUSAN'),
+		   ('20220311 08:00:00','Carlos29','URUSAN'),
+		   ('20220311 09:15:00','Carlos29','URUMVD'),
+		   ('20220311 15:30:00','Carlos29','URUMVD'),
+		   ('20220312 18:00:00','Esteban89','URUMVD'),
+		   ('20220312 18:15:00','Carlos29','BRSSAP'),
+		   ('20220312 18:30:00','Esteban89','URUMVD'),
+		   ('20220313 20:00:00','Laura36663','ARGBAS'),
+		   ('20220313 20:15:00','Laura36663','URUMVD'),
+		   ('20220313 23:30:00','Laura36663','URUMVD')
+go
+
+insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob_lluvias,prob_tormenta)
+	values  (1,600,24,18,45,'despejado',60,20),
+			(2,615,24,18,45,'despejado',60,20),
+			(3,730,24,18,45,'despejado',60,20),
+			(4,800,24,18,45,'despejado',60,20),
+			(5,915,24,18,45,'despejado',60,20),
+			(6,1530,24,18,45,'despejado',60,20),
+			(7,1800,24,18,45,'despejado',60,20),
+			(8,1815,24,18,45,'parcialmente_nuboso',60,20),
+			(9,1830,24,18,45,'parcialmente_nuboso',60,20),
+			(10,2000,24,18,45,'parcialmente_nuboso',60,20),
+			(11,2015,24,18,45,'parcialmente_nuboso',60,20),
+			(12,2330,24,18,45,'parcialmente_nuboso',60,20),
+			(13,600,24,18,45,'despejado',60,20),
+			(14,615,24,18,45,'despejado',60,20),
+			(15,730,24,18,45,'despejado',60,20),
+			(16,800,24,18,45,'despejado',60,20),
+			(17,915,24,18,45,'despejado',60,20),
+			(18,1530,24,18,45,'nuboso',60,20),
+			(19,1800,24,18,45,'nuboso',60,20),
+			(20,1815,24,18,45,'despejado',60,20),
+			(21,1830,24,18,45,'nuboso',60,20),
+			(22,2000,24,18,45,'nuboso',60,20),
+			(23,2015,24,18,45,'nuboso',60,20),
+			(24,2330,24,18,45,'nuboso',60,20)		
+go
+
+
+crear_usuario_empleado @username varchar(20),
+		@nombre varchar(50),
+		@pass varchar(9),

@@ -13,5 +13,30 @@ namespace Presentacion
         {
 
         }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                usuarios user = new Servicio().login(txtUser.Text, txtPass.Text);
+                if (user != null)
+                {
+                    Session["Usuario"] = user;
+                    Response.Redirect("~/index.aspx");
+                }
+            }
+            catch (System.Web.Services.Protocols.SoapException ex)
+            {
+                lblMsj.Text = ex.Detail.InnerText;
+                txtPass.Text = "";
+                txtUser.Text = "";
+            }
+            catch (Exception ex)
+            {
+                lblMsj.Text = ex.Message;
+                txtPass.Text = "";
+                txtUser.Text = "";
+            }
+        }
     }
 }
