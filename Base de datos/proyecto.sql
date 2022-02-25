@@ -146,18 +146,25 @@ go
 			return @@error
 		end catch
 		
-		set @var_sentencia ='create login ['+@username+'] with password = '+QUOTENAME(@pass, '''')
-		exec (@var_sentencia)
+		if (@@ERROR = 0)
+		begin
+			set @var_sentencia ='create login ['+@username+'] with password = '+QUOTENAME(@pass, '''')
+			exec (@var_sentencia)
 
-		set @var_sentencia = 'create user [' + @username + '] from login [' + @username + ']'
-		exec (@var_sentencia)
-		
-		set @rol = 'rol_empleados'
-		exec sp_addrolemember @rolename=@rol, @membername=@username
-		exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
-		exec sp_addsrvrolemember @loginame=@username, @rolename='securityadmin'
-			  
-		return 1
+			set @var_sentencia = 'create user [' + @username + '] from login [' + @username + ']'
+			exec (@var_sentencia)
+			
+			set @rol = 'rol_empleados'
+			exec sp_addrolemember @rolename=@rol, @membername=@username
+			exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
+			exec sp_addsrvrolemember @loginame=@username, @rolename='securityadmin'
+			
+			return 1
+		end	  
+		else
+		begin
+			return -1
+		end
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
@@ -180,6 +187,11 @@ go
 			begin transaction
 				delete empleados where usuario = @username
 				delete usuarios where username = @username
+				
+				set @var_sentencia = 'drop user [' + @username + '] from login [' + @username + ']'
+				exec (@var_sentencia)
+				set @var_sentencia = 'drop login [' + @username + ']'
+				exec (@var_sentencia)	
 			commit transaction
 		end try
 		begin catch
@@ -187,18 +199,19 @@ go
 			return @@error
 		end catch
 		
-		set @rol = 'rol_empleados'
-		exec sp_droprolemember @rolename=@rol, @membername=@username 
-		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
-		exec sp_dropsrvrolemember @loginame=@username, @rolename='dbcreator'
+		if (@@ERROR = 0)
+		begin
+			set @rol = 'rol_empleados'
+			exec sp_droprolemember @rolename=@rol, @membername=@username 
+			exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
+			exec sp_dropsrvrolemember @loginame=@username, @rolename='securityadmin'
 
-		set @var_sentencia = 'drop user [' + @username + '] from login [' + @username + ']'
-		exec (@var_sentencia)
-
-		set @var_sentencia = 'drop login [' + @username + ']'
-		exec (@var_sentencia)
-
-		return 1	
+			return 1
+		end	  
+		else
+		begin
+			return -1
+		end	
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
@@ -250,7 +263,7 @@ go
 		set @rol = 'rol_empleados'
 		exec sp_addrolemember @rolename=@rol, @membername=@username
 		exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
-		exec sp_addsrvrolemember @loginame=@username, @rolename=@rol
+		exec sp_addsrvrolemember @loginame=@username, @rolename= 'dbcreator'
 			  
 		return 1
 	end
@@ -287,7 +300,7 @@ go
 		set @rol = 'rol_meteorologos'
 		exec sp_droprolemember @rolename=@rol, @membername=@username 
 		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
-		exec sp_dropsrvrolemember @loginame=@username, @rolename=@rol
+		exec sp_dropsrvrolemember @loginame=@username, @rolename= 'dbcreator'
 
 		set @var_sentencia = 'drop user [' + @username + '] from login [' + @username + ']'
 		exec (@var_sentencia)
