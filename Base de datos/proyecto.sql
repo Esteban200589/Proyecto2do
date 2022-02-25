@@ -39,7 +39,7 @@ create table usuarios (
 	username varchar(20) not null primary key,
 	password varchar(9) not null 
 		check(password like '[0-9][0-9][0-9][A-Z][A-Z][A-Z][A-Z][^0-9A-Z][^0-9A-Z]'),
-	nombre varchar(50) not null
+	nombre_completo varchar(50) not null
 )
 go
 
@@ -114,108 +114,9 @@ go
 -----------------------------------------------------------------------------------------------------------
 			      /*/*/*/*/*/*/*/*/*/*	  PROCEDIMIENTOS	 */*/*/*/*/*/*/*/*/*/
 -----------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
-									 /*	     USUARIOS	    */
------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
-		-- CREAR USUARIO SQL --		1
------------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'nuevo_user_sql')
-		drop proc nuevo_user_sql
-	go
-	create procedure nuevo_user_sql 
-		@username varchar(20),
-		@pass varchar(9),
-		@rol varchar(50)
-	as
-	begin
-		declare @var_sentencia varchar(max)
-		
-		set @var_sentencia = 'create login [' + @username + '] with password = ' + QUOTENAME(@pass, '''')
-		exec (@var_sentencia)
-												
-		if  (@@ERROR <> 0)						
-			return -1			
-			
-		exec sp_addsrvrolemember @loginame=@username, @rolename=@rol
-		
-		if (@@ERROR = 0)		  
-			return 1			  
-		else
-			return -2
-	end
-	go
-		-- CREAR USUARIO BD --		2
------------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'nuevo_user_bd')
-		drop proc nuevo_user_bd
-	go
-	create procedure nuevo_user_bd 
-		@username varchar(20),
-		@rol varchar(50)
-	as
-	begin
-		declare @var_sentencia varchar(max)
-		
-		set @var_sentencia = 'create user [' + @username + '] from login [' + @username + ']'
-		exec (@var_sentencia)
-												
-		if  (@@ERROR <> 0)						
-			return -1							
-			
-		exec sp_addrolemember @rolename=@rol, @membername=@username
-		
-		if (@@ERROR = 0)		  
-			return 1			  
-		else
-			return -2
-	end
-	go
------------------------------------------------------------------------------------------------------------
-		-- ELIMINAR USUARIO SQL --		3
------------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'eliminar_user_sql')
-		drop proc eliminar_user_sql
-	go
-	create procedure eliminar_user_sql 
-		@username varchar(20)
-	as
-	begin
-		declare @var_sentencia varchar(max)
-		
-		set @var_sentencia = 'drop login [' + @username + ']'
-		exec (@var_sentencia)
-						
-		if (@@ERROR = 0)
-			return 1
-		else
-			return -1
-	end
-	go
-		-- ELIMINAR USUARIO BD --		4
------------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'eliminar_user_bd')
-		drop proc eliminar_user_bd
-	go
-	create procedure eliminar_user_bd 
-		@username varchar(20)
-	as
-	begin
-		declare @var_sentencia varchar(max)
-		
-		set @var_sentencia = 'drop user [' + @username + '] from login [' + @username + ']'
-		exec (@var_sentencia)
-		
-		if (@@ERROR = 0)		  
-			return 1			  
-		else
-			return -1
-	end
-	go
------------------------------------------------------------------------------------------------------------	
 /*********************************************************************************************************/
 -----------------------------------------------------------------------------------------------------------
-		-- CREAR USUARIO EMPLEADO --		5
+		-- CREAR USUARIO EMPLEADO --	1
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'crear_usuario_empleado')
 		drop proc crear_usuario_empleado
@@ -224,29 +125,43 @@ go
 		@username varchar(20),
 		@nombre varchar(50),
 		@pass varchar(9),
-		
 		@hrs int
 	as
 	begin
+		declare @var_sentencia varchar(max)
+		declare @rol varchar(50) 
+
 		if (exists(select * from usuarios where username = @username))
 			return -1
 			
 		begin try
-			begin transaction		
-				insert usuarios(username, password, nombre) values (@username, @pass, @nombre)
-				insert empleados(usuario, carga_horaria) values (@username, @hrs)
+			
+			begin transaction
+				insert usuarios(username, password, nombre_completo) values (@username, @pass, @nombre)
+				insert empleados(usuario, carga_horaria) values (@username, @hrs)			
 			commit transaction
-			exec nuevo_user_sql @username, @pass, 'rol_empleados'
-			exec nuevo_user_bd @username, 'rol_empleados' 
-			return 1
 		end try
 		begin catch
 			rollback transaction
 			return @@error
 		end catch
+		
+		set @var_sentencia ='create login ['+@username+'] with password = '+QUOTENAME(@pass, '''')
+		exec (@var_sentencia)
+
+		set @var_sentencia = 'create user [' + @username + '] from login [' + @username + ']'
+		exec (@var_sentencia)
+		
+		set @rol = 'rol_empleados'
+		exec sp_addrolemember @rolename=@rol, @membername=@username
+		exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
+		exec sp_addsrvrolemember @loginame=@username, @rolename='securityadmin'
+			  
+		return 1
 	end
 	go
-		-- ELIMINAR USUARIO EMPLEADO --		6
+-----------------------------------------------------------------------------------------------------------
+		-- ELIMINAR USUARIO EMPLEADO --		2
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'eliminar_ususario_empleado')
 		drop proc eliminar_ususario_empleado
@@ -255,6 +170,9 @@ go
 		@username varchar(20)
 	as
 	begin
+		declare @var_sentencia varchar(max)
+		declare @rol varchar(50)
+
 		if not(exists(select * from usuarios where username = @username))
 			return -1
 		
@@ -263,19 +181,29 @@ go
 				delete empleados where usuario = @username
 				delete usuarios where username = @username
 			commit transaction
-			exec eliminar_user_sql @username
-			exec eliminar_user_bd @username
-			return 1
 		end try
 		begin catch
 			rollback transaction
 			return @@error
-		end catch	
+		end catch
+		
+		set @rol = 'rol_empleados'
+		exec sp_droprolemember @rolename=@rol, @membername=@username 
+		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
+		exec sp_dropsrvrolemember @loginame=@username, @rolename='dbcreator'
+
+		set @var_sentencia = 'drop user [' + @username + '] from login [' + @username + ']'
+		exec (@var_sentencia)
+
+		set @var_sentencia = 'drop login [' + @username + ']'
+		exec (@var_sentencia)
+
+		return 1	
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
-		-- CREAR USUARIO METEOROLOGO --		7
+		-- CREAR USUARIO METEOROLOGO --		3
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'crear_usuario_meteorologo')
 		drop proc crear_usuario_meteorologo
@@ -289,10 +217,13 @@ go
 		@correo varchar(30)
 	as
 	begin
+		declare @var_sentencia varchar(max)
+		declare @rol varchar(50)
+		
 		if (exists(select * from usuarios where username = @username))
 			return -1
 		if (exists(select * from meteorologos where usuario = @username and deleted = 1))
-		Begin
+		begin
 			update meteorologos
 			set telefono = @telefono, correo = @correo, deleted = 0
 			where usuario = @username
@@ -301,20 +232,31 @@ go
 		
 		begin try
 			begin transaction
-				insert usuarios(username, password, nombre) values (@username, @pass, @nombre)
+				insert usuarios(username, password, nombre_completo) values (@username, @pass, @nombre)
 				insert meteorologos(usuario, telefono, correo) values (@username, @telefono, @correo)
 			commit transaction
-			exec nuevo_user_sql @username, @pass, 'rol_meteorologos'
-			exec nuevo_user_bd @username, 'rol_meteorologos' 
-			return 1
 		end try
 		begin catch
 			rollback transaction
 			return @@error
 		end catch
+		
+		set @var_sentencia ='create login ['+@username+'] with password = '+QUOTENAME(@pass, '''')
+		exec (@var_sentencia)
+
+		set @var_sentencia = 'create user [' + @username + '] from login [' + @username + ']'
+		exec (@var_sentencia)
+		
+		set @rol = 'rol_empleados'
+		exec sp_addrolemember @rolename=@rol, @membername=@username
+		exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
+		exec sp_addsrvrolemember @loginame=@username, @rolename=@rol
+			  
+		return 1
 	end
 	go
-		-- ELIMINAR USUARIO METEOROLOGO --		8
+-----------------------------------------------------------------------------------------------------------
+		-- ELIMINAR USUARIO METEOROLOGO --		4
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'eliminar_ususario_meteorologo')
 		drop proc eliminar_ususario_meteorologo
@@ -325,6 +267,9 @@ go
 		@pass varchar(9)
 	as
 	begin
+		declare @var_sentencia varchar(max)
+		declare @rol varchar(50)
+		
 		if not(exists(select * from usuarios where username = @username))
 			return -1
 		
@@ -333,19 +278,29 @@ go
 				delete meteorologos where usuario = @username
 				delete usuarios where username = @username
 			commit transaction
-			exec eliminar_user_sql @username
-			exec eliminar_user_bd @username
-			return 1
 		end try
 		begin catch
 			rollback transaction
 			return @@error
 		end catch	
+		
+		set @rol = 'rol_meteorologos'
+		exec sp_droprolemember @rolename=@rol, @membername=@username 
+		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
+		exec sp_dropsrvrolemember @loginame=@username, @rolename=@rol
+
+		set @var_sentencia = 'drop user [' + @username + '] from login [' + @username + ']'
+		exec (@var_sentencia)
+
+		set @var_sentencia = 'drop login [' + @username + ']'
+		exec (@var_sentencia)
+			
+		return 1
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
-		-- MODIFICAR USUARIO EMPLEADO --		9
+		-- MODIFICAR USUARIO EMPLEADO --		5
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'modificar_ususario_empleado')
 		drop proc modificar_ususario_empleado
@@ -365,10 +320,8 @@ go
 
 		begin try
 			begin transaction
-				update usuarios set nombre=@nombre, password = @pass
-				where username = @username
-				update empleados set carga_horaria = @hrs
-				where usuario = @username
+				update usuarios set nombre_completo=@nombre, password = @pass where username = @username
+				update empleados set carga_horaria = @hrs where usuario = @username
 			commit transaction
 			return 1		
 		end try
@@ -378,7 +331,8 @@ go
 		end catch	
 	end
 	go
-		-- MODIFICAR USUARIO METEOROLOGO --		10
+-----------------------------------------------------------------------------------------------------------
+		-- MODIFICAR USUARIO METEOROLOGO --		6
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'modificar_ususario_meteorologo')
 		drop proc modificar_ususario_meteorologo
@@ -399,10 +353,8 @@ go
 
 		begin try
 			begin transaction
-				update usuarios set nombre=@nombre, password = @pass
-				where username = @username
-				update meteorologos set telefono = @telefono, correo = @correo
-				where usuario = @username
+				update usuarios set nombre_completo=@nombre, password = @pass where username = @username
+				update meteorologos set telefono = @telefono, correo = @correo where usuario = @username
 			return 1
 			commit transaction
 		end try
@@ -413,11 +365,11 @@ go
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
+/*********************************************************************************************************/
 -----------------------------------------------------------------------------------------------------------
 									 /*	     CIUDADES	    */
 -----------------------------------------------------------------------------------------------------------
-		-- CREAR CIUDAD --		11
+		-- CREAR CIUDAD --		7
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'crear_ciudad')
 		drop proc crear_ciudad
@@ -441,7 +393,8 @@ go
 		insert ciudades(codigo, nombre_ciudad, pais) values (@codigo, @nombre_ciudad, @pais)
 	end
 	go
-		-- MODIFICAR CIUDAD --		12
+-----------------------------------------------------------------------------------------------------------
+		-- MODIFICAR CIUDAD --		8
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'modificar_ciudad')
 		drop proc modificar_ciudad
@@ -461,7 +414,8 @@ go
 		end
 	end
 	go
-		-- ELIMINAR CIUDAD --		13
+-----------------------------------------------------------------------------------------------------------
+		-- ELIMINAR CIUDAD --		9
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'eliminar_ciudad')
 		drop proc eliminar_ciudad
@@ -487,11 +441,11 @@ go
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
+/*********************************************************************************************************/
 -----------------------------------------------------------------------------------------------------------
 								 /*	     PRONOSTICO	TIEMPO     */
 -----------------------------------------------------------------------------------------------------------
-		-- CREAR PRONOSTICO TIEMPO --		14
+		-- CREAR PRONOSTICO TIEMPO --		10
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'crear_pronostico_tiempo')
 		drop proc crear_pronostico_tiempo
@@ -518,7 +472,7 @@ go
 	end
 	go		
 -----------------------------------------------------------------------------------------------------------
-		-- CREAR PRONOSTICO HORA --		15
+		-- CREAR PRONOSTICO HORA --		11
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'crear_pronostico_hora')
 		drop proc crear_pronostico_hora
@@ -544,11 +498,11 @@ go
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
+/*********************************************************************************************************/
 -----------------------------------------------------------------------------------------------------------
 								 /*			LISTADOS	    */
 -----------------------------------------------------------------------------------------------------------
-		-- CIUDADES PARA DESPLEGABLE --			16
+		-- CIUDADES PARA DESPLEGABLE --			12
 -----------------------------------------------------------------------------------------------------------	
 	if exists (select * from sysobjects where name = 'listar_ciudades')
 		drop proc listar_ciudades
@@ -561,7 +515,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-		-- PRONOSTICOS DE AÑO ACTUAL --			17
+		-- PRONOSTICOS DE AÑO ACTUAL --			13
 -----------------------------------------------------------------------------------------------------------	
 	if exists (select * from sysobjects where name = 'listar_pronosticos_anio')
 		drop proc listar_pronosticos_anio
@@ -576,7 +530,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-		-- PRONOSTICOS TODOS POR FECHA --			18
+		-- PRONOSTICOS TODOS POR FECHA --			14
 -----------------------------------------------------------------------------------------------------------	
 	if exists (select * from sysobjects where name = 'listar_pronosticos_fecha')
 		drop proc listar_pronosticos_fecha
@@ -590,7 +544,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-		-- PRONOSTICOS HORA DE CADA P.TIEMPO --			19
+		-- PRONOSTICOS HORA DE CADA P.TIEMPO --			15
 -----------------------------------------------------------------------------------------------------------	
 	if exists (select * from sysobjects where name = 'listar_pronosticos_hora')
 		drop proc listar_pronosticos_hora
@@ -604,7 +558,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-		-- CIUDADES SIN PRONOSTICOS --			20
+		-- CIUDADES SIN PRONOSTICOS --			16
 -----------------------------------------------------------------------------------------------------------	
 
 	if exists (select * from sysobjects where name = 'listar_ciudades_sin')
@@ -619,7 +573,7 @@ go
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
-		-- METEOROLOGO SIN PRONOSTICO POR AÑO --		21
+		-- METEOROLOGO SIN PRONOSTICO POR AÑO --		17
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'listar_meteorologos_sin')
 		drop proc listar_meteorologos_sin
@@ -634,11 +588,11 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------
+/*********************************************************************************************************/
 -----------------------------------------------------------------------------------------------------------
 							   /*			BUSQUEDAS 		   */
 -----------------------------------------------------------------------------------------------------------
-	-- LOGUEO EMPLEADO --			22
+	-- LOGUEO EMPLEADO --			18
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'logueo_empleado')
 		drop proc logueo_empleado
@@ -654,7 +608,7 @@ go
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
-	-- LOGUEO METEOROLOGO --		23
+	-- LOGUEO METEOROLOGO --		19
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'logueo_meteorologo')
 		drop proc logueo_meteorologo
@@ -671,7 +625,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO METEOROLOGO ACTIVO --			24
+	-- BUSCAR USUARIO METEOROLOGO ACTIVO --			20
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_meteorologo_activo')
 		drop proc buscar_meteorologo_activo
@@ -687,7 +641,7 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO METEOROLOGO --		25
+	-- BUSCAR USUARIO METEOROLOGO --		21
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_meteorologo')
 		drop proc buscar_meteorologo
@@ -703,7 +657,7 @@ go
 	go
 
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR USUARIO EMPLEADO --		26
+	-- BUSCAR USUARIO EMPLEADO --		22
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_empleado')
 		drop proc buscar_empleado
@@ -719,7 +673,7 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR CIUDAD ACTIVA --			27
+	-- BUSCAR CIUDAD ACTIVA --			23
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_ciudad_activa')
 		drop proc buscar_ciudad_activa
@@ -733,7 +687,7 @@ go
 	go
 	
 -----------------------------------------------------------------------------------------------------------
-	-- BUSCAR CIUDAD --		28
+	-- BUSCAR CIUDAD --		24
 -----------------------------------------------------------------------------------------------------------
 	if exists (select * from sysobjects where name = 'buscar_ciudad')
 		drop proc buscar_ciudad
@@ -745,22 +699,14 @@ go
 		select * from ciudades where codigo = @code
 	end
 	go
+-----------------------------------------------------------------------------------------------------------	
+/*********************************************************************************************************/
 -----------------------------------------------------------------------------------------------------------
 								 /*			PERMISOS	     */
 -----------------------------------------------------------------------------------------------------------
-
 -----------------------------------------------------------------------------------------------------------
 		-- EMPLEADOS
 -----------------------------------------------------------------------------------------------------------
-
-grant execute on nuevo_user_sql to rol_empleados
-go
-grant execute on eliminar_user_sql to rol_empleados
-go
-grant execute on nuevo_user_sql to rol_empleados
-go
-grant execute on eliminar_user_sql to rol_empleados
-go
 
 grant execute on crear_usuario_empleado to rol_empleados
 go
@@ -830,83 +776,83 @@ go
 --		   ('Admin',	  '099099099', 'admin-sistema@gmail.com')
 --go
 
-exec crear_usuario_empleado 'Esteban89', '123este**', 'Esteban Piccardo', 44
-exec crear_usuario_empleado 'Analia123', '123anal**', 'Analia Rodriguez', 24
-exec crear_usuario_empleado 'Admin',	 '000admi**', 'Administrador',	  16
+-- truncate table usuarios
+-- select * from usuarios
 
-exec crear_usuario_meteorologo 'Carlos29',   '129carl**', 'Carlos Techera',    '098790944**', 'carlosfernandez@gmail.com'
-exec crear_usuario_meteorologo 'Laura36663', '123laur**', 'Larua Setevelatan', '094143488',   'laura36@gmail.com'
+--exec crear_usuario_empleado 'Esteban89', 'Esteban Piccardo', '123este**', 44
+--exec crear_usuario_empleado 'Analia123', 'Analia Rodriguez', '123anal**', 24
+--exec crear_usuario_empleado 'Admin1',	 'Administrador',	 '000admi**', 16
 
-insert ciudades (codigo,nombre_ciudad,pais)
-	values ('URUMVD', 'Montevideo', 'Uruguay'),
-		   ('URUCAN', 'Canelones', 'Uruguay'),
-		   ('URULPS', 'Las Piedras', 'Uruguay'),
-		   ('URUPAN', 'Pando', 'Uruguay'),
-		   ('URUSAN', 'San Ramon', 'Uruguay'),
-		   ('URUPIR', 'Piriapoilis', 'Uruguay'),
-		   ('URUMDO', 'Maldonado', 'Uruguay'),
-		   ('URUPDE', 'Punta del Este', 'Uruguay'),
-		   ('URURCA', 'Rocha', 'Uruguay'),
-		   ('URULPM', 'La Paloma', 'Uruguay'),
-		   ('ARGBAS', 'Bs As', 'Argentina'),
-		   ('BRSSAP', 'Sao Pablo', 'Brasil')   
-go
-
-insert pronosticos_tiempo (fecha,usuario,ciudad)
-	values ('20220310 06:00:00','Carlos29','URUMVD'),
-		   ('20220310 06:15:00','Carlos29','URUCAN'),
-		   ('20220310 07:30:00','Analia123','URUCAN'),
-		   ('20220310 08:00:00','Laura36663','URUPDE'),
-		   ('20220310 09:15:00','Laura36663','URUPDE'),
-		   ('20220310 15:30:00','Carlos29','URUMVD'),
-		   ('20220310 18:00:00','Carlos29','URUPIR'),
-		   ('20220310 18:15:00','Carlos29','URUMVD'),
-		   ('20220310 18:30:00','Carlos29','URUMVD'),
-		   ('20220310 20:00:00','Laura36663','URUMVD'),
-		   ('20220310 20:15:00','Laura36663','URUPIR'),
-		   ('20220310 23:30:00','Laura36663','URUMVD'),
-		   ('20220311 06:00:00','Carlos29','URUMVD'),
-		   ('20220311 06:15:00','Carlos29','URUSAN'),
-		   ('20220311 07:30:00','Carlos29','URUSAN'),
-		   ('20220311 08:00:00','Carlos29','URUSAN'),
-		   ('20220311 09:15:00','Carlos29','URUMVD'),
-		   ('20220311 15:30:00','Carlos29','URUMVD'),
-		   ('20220312 18:00:00','Esteban89','URUMVD'),
-		   ('20220312 18:15:00','Carlos29','BRSSAP'),
-		   ('20220312 18:30:00','Esteban89','URUMVD'),
-		   ('20220313 20:00:00','Laura36663','ARGBAS'),
-		   ('20220313 20:15:00','Laura36663','URUMVD'),
-		   ('20220313 23:30:00','Laura36663','URUMVD')
-go
-
-insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob_lluvias,prob_tormenta)
-	values  (1,600,24,18,45,'despejado',60,20),
-			(2,615,24,18,45,'despejado',60,20),
-			(3,730,24,18,45,'despejado',60,20),
-			(4,800,24,18,45,'despejado',60,20),
-			(5,915,24,18,45,'despejado',60,20),
-			(6,1530,24,18,45,'despejado',60,20),
-			(7,1800,24,18,45,'despejado',60,20),
-			(8,1815,24,18,45,'parcialmente_nuboso',60,20),
-			(9,1830,24,18,45,'parcialmente_nuboso',60,20),
-			(10,2000,24,18,45,'parcialmente_nuboso',60,20),
-			(11,2015,24,18,45,'parcialmente_nuboso',60,20),
-			(12,2330,24,18,45,'parcialmente_nuboso',60,20),
-			(13,600,24,18,45,'despejado',60,20),
-			(14,615,24,18,45,'despejado',60,20),
-			(15,730,24,18,45,'despejado',60,20),
-			(16,800,24,18,45,'despejado',60,20),
-			(17,915,24,18,45,'despejado',60,20),
-			(18,1530,24,18,45,'nuboso',60,20),
-			(19,1800,24,18,45,'nuboso',60,20),
-			(20,1815,24,18,45,'despejado',60,20),
-			(21,1830,24,18,45,'nuboso',60,20),
-			(22,2000,24,18,45,'nuboso',60,20),
-			(23,2015,24,18,45,'nuboso',60,20),
-			(24,2330,24,18,45,'nuboso',60,20)		
-go
+--exec crear_usuario_meteorologo 'Carlos29',   'Carlos Techera',    '129carl**', '098790944', 'carlosfernandez@gmail.com'
+--exec crear_usuario_meteorologo 'Laura36663', 'Larua Setevelatan', '123laur**', '094143488', 'laura36@gmail.com'
+--exec crear_usuario_meteorologo 'Admin2',     'Administrador',	  '000admi**', '094143100', 'admin-sistema@gmail.com'
 
 
-crear_usuario_empleado @username varchar(20),
-		@nombre varchar(50),
-		@pass varchar(9),
+--insert ciudades (codigo,nombre_ciudad,pais)
+--	values ('URUMVD', 'Montevideo', 'Uruguay'),
+--		   ('URUCAN', 'Canelones', 'Uruguay'),
+--		   ('URULPS', 'Las Piedras', 'Uruguay'),
+--		   ('URUPAN', 'Pando', 'Uruguay'),
+--		   ('URUSAN', 'San Ramon', 'Uruguay'),
+--		   ('URUPIR', 'Piriapoilis', 'Uruguay'),
+--		   ('URUMDO', 'Maldonado', 'Uruguay'),
+--		   ('URUPDE', 'Punta del Este', 'Uruguay'),
+--		   ('URURCA', 'Rocha', 'Uruguay'),
+--		   ('URULPM', 'La Paloma', 'Uruguay'),
+--		   ('ARGBAS', 'Bs As', 'Argentina'),
+--		   ('BRSSAP', 'Sao Pablo', 'Brasil')   
+--go
+
+--insert pronosticos_tiempo (fecha,usuario,ciudad)
+--	values ('20220310 06:00:00','Carlos29','URUMVD'),
+--		   ('20220310 06:15:00','Carlos29','URUCAN'),
+--		   ('20220310 07:30:00','Analia123','URUCAN'),
+--		   ('20220310 08:00:00','Laura36663','URUPDE'),
+--		   ('20220310 09:15:00','Laura36663','URUPDE'),
+--		   ('20220310 15:30:00','Carlos29','URUMVD'),
+--		   ('20220310 18:00:00','Carlos29','URUPIR'),
+--		   ('20220310 18:15:00','Carlos29','URUMVD'),
+--		   ('20220310 18:30:00','Carlos29','URUMVD'),
+--		   ('20220310 20:00:00','Laura36663','URUMVD'),
+--		   ('20220310 20:15:00','Laura36663','URUPIR'),
+--		   ('20220310 23:30:00','Laura36663','URUMVD'),
+--		   ('20220311 06:00:00','Carlos29','URUMVD'),
+--		   ('20220311 06:15:00','Carlos29','URUSAN'),
+--		   ('20220311 07:30:00','Carlos29','URUSAN'),
+--		   ('20220311 08:00:00','Carlos29','URUSAN'),
+--		   ('20220311 09:15:00','Carlos29','URUMVD'),
+--		   ('20220311 15:30:00','Carlos29','URUMVD'),
+--		   ('20220312 18:00:00','Esteban89','URUMVD'),
+--		   ('20220312 18:15:00','Carlos29','BRSSAP'),
+--		   ('20220312 18:30:00','Esteban89','URUMVD'),
+--		   ('20220313 20:00:00','Laura36663','ARGBAS'),
+--		   ('20220313 20:15:00','Laura36663','URUMVD'),
+--		   ('20220313 23:30:00','Laura36663','URUMVD')
+--go
+
+--insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob_lluvias,prob_tormenta)
+--	values  (1,600,24,18,45,'despejado',60,20),
+--			(2,615,24,18,45,'despejado',60,20),
+--			(3,730,24,18,45,'despejado',60,20),
+--			(4,800,24,18,45,'despejado',60,20),
+--			(5,915,24,18,45,'despejado',60,20),
+--			(6,1530,24,18,45,'despejado',60,20),
+--			(7,1800,24,18,45,'despejado',60,20),
+--			(8,1815,24,18,45,'parcialmente_nuboso',60,20),
+--			(9,1830,24,18,45,'parcialmente_nuboso',60,20),
+--			(10,2000,24,18,45,'parcialmente_nuboso',60,20),
+--			(11,2015,24,18,45,'parcialmente_nuboso',60,20),
+--			(12,2330,24,18,45,'parcialmente_nuboso',60,20),
+--			(13,600,24,18,45,'despejado',60,20),
+--			(14,615,24,18,45,'despejado',60,20),
+--			(15,730,24,18,45,'despejado',60,20),
+--			(16,800,24,18,45,'despejado',60,20),
+--			(17,915,24,18,45,'despejado',60,20),
+--			(18,1530,24,18,45,'nuboso',60,20),
+--			(19,1800,24,18,45,'nuboso',60,20),
+--			(20,1815,24,18,45,'despejado',60,20),
+--			(21,1830,24,18,45,'nuboso',60,20),
+--			(22,2000,24,18,45,'nuboso',60,20),
+--			(23,2015,24,18,45,'nuboso',60,20),
+--			(24,2330,24,18,45,'nuboso',60,20)		
+--go

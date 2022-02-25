@@ -9,7 +9,7 @@ using Persistencia;
 
 namespace Logica
 {
-    class LogicaCiudades : InterfazLogicaCiudades
+    internal class LogicaCiudades : InterfazLogicaCiudades
     {
         private static LogicaCiudades instancia = null;
         private LogicaCiudades() { }

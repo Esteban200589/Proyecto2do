@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using
+
 namespace Presentacion
 {
     public partial class login : System.Web.UI.Page
@@ -18,12 +20,12 @@ namespace Presentacion
         {
             try
             {
-                usuarios user = new Servicio().login(txtUser.Text, txtPass.Text);
-                if (user != null)
-                {
-                    Session["Usuario"] = user;
-                    Response.Redirect("~/index.aspx");
-                }
+                //usuarios user = new Servicio().login(txtUser.Text, txtPass.Text);
+                //if (user != null)
+                //{
+                //    Session["Usuario"] = user;
+                //    Response.Redirect("~/index.aspx");
+                //}
             }
             catch (System.Web.Services.Protocols.SoapException ex)
             {

@@ -44,7 +44,6 @@
     <Compile Include="FabricaLogica.cs" />
     <Compile Include="InterfazLogica.cs" />
     <Compile Include="LogicaCiudades.cs" />
-    <Compile Include="LogicaPronosticoHora.cs" />
     <Compile Include="LogicaPronosticoTiempo.cs" />
     <Compile Include="LogicaUsuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
