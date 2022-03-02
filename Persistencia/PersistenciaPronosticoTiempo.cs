@@ -154,5 +154,44 @@ namespace Persistencia
 
             return lista;
         }
+
+
+        #region other
+
+        //public Pronostico_tiempo CargarPronostico()
+        //{
+        //    Pronostico_tiempo pt = null;
+        //    SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+        //    try
+        //    {
+        //        cnn.Open();
+        //        //SqlCommand cmd = new SqlCommand("sp_MostrarEntregaPorPaquete", cnn);
+        //        //cmd.CommandType = CommandType.StoredProcedure;
+        //        //cmd.Parameters.AddWithValue("paquete", paquete.Numero);
+        //        //cmd.Parameters.AddWithValue("empresa", paquete.Empresa.Rut);
+        //        //SqlDataReader dr = cmd.ExecuteReader();
+        //        //if (dr.Read())
+        //        //{
+        //        //    Usuario user = new perUsuario().BuscarUsuario(dr["usuario"].ToString());
+        //        //    sol = new Pronostico_tiempo(Convert.ToInt32(dr["interno"]),
+        //        //                                Convert.ToDateTime(dr["fecha"]),
+        //        //                                dr[" "].ToString(),
+        //        //                                dr[" "].ToString(),
+        //        //                                dr[" "].ToString(),);
+        //        //}
+        //        //dr.Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        cnn.Close();
+        //    }
+        //    return pt;
+        //}
+
+        #endregion
     }
 }

@@ -19,6 +19,22 @@ namespace Logica
         List<Ciudad> ListarCiudades();
         List<Ciudad> ListarCiudadesSinPronosticos();
     }
+
+    public interface InterfazLogicaUsuarios
+    {
+        Usuario LoginUsuario(string username, string password);
+
+        Usuario BuscarUsuario(string username);
+    }
+
+    public interface InterfazLogicaPronosticosTiempo
+    {
+        void CrearPronosticoTiempo(Pronostico_tiempo pt);
+
+        List<Pronostico_tiempo> ListarPronosticosPorFecha(DateTime fecha);
+
+        List<Pronostico_tiempo> ListarPronosticosAnioActual();
+    }
 }
 
 // XmlDocument ListadoNoticiasXML();}

@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Runtime.Serialization;
+
 namespace Entidades
 {
+    [DataContract]
     public class Pronostico_hora
     {
         private int hora;
@@ -16,6 +19,7 @@ namespace Entidades
         private int prob_tormenta;
         private string tipo_cielo;
 
+        [DataMember]
         public int Hora
         {
             get { return hora; }
@@ -27,6 +31,7 @@ namespace Entidades
                     hora = value;
             }
         }
+        [DataMember]
         public int Temp_max
         {
             get { return temp_max; }
@@ -35,6 +40,7 @@ namespace Entidades
                 temp_max = value;
             }
         }
+        [DataMember]
         public int Temp_min
         {
             get { return temp_min; }
@@ -43,6 +49,7 @@ namespace Entidades
                 temp_min = value;
             }
         }
+        [DataMember]
         public int V_viento
         {
             get { return vel_viento; }
@@ -51,6 +58,7 @@ namespace Entidades
                 vel_viento = value;
             }
         }
+        [DataMember]
         public int Prob_lluvias
         {
             get { return prob_lluvias; }
@@ -62,6 +70,7 @@ namespace Entidades
                     prob_lluvias = value;
             }
         }
+        [DataMember]
         public int Prob_tormenta
         {
             get { return prob_tormenta; }
@@ -73,6 +82,7 @@ namespace Entidades
                     prob_tormenta = value;
             }
         }
+        [DataMember]
         public string Tipo_cielo
         {
             get { return tipo_cielo; }

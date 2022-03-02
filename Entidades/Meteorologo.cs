@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
 namespace Entidades
 {
+    [DataContract]
     public class Meteorologo: Usuario
     {
         private string telefono;
         private string correo;
 
+        [DataMember]
         public string Telefono
         {
             get { return telefono; }
@@ -27,6 +30,7 @@ namespace Entidades
             }
         }
 
+        [DataMember]
         public string Correo
         {
             get { return correo; }
@@ -41,6 +45,11 @@ namespace Entidades
                 else
                     correo = value;
             }
+        }
+
+        public override string Tipo
+        {
+            get { return "Meteorologo"; }
         }
 
         public Meteorologo(string pTel, string pCo, string pUser, string pPass, string pName)

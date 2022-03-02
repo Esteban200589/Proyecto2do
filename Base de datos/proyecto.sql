@@ -183,15 +183,15 @@ go
 		if not(exists(select * from usuarios where username = @username))
 			return -1
 		
+		set @rol = 'rol_empleados'
+		exec sp_droprolemember @rolename=@rol, @membername=@username 
+		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
+		exec sp_dropsrvrolemember @loginame=@username, @rolename='securityadmin'
+
 		begin try
 			begin transaction
 				delete empleados where usuario = @username
 				delete usuarios where username = @username
-				
-				set @var_sentencia = 'drop user [' + @username + '] from login [' + @username + ']'
-				exec (@var_sentencia)
-				set @var_sentencia = 'drop login [' + @username + ']'
-				exec (@var_sentencia)	
 			commit transaction
 		end try
 		begin catch
@@ -201,10 +201,12 @@ go
 		
 		if (@@ERROR = 0)
 		begin
-			set @rol = 'rol_empleados'
-			exec sp_droprolemember @rolename=@rol, @membername=@username 
-			exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
-			exec sp_dropsrvrolemember @loginame=@username, @rolename='securityadmin'
+
+			set @var_sentencia = 'drop user [' + @username + ']'
+			exec (@var_sentencia)
+
+			set @var_sentencia = 'drop login [' + @username + ']'
+			exec (@var_sentencia)	
 
 			return 1
 		end	  
@@ -275,9 +277,7 @@ go
 		drop proc eliminar_ususario_meteorologo
 	go
 	create procedure eliminar_ususario_meteorologo 
-		@username varchar(20),
-		@nombre varchar(50),
-		@pass varchar(9)
+		@username varchar(20)
 	as
 	begin
 		declare @var_sentencia varchar(max)
@@ -286,6 +286,11 @@ go
 		if not(exists(select * from usuarios where username = @username))
 			return -1
 		
+		set @rol = 'rol_meteorologos'
+		exec sp_droprolemember @rolename=@rol, @membername=@username 
+		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
+		exec sp_dropsrvrolemember @loginame=@username, @rolename= 'dbcreator'
+
 		begin try
 			begin transaction
 				delete meteorologos where usuario = @username
@@ -297,12 +302,7 @@ go
 			return @@error
 		end catch	
 		
-		set @rol = 'rol_meteorologos'
-		exec sp_droprolemember @rolename=@rol, @membername=@username 
-		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
-		exec sp_dropsrvrolemember @loginame=@username, @rolename= 'dbcreator'
-
-		set @var_sentencia = 'drop user [' + @username + '] from login [' + @username + ']'
+		set @var_sentencia = 'drop user [' + @username + ']'
 		exec (@var_sentencia)
 
 		set @var_sentencia = 'drop login [' + @username + ']'
@@ -725,6 +725,8 @@ grant execute on crear_usuario_empleado to rol_empleados
 go
 grant execute on crear_usuario_meteorologo to rol_empleados
 go
+grant execute on eliminar_ususario_empleado to rol_empleados
+go
 grant execute on eliminar_ususario_meteorologo to rol_empleados
 go
 grant execute on modificar_ususario_empleado to rol_empleados
@@ -734,6 +736,15 @@ go
 
 grant execute on buscar_ciudad to rol_empleados
 go
+grant execute on buscar_ciudad_activa to rol_meteorologos
+go
+grant execute on crear_ciudad to rol_empleados
+go
+grant execute on modificar_ciudad to rol_empleados
+go
+grant execute on eliminar_ciudad to rol_empleados
+go
+
 grant execute on buscar_meteorologo_activo to rol_empleados
 go
 grant execute on buscar_meteorologo to rol_empleados
@@ -741,7 +752,13 @@ go
 grant execute on buscar_empleado to rol_empleados
 go
 
+grant execute on listar_pronosticos_anio to rol_empleados
+go
+grant execute on listar_pronosticos_hora to rol_empleados
+go
 grant execute on listar_pronosticos_fecha to rol_empleados
+go
+grant execute on listar_ciudades to rol_empleados
 go
 grant execute on listar_ciudades_sin to rol_empleados
 go
@@ -756,10 +773,17 @@ grant execute on crear_pronostico_tiempo to rol_meteorologos
 go
 grant execute on crear_pronostico_hora to rol_meteorologos
 go
+grant execute on modificar_ususario_meteorologo to rol_empleados
+go
 
 grant execute on buscar_ciudad_activa to rol_meteorologos
 go
 grant execute on buscar_ciudad to rol_meteorologos
+go
+
+grant execute on listar_ciudades to rol_empleados
+go
+grant execute on listar_pronosticos_hora to rol_empleados
 go
 
 -----------------------------------------------------------------------------------------------------------
@@ -769,7 +793,7 @@ go
 -----------------------------------------------------------------------------------------------------------
 					/*/*/*/*/*/*/*/*/*/*	 DATOS		*/*/*/*/*/*/*/*/*/*/
 -----------------------------------------------------------------------------------------------------------
---insert usuarios (username,password,nombre)
+--insert usuarios (username,password,nombre_completo)
 --	values ('Esteban89', '123este**', 'Esteban Piccardo'),
 --		   ('Analia123', '123anal**', 'Analia Rodriguez'),
 --		   ('Carlos29',  '129carl**', 'Carlos Techera'),
@@ -789,83 +813,81 @@ go
 --		   ('Admin',	  '099099099', 'admin-sistema@gmail.com')
 --go
 
--- truncate table usuarios
--- select * from usuarios
+exec crear_usuario_empleado 'Esteban89', 'Esteban Piccardo', '123este**', 44
+exec crear_usuario_empleado 'Analia123', 'Analia Rodriguez', '123anal**', 24
+exec crear_usuario_empleado 'Admin',	 'Administrador',	 '000admi**', 16
+exec crear_usuario_empleado 'Usuario2',	 'Usuario2',		 '000admi**', 16
 
---exec crear_usuario_empleado 'Esteban89', 'Esteban Piccardo', '123este**', 44
---exec crear_usuario_empleado 'Analia123', 'Analia Rodriguez', '123anal**', 24
---exec crear_usuario_empleado 'Admin1',	 'Administrador',	 '000admi**', 16
-
---exec crear_usuario_meteorologo 'Carlos29',   'Carlos Techera',    '129carl**', '098790944', 'carlosfernandez@gmail.com'
---exec crear_usuario_meteorologo 'Laura36663', 'Larua Setevelatan', '123laur**', '094143488', 'laura36@gmail.com'
---exec crear_usuario_meteorologo 'Admin2',     'Administrador',	  '000admi**', '094143100', 'admin-sistema@gmail.com'
+exec crear_usuario_meteorologo 'Carlos29',   'Carlos Techera',    '129carl**', '098790944', 'carlosfernandez@gmail.com'
+exec crear_usuario_meteorologo 'Laura36663', 'Larua Setevelatan', '123laur**', '094143488', 'laura36@gmail.com'
+exec crear_usuario_meteorologo 'Usuario1',   'Usuario1',		  '000admi**', '094143100', 'usuario1@gmail.com'
 
 
---insert ciudades (codigo,nombre_ciudad,pais)
---	values ('URUMVD', 'Montevideo', 'Uruguay'),
---		   ('URUCAN', 'Canelones', 'Uruguay'),
---		   ('URULPS', 'Las Piedras', 'Uruguay'),
---		   ('URUPAN', 'Pando', 'Uruguay'),
---		   ('URUSAN', 'San Ramon', 'Uruguay'),
---		   ('URUPIR', 'Piriapoilis', 'Uruguay'),
---		   ('URUMDO', 'Maldonado', 'Uruguay'),
---		   ('URUPDE', 'Punta del Este', 'Uruguay'),
---		   ('URURCA', 'Rocha', 'Uruguay'),
---		   ('URULPM', 'La Paloma', 'Uruguay'),
---		   ('ARGBAS', 'Bs As', 'Argentina'),
---		   ('BRSSAP', 'Sao Pablo', 'Brasil')   
---go
+insert ciudades (codigo,nombre_ciudad,pais)
+	values ('URUMVD', 'Montevideo', 'Uruguay'),
+		   ('URUCAN', 'Canelones', 'Uruguay'),
+		   ('URULPS', 'Las Piedras', 'Uruguay'),
+		   ('URUPAN', 'Pando', 'Uruguay'),
+		   ('URUSAN', 'San Ramon', 'Uruguay'),
+		   ('URUPIR', 'Piriapoilis', 'Uruguay'),
+		   ('URUMDO', 'Maldonado', 'Uruguay'),
+		   ('URUPDE', 'Punta del Este', 'Uruguay'),
+		   ('URURCA', 'Rocha', 'Uruguay'),
+		   ('URULPM', 'La Paloma', 'Uruguay'),
+		   ('ARGBAS', 'Bs As', 'Argentina'),
+		   ('BRSSAP', 'Sao Pablo', 'Brasil')   
+go
 
---insert pronosticos_tiempo (fecha,usuario,ciudad)
---	values ('20220310 06:00:00','Carlos29','URUMVD'),
---		   ('20220310 06:15:00','Carlos29','URUCAN'),
---		   ('20220310 07:30:00','Analia123','URUCAN'),
---		   ('20220310 08:00:00','Laura36663','URUPDE'),
---		   ('20220310 09:15:00','Laura36663','URUPDE'),
---		   ('20220310 15:30:00','Carlos29','URUMVD'),
---		   ('20220310 18:00:00','Carlos29','URUPIR'),
---		   ('20220310 18:15:00','Carlos29','URUMVD'),
---		   ('20220310 18:30:00','Carlos29','URUMVD'),
---		   ('20220310 20:00:00','Laura36663','URUMVD'),
---		   ('20220310 20:15:00','Laura36663','URUPIR'),
---		   ('20220310 23:30:00','Laura36663','URUMVD'),
---		   ('20220311 06:00:00','Carlos29','URUMVD'),
---		   ('20220311 06:15:00','Carlos29','URUSAN'),
---		   ('20220311 07:30:00','Carlos29','URUSAN'),
---		   ('20220311 08:00:00','Carlos29','URUSAN'),
---		   ('20220311 09:15:00','Carlos29','URUMVD'),
---		   ('20220311 15:30:00','Carlos29','URUMVD'),
---		   ('20220312 18:00:00','Esteban89','URUMVD'),
---		   ('20220312 18:15:00','Carlos29','BRSSAP'),
---		   ('20220312 18:30:00','Esteban89','URUMVD'),
---		   ('20220313 20:00:00','Laura36663','ARGBAS'),
---		   ('20220313 20:15:00','Laura36663','URUMVD'),
---		   ('20220313 23:30:00','Laura36663','URUMVD')
---go
+insert pronosticos_tiempo (fecha,usuario,ciudad)
+	values ('20220310 06:00:00','Carlos29','URUMVD'),
+		   ('20220310 06:15:00','Carlos29','URUCAN'),
+		   ('20220310 07:30:00','Analia123','URUCAN'),
+		   ('20220310 08:00:00','Laura36663','URUPDE'),
+		   ('20220310 09:15:00','Laura36663','URUPDE'),
+		   ('20220310 15:30:00','Carlos29','URUMVD'),
+		   ('20220310 18:00:00','Carlos29','URUPIR'),
+		   ('20220310 18:15:00','Carlos29','URUMVD'),
+		   ('20220310 18:30:00','Carlos29','URUMVD'),
+		   ('20220310 20:00:00','Laura36663','URUMVD'),
+		   ('20220310 20:15:00','Laura36663','URUPIR'),
+		   ('20220310 23:30:00','Laura36663','URUMVD'),
+		   ('20220311 06:00:00','Carlos29','URUMVD'),
+		   ('20220311 06:15:00','Carlos29','URUSAN'),
+		   ('20220311 07:30:00','Carlos29','URUSAN'),
+		   ('20220311 08:00:00','Carlos29','URUSAN'),
+		   ('20220311 09:15:00','Carlos29','URUMVD'),
+		   ('20220311 15:30:00','Carlos29','URUMVD'),
+		   ('20220312 18:00:00','Esteban89','URUMVD'),
+		   ('20220312 18:15:00','Carlos29','BRSSAP'),
+		   ('20220312 18:30:00','Esteban89','URUMVD'),
+		   ('20220313 20:00:00','Laura36663','ARGBAS'),
+		   ('20220313 20:15:00','Laura36663','URUMVD'),
+		   ('20220313 23:30:00','Laura36663','URUMVD')
+go
 
---insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob_lluvias,prob_tormenta)
---	values  (1,600,24,18,45,'despejado',60,20),
---			(2,615,24,18,45,'despejado',60,20),
---			(3,730,24,18,45,'despejado',60,20),
---			(4,800,24,18,45,'despejado',60,20),
---			(5,915,24,18,45,'despejado',60,20),
---			(6,1530,24,18,45,'despejado',60,20),
---			(7,1800,24,18,45,'despejado',60,20),
---			(8,1815,24,18,45,'parcialmente_nuboso',60,20),
---			(9,1830,24,18,45,'parcialmente_nuboso',60,20),
---			(10,2000,24,18,45,'parcialmente_nuboso',60,20),
---			(11,2015,24,18,45,'parcialmente_nuboso',60,20),
---			(12,2330,24,18,45,'parcialmente_nuboso',60,20),
---			(13,600,24,18,45,'despejado',60,20),
---			(14,615,24,18,45,'despejado',60,20),
---			(15,730,24,18,45,'despejado',60,20),
---			(16,800,24,18,45,'despejado',60,20),
---			(17,915,24,18,45,'despejado',60,20),
---			(18,1530,24,18,45,'nuboso',60,20),
---			(19,1800,24,18,45,'nuboso',60,20),
---			(20,1815,24,18,45,'despejado',60,20),
---			(21,1830,24,18,45,'nuboso',60,20),
---			(22,2000,24,18,45,'nuboso',60,20),
---			(23,2015,24,18,45,'nuboso',60,20),
---			(24,2330,24,18,45,'nuboso',60,20)		
---go
+insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob_lluvias,prob_tormenta)
+	values  (1,600,24,18,45,'despejado',60,20),
+			(2,615,24,18,45,'despejado',60,20),
+			(3,730,24,18,45,'despejado',60,20),
+			(4,800,24,18,45,'despejado',60,20),
+			(5,915,24,18,45,'despejado',60,20),
+			(6,1530,24,18,45,'despejado',60,20),
+			(7,1800,24,18,45,'despejado',60,20),
+			(8,1815,24,18,45,'parcialmente_nuboso',60,20),
+			(9,1830,24,18,45,'parcialmente_nuboso',60,20),
+			(10,2000,24,18,45,'parcialmente_nuboso',60,20),
+			(11,2015,24,18,45,'parcialmente_nuboso',60,20),
+			(12,2330,24,18,45,'parcialmente_nuboso',60,20),
+			(13,600,24,18,45,'despejado',60,20),
+			(14,615,24,18,45,'despejado',60,20),
+			(15,730,24,18,45,'despejado',60,20),
+			(16,800,24,18,45,'despejado',60,20),
+			(17,915,24,18,45,'despejado',60,20),
+			(18,1530,24,18,45,'nuboso',60,20),
+			(19,1800,24,18,45,'nuboso',60,20),
+			(20,1815,24,18,45,'despejado',60,20),
+			(21,1830,24,18,45,'nuboso',60,20),
+			(22,2000,24,18,45,'nuboso',60,20),
+			(23,2015,24,18,45,'nuboso',60,20),
+			(24,2330,24,18,45,'nuboso',60,20)		
+go

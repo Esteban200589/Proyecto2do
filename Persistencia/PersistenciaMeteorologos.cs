@@ -38,9 +38,9 @@ namespace Persistencia
                 cmd.Parameters.AddWithValue("pass", password);
 
                 SqlDataReader dr = cmd.ExecuteReader();
-                //string pTel, string pCo, string pUser, string pPass, string pName
                 if (dr.Read())
-                    user = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(), username, password, dr["nombre_completo"].ToString());
+                    user = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(), 
+                        username, password, dr["nombre_completo"].ToString());
             }
             catch (Exception ex)
             {
@@ -67,7 +67,8 @@ namespace Persistencia
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
-                    u = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(), username, dr["password"].ToString(), dr["nombre_completo"].ToString());
+                    u = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(), 
+                        username, dr["password"].ToString(), dr["nombre_completo"].ToString());
 
                 dr.Close();
             }
@@ -96,7 +97,8 @@ namespace Persistencia
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
-                    p = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(), username, dr["password"].ToString(), dr["nombre_completo"].ToString());
+                    p = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(), 
+                        username, dr["password"].ToString(), dr["nombre_completo"].ToString());
                 
                 dr.Close();
             }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3d7b53b0-7de5-45b4-8aa6-db6e6238c283" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/ServicioWCF/Servicio.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Servicio.xsd" MetadataType="Schema" ID="1236dbe7-8e36-4ba9-9f74-253ad9b3f817" SourceId="1" SourceUrl="http://desktop-espial/ServicioWCF/Servicio.svc?xsd=xsd0" />
+    <MetadataFile FileName="Servicio.wsdl" MetadataType="Wsdl" ID="6b38b0ef-5da5-4160-ac05-b1a481c3058c" SourceId="1" SourceUrl="http://desktop-espial/ServicioWCF/Servicio.svc?wsdl" />
+    <MetadataFile FileName="Servicio.disco" MetadataType="Disco" ID="77f64a64-e1b4-4d04-b47f-e8b70f6041e9" SourceId="1" SourceUrl="http://desktop-espial/ServicioWCF/Servicio.svc?disco" />
+    <MetadataFile FileName="Servicio1.xsd" MetadataType="Schema" ID="5d700b3a-1974-4917-bda0-9dd88719ece1" SourceId="1" SourceUrl="http://desktop-espial/ServicioWCF/Servicio.svc?xsd=xsd1" />
+    <MetadataFile FileName="Servicio2.xsd" MetadataType="Schema" ID="f993c502-27cb-49b2-9063-85aaabff598f" SourceId="1" SourceUrl="http://desktop-espial/ServicioWCF/Servicio.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

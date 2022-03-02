@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Runtime.Serialization;
+
 namespace Entidades
 {
+    [DataContract]
     public class Empleado : Usuario
     {
         private int carga_horaria;
 
+        [DataMember]
         public int Carga_horaria
         {
             get { return carga_horaria; }
@@ -20,6 +24,11 @@ namespace Entidades
                 else
                     carga_horaria = value;
             }
+        }
+
+        public override string Tipo
+        {
+            get { return "Empleado"; }
         }
 
         public Empleado(int pHoras, string pUser, string pPass, string pName) 

@@ -9,7 +9,7 @@ using Persistencia;
 
 namespace Logica
 {
-    internal class LogicaPronosticoTiempo
+    internal class LogicaPronosticoTiempo : InterfazLogicaPronosticosTiempo
     {
 
         private static LogicaPronosticoTiempo instancia = null;

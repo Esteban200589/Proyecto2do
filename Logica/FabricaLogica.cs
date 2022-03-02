@@ -8,9 +8,19 @@ namespace Logica
 {
     public class FabricaLogica
     {
-        public static InterfazLogicaCiudades getPersistenciaCiudades()
+        public static InterfazLogicaCiudades GetLogicaCiudades()
         {
             return LogicaCiudades.GetInstanciaCiudades();
+        }
+
+        public static InterfazLogicaUsuarios GetLogicaUsuarios()
+        {
+            return LogicaUsuarios.GetInstanciaUsuarios();
+        }
+
+        public static InterfazLogicaPronosticosTiempo GetLogicaPronosticosTiempo()
+        {
+            return LogicaPronosticoTiempo.GetInstanciaPronosticoTiempo();
         }
     }
 }

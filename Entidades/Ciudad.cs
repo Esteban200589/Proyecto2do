@@ -4,14 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Runtime.Serialization;
+
 namespace Entidades
 {
+    [DataContract]
     public class Ciudad
     {
         private string pais;
         private string codigo;
         private string nombre_ciudad;
 
+        [DataMember]
         public string Codigo
         {
             get { return codigo; }
@@ -25,6 +29,7 @@ namespace Entidades
                     codigo = value;
             }
         }
+        [DataMember]
         public string Nombre_ciudad
         {
             get { return nombre_ciudad; }
@@ -38,6 +43,7 @@ namespace Entidades
                     nombre_ciudad = value;
             }
         }
+        [DataMember]
         public string Pais
         {
             get { return pais; }

@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Runtime.Serialization;
+
 namespace Entidades
 {
+    [DataContract]
     public class Pronostico_tiempo
     {
         private int interno;
@@ -14,6 +17,7 @@ namespace Entidades
         private Usuario usuario;
         private List<Pronostico_hora> list_pronosticos_hora;
 
+        [DataMember]
         public int Interno
         {
             get { return interno; }
@@ -21,7 +25,7 @@ namespace Entidades
                 interno = value; 
             }
         }
-
+        [DataMember]
         public DateTime Fecha
         {
             get { return fecha; }
@@ -30,7 +34,7 @@ namespace Entidades
                 fecha = value;
             }
         }
-
+        [DataMember]
         public Ciudad Ciudad
         {
             get { return ciudad; }
@@ -42,7 +46,7 @@ namespace Entidades
                     ciudad = value;
             }
         }
-
+        [DataMember]
         public Usuario Usuario
         {
             get { return usuario; }
@@ -54,7 +58,7 @@ namespace Entidades
                     usuario = value;
             }
         }
-
+        [DataMember]
         public List<Pronostico_hora> LIST_pronosticos_hora
         {
             get { return list_pronosticos_hora; }

@@ -1,0 +1,9 @@
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Release\Logica.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Release\Logica.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Release\Entidades.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Release\Persistencia.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Release\Entidades.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Release\Logica.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Release\Logica.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Release\Persistencia.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Release\Logica.csprojResolveAssemblyReference.cache

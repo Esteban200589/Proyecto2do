@@ -1,0 +1,4 @@
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\bin\Release\Entidades.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\bin\Release\Entidades.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\obj\Release\Entidades.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\obj\Release\Entidades.pdb

@@ -1,0 +1,53 @@
+﻿/*IMPORTS*/
+
+/*@import url(iconos.css);*/
+@import url(bootstrap-grid.css);
+@import url(bootstrap-grid.css.map);
+@import url(bootstrap-grid.min.css);
+@import url(bootstrap-grid.min.css.map);
+@import url(bootstrap-reboot.css);
+@import url(bootstrap-reboot.css.map);
+@import url(bootstrap-reboot.min.css);
+@import url(bootstrap-reboot.min.css.map);
+@import url(bootstrap.css);
+@import url(bootstrap.min.css);
+@import url(bootstrap.css.map);
+@import url(bootstrap.min.css.map);
+
+
+#as-navbar-toggler {
+    position: absolute;
+    right: 1%;
+    top: 15%;
+    height: 35px;
+    padding: 20px;
+    margin-bottom:5px;
+}
+
+#as-navbar-close {
+    position: absolute;
+    right: 1%;
+    top: 10%;
+    height: 35px;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+#as-navbar-toggler span{
+    position: relative;
+    bottom:13px;
+}
+
+#as-navbar-close span {
+    position: relative;
+    bottom: 13px;
+}
+
+
+#perfil {
+    position: absolute;
+    right: 1%;
+    top: 10%;
+    height: 35px;
+    margin-bottom: 10px;
+}

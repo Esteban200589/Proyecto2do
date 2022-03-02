@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Servicio" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost/Servicio_WCF/Servicio.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost/Servicio_WCF/Servicio.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost/Servicio_WCF/Servicio.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Entidades" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServicio_CrearCiudad_InputMessage">
+    <wsdl:part name="parameters" element="tns:CrearCiudad" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_CrearCiudad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CrearCiudadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ModificarCiudad_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarCiudad" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ModificarCiudad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarCiudadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_EliminarCiudad_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarCiudad" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_EliminarCiudad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarCiudadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_BuscarCiudadActiva_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarCiudadActiva" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_BuscarCiudadActiva_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarCiudadActivaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ListarCiudades_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarCiudades" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ListarCiudades_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarCiudadesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ListarCiudadesSinPronosticos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarCiudadesSinPronosticos" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ListarCiudadesSinPronosticos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarCiudadesSinPronosticosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_LoginUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:LoginUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_LoginUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_BuscarUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_BuscarUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_CrearPronosticoTiempo_InputMessage">
+    <wsdl:part name="parameters" element="tns:CrearPronosticoTiempo" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_CrearPronosticoTiempo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CrearPronosticoTiempoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ListarPronosticosPorFecha_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarPronosticosPorFecha" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ListarPronosticosPorFecha_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarPronosticosPorFechaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ListarPronosticosAnioActual_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarPronosticosAnioActual" />
+  </wsdl:message>
+  <wsdl:message name="IServicio_ListarPronosticosAnioActual_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarPronosticosAnioActualResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IServicio">
+    <wsdl:operation name="CrearCiudad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/CrearCiudad" message="tns:IServicio_CrearCiudad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/CrearCiudadResponse" message="tns:IServicio_CrearCiudad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificarCiudad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/ModificarCiudad" message="tns:IServicio_ModificarCiudad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/ModificarCiudadResponse" message="tns:IServicio_ModificarCiudad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCiudad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/EliminarCiudad" message="tns:IServicio_EliminarCiudad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/EliminarCiudadResponse" message="tns:IServicio_EliminarCiudad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCiudadActiva">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/BuscarCiudadActiva" message="tns:IServicio_BuscarCiudadActiva_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/BuscarCiudadActivaResponse" message="tns:IServicio_BuscarCiudadActiva_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarCiudades">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/ListarCiudades" message="tns:IServicio_ListarCiudades_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/ListarCiudadesResponse" message="tns:IServicio_ListarCiudades_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarCiudadesSinPronosticos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/ListarCiudadesSinPronosticos" message="tns:IServicio_ListarCiudadesSinPronosticos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/ListarCiudadesSinPronosticosResponse" message="tns:IServicio_ListarCiudadesSinPronosticos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/LoginUsuario" message="tns:IServicio_LoginUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/LoginUsuarioResponse" message="tns:IServicio_LoginUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/BuscarUsuario" message="tns:IServicio_BuscarUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/BuscarUsuarioResponse" message="tns:IServicio_BuscarUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CrearPronosticoTiempo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/CrearPronosticoTiempo" message="tns:IServicio_CrearPronosticoTiempo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/CrearPronosticoTiempoResponse" message="tns:IServicio_CrearPronosticoTiempo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarPronosticosPorFecha">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/ListarPronosticosPorFecha" message="tns:IServicio_ListarPronosticosPorFecha_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/ListarPronosticosPorFechaResponse" message="tns:IServicio_ListarPronosticosPorFecha_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarPronosticosAnioActual">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicio/ListarPronosticosAnioActual" message="tns:IServicio_ListarPronosticosAnioActual_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicio/ListarPronosticosAnioActualResponse" message="tns:IServicio_ListarPronosticosAnioActual_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IServicio" type="tns:IServicio">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CrearCiudad">
+      <soap:operation soapAction="http://tempuri.org/IServicio/CrearCiudad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificarCiudad">
+      <soap:operation soapAction="http://tempuri.org/IServicio/ModificarCiudad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarCiudad">
+      <soap:operation soapAction="http://tempuri.org/IServicio/EliminarCiudad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarCiudadActiva">
+      <soap:operation soapAction="http://tempuri.org/IServicio/BuscarCiudadActiva" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarCiudades">
+      <soap:operation soapAction="http://tempuri.org/IServicio/ListarCiudades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarCiudadesSinPronosticos">
+      <soap:operation soapAction="http://tempuri.org/IServicio/ListarCiudadesSinPronosticos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginUsuario">
+      <soap:operation soapAction="http://tempuri.org/IServicio/LoginUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarUsuario">
+      <soap:operation soapAction="http://tempuri.org/IServicio/BuscarUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearPronosticoTiempo">
+      <soap:operation soapAction="http://tempuri.org/IServicio/CrearPronosticoTiempo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarPronosticosPorFecha">
+      <soap:operation soapAction="http://tempuri.org/IServicio/ListarPronosticosPorFecha" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarPronosticosAnioActual">
+      <soap:operation soapAction="http://tempuri.org/IServicio/ListarPronosticosAnioActual" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Servicio">
+    <wsdl:port name="BasicHttpBinding_IServicio" binding="tns:BasicHttpBinding_IServicio">
+      <soap:address location="http://localhost/Servicio_WCF/Servicio.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

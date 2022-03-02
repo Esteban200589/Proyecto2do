@@ -1,0 +1,12 @@
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\bin\Servicio_WCF.dll.config
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\bin\Servicio_WCF.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\bin\Servicio_WCF.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\bin\Entidades.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\bin\Logica.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\bin\Persistencia.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\bin\Entidades.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\bin\Logica.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\bin\Persistencia.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\obj\Debug\Servicio_WCF.csprojResolveAssemblyReference.cache
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\obj\Debug\Servicio_WCF.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Servicio_WCF\obj\Debug\Servicio_WCF.pdb

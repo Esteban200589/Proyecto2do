@@ -40,7 +40,8 @@ namespace Persistencia
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
-                    user = new Empleado(Convert.ToInt32(dr["carga_horaria"]), username, password, dr["nombre_completo"].ToString());
+                    user = new Empleado(Convert.ToInt32(dr["carga_horaria"]), 
+                        username, password, dr["nombre_completo"].ToString());
             }
             catch (Exception ex)
             {
@@ -67,7 +68,8 @@ namespace Persistencia
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
-                    u = new Empleado(Convert.ToInt32(dr["carga_horaria"]), username, dr["password"].ToString(), dr["nombre_completo"].ToString());
+                    u = new Empleado(Convert.ToInt32(dr["carga_horaria"]), 
+                        username, dr["password"].ToString(), dr["nombre_completo"].ToString());
 
                 dr.Close();
             }

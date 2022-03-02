@@ -9,7 +9,7 @@ using Persistencia;
 
 namespace Logica
 {
-    internal class LogicaUsuarios
+    internal class LogicaUsuarios : InterfazLogicaUsuarios
     {
         private static LogicaUsuarios instancia = null;
         private LogicaUsuarios() { }
@@ -24,24 +24,24 @@ namespace Logica
         static InterfazPersistenciaEmpleados FabricaEmpleados = FabricaPersistencia.getPersistenciaEmpleados();
         static InterfazPersistenciaMeteorologos FabricaMeteorologos = FabricaPersistencia.getPersistenciaMeteorologos();
 
-        public void LoginEmpleado(string username, string password)
+        public Usuario LoginUsuario(string username, string password)
         {
-            FabricaEmpleados.LoginEmpleado(username, password);
+            Usuario user = FabricaEmpleados.LoginEmpleado(username, password);
+
+            if (user == null)
+                user = FabricaMeteorologos.LoginMeteorologo(username, password);
+            
+            return user;
         }
 
-        public void BuscarEmpleado(string username)
+        public Usuario BuscarUsuario(string username)
         {
-            FabricaEmpleados.BuscarEmpleado(username);
-        }
+            Usuario user = FabricaEmpleados.BuscarEmpleado(username);
 
-        public void LoginMeteorologo(string username, string password)
-        {
-            FabricaMeteorologos.LoginMeteorologo(username, password);
-        }
+            if (user == null)
+                user = FabricaMeteorologos.BuscarMeteorologoActivo(username);
 
-        public void BuscarMeteorologo(string username)
-        {
-            FabricaMeteorologos.BuscarMeteorologoActivo(username);
+            return user;
         }
     }
 }
