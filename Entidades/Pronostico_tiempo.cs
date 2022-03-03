@@ -31,7 +31,7 @@ namespace Entidades
             get { return fecha; }
             set
             {
-                fecha = value;
+                fecha = Convert.ToDateTime(fecha.ToString("dd/MM/yyyy"));
             }
         }
         [DataMember]
@@ -40,7 +40,7 @@ namespace Entidades
             get { return ciudad; }
             set
             {
-                if (value != null)
+                if (value == null)
                     throw new Exception("Debe pertenecer a una Ciudad.");
                 else
                     ciudad = value;
@@ -52,9 +52,9 @@ namespace Entidades
             get { return usuario; }
             set
             {
-                if (value != null)
-                    throw new Exception("Debe tener un Usuario.");
-                else
+                //if (value == null)
+                //    throw new Exception("Debe tener un Usuario.");
+                //else
                     usuario = value;
             }
         }

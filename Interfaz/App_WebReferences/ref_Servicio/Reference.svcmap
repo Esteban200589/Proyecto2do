@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d1bc6838-4f7a-4c0a-bb0c-bf84529a6dc3" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="583bf2f8-1502-4ff8-a9a3-128af9b77036" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -18,14 +18,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/Servicio_WCF/Servicio.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/PronosticosWCF/Servicio.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Servicio.xsd" MetadataType="Schema" ID="0f057df2-d1f4-428d-b771-6009a47b8404" SourceId="1" SourceUrl="http://localhost/Servicio_WCF/Servicio.svc?xsd=xsd2" />
-    <MetadataFile FileName="Servicio.disco" MetadataType="Disco" ID="c9558fad-8b0f-4032-a4d9-aabb41c4d6c8" SourceId="1" SourceUrl="http://localhost/Servicio_WCF/Servicio.svc?disco" />
-    <MetadataFile FileName="Servicio.wsdl" MetadataType="Wsdl" ID="6ffc8521-39d6-4290-b8fb-8424802fc43c" SourceId="1" SourceUrl="http://localhost/Servicio_WCF/Servicio.svc?wsdl" />
-    <MetadataFile FileName="Servicio1.xsd" MetadataType="Schema" ID="0024e58b-fa38-4f72-af5c-b053a4948871" SourceId="1" SourceUrl="http://localhost/Servicio_WCF/Servicio.svc?xsd=xsd1" />
-    <MetadataFile FileName="Servicio2.xsd" MetadataType="Schema" ID="e2f88e25-73ab-40d3-8fec-a246d1c5e01c" SourceId="1" SourceUrl="http://localhost/Servicio_WCF/Servicio.svc?xsd=xsd0" />
+    <MetadataFile FileName="Servicio.xsd" MetadataType="Schema" ID="bd9c6ee3-f438-44bb-a69c-c0b2cde864b1" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?xsd=xsd1" />
+    <MetadataFile FileName="Servicio.disco" MetadataType="Disco" ID="d67d2452-62c6-42c1-9a62-039e5848bfcd" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?disco" />
+    <MetadataFile FileName="Servicio1.xsd" MetadataType="Schema" ID="21d7d257-ad4a-4742-b22b-5ccfd2adeef8" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?xsd=xsd2" />
+    <MetadataFile FileName="Servicio.wsdl" MetadataType="Wsdl" ID="5f1116fb-9efc-4ea6-a1e8-d1d5e151dc12" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?wsdl" />
+    <MetadataFile FileName="Servicio2.xsd" MetadataType="Schema" ID="06abe7dc-3438-444f-b7e6-71c8997efb7c" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

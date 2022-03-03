@@ -9,12 +9,14 @@ using System.Text.RegularExpressions;
 
 namespace Entidades
 {
+    [KnownType(typeof(Empleado))]
+    [KnownType(typeof(Meteorologo))]
     [DataContract]
     public class Usuario
     {
-        private string nombre;
-        private string password;
         private string username;
+        private string password;
+        private string nombre;
 
         [DataMember]
         public string Username
@@ -57,11 +59,11 @@ namespace Entidades
             }
         }
 
-        [DataMember]
-        public virtual string Tipo
-        {
-            get { return "Sin tipo"; }
-        }
+        //[DataMember]
+        //public virtual string Tipo
+        //{
+        //    get { return "Sin tipo"; }
+        //}
 
         public Usuario(string pUser, string pPass, string pName)
         {

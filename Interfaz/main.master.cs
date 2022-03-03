@@ -13,6 +13,8 @@ public partial class main : System.Web.UI.MasterPage
     protected void Page_Load(object sender, EventArgs e)
     {
         //lblFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
+        //menuNav1.Attributes.Add("style", "display:none;");
+        //menuNav2.Attributes.Add("style", "display:none;");
 
         try
         {
@@ -22,21 +24,14 @@ public partial class main : System.Web.UI.MasterPage
             {
                 Usuario user = (Usuario)Session["Usuario"];
 
-                if (user.Tipo == "Empleado")
-                {
-                    menuNav1.Attributes.Add("style", "display:block;");
-                    menuNav2.Attributes.Add("style", "display:none;");
-                }
-
-                if (user.Tipo == "Meteorologo")
-                {
-                    menuNav1.Attributes.Add("style", "display:none;");
-                    menuNav2.Attributes.Add("style", "display:block;");
-                }
+                if (user is Empleado)
+                    lblTipoUser.Text = "Empleado";
+                else // is Meteorologo
+                    lblTipoUser.Text = "Meteorologo";
 
                 lblUsername.Text = user.Username;
-                lblUsername.ForeColor = Color.Blue;
-                lblTipoUser.Text = user.Tipo;
+                lblUsername.ForeColor = Color.Green;
+                lblTipoUser.ForeColor = Color.Green;
             }
         }
         catch (Exception ex)

@@ -47,10 +47,11 @@ namespace Entidades
             }
         }
 
-        public override string Tipo
-        {
-            get { return "Meteorologo"; }
-        }
+        //[DataMember]
+        //public override string Tipo
+        //{
+        //    get { return "Meteorologo"; }
+        //}
 
         public Meteorologo(string pTel, string pCo, string pUser, string pPass, string pName)
             : base(pUser, pPass, pName)

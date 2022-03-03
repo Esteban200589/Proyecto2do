@@ -18,10 +18,6 @@ public partial class login : System.Web.UI.Page
     {
         try
         {
-            //Usuario usuario = new Usuario();
-            //usuario.username = txtUser.Text.Trim();
-            //usuario.password = TxtPass.Text.Trim();
-
             Usuario user = new ServicioClient().LoginUsuario(txtUser.Text, txtPass.Text);
             if (user != null)
             {
@@ -29,12 +25,6 @@ public partial class login : System.Web.UI.Page
                 Response.Redirect("~/index.aspx");
             }
         }
-        //catch (System.Web.Services.Protocols.SoapException ex)
-        //{
-        //    lblMsj.Text = ex.Detail.InnerText;
-        //    txtPass.Text = "";
-        //    txtUser.Text = "";
-        //}
         catch (Exception ex)
         {
             lblMsj.Text = ex.Message;

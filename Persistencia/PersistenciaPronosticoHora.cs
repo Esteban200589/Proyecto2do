@@ -60,7 +60,7 @@ namespace Persistencia
             }
         }
 
-        public List<Pronostico_hora> ListarPronosticosHora(int interno)
+        public List<Pronostico_hora> ListarPronosticosHora(int interno, SqlTransaction trn)
         {
             List<Pronostico_hora> lista = new List<Pronostico_hora>();
             SqlConnection cnn = new SqlConnection(Conexion.Cnn);
@@ -68,10 +68,12 @@ namespace Persistencia
             try
             {
                 cnn.Open();
-
                 SqlCommand cmd = new SqlCommand("listar_pronosticos_hora", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("interno", interno);
+                //SqlDataReader dr = cmd.ExecuteReader();
+
+                cmd.Transaction = trn;
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 Pronostico_hora p = null;
@@ -87,7 +89,7 @@ namespace Persistencia
                                             dr["tipo_cielo"].ToString());
                     lista.Add(p);
                 }
-                dr.Close();
+                //dr.Close();
             }
             catch (Exception ex)
             {

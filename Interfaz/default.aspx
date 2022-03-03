@@ -1,7 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="default.aspx.cs" Inherits="_default" %>
 
-<%--<%@ Register src="m.ascx" tagname="mostrar_noticia" tagprefix="uc1" %>--%>
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -21,7 +19,7 @@
                         <!-- general form elements disabled -->
                         <div class="card card-warning" style="width:100%;">
                             <div class="card-header" style="background-color: #757578; color: #ffffff;">
-                                <h3 class="card-title">PAGINA INICIAL DEFAULT </h3>
+                                <h3 class="card-title">PAGINA PRINCIPAL </h3>
                             </div>
 
                             <div class="col-sm-12">
@@ -32,46 +30,31 @@
                                         <a href="login.aspx" style="float:right;position:absolute;right:10%;top:-60px;color:white;">LOGIN</a>
                                     </div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-3" style="padding:1px;">
                                         <div class="row" style="padding:1%;margin:2%;">
-                                            <label class="col-form-label" for="exampleFormControlInput1">Fecha: </label>
-                                            <br />
+                                            <%--<label class="col-form-label" for="exampleFormControlInput1">Fecha: </label>
+                                            <br />--%>
                                             <asp:Calendar ID="calendario" runat="server" Height="16px" Width="400px"></asp:Calendar>
                                         </div>
                                         <div class="row" style="padding:1%;margin:2%;">
-                                            <label class="col-form-label" for="exampleFormControlInput1">Sección: </label>
-                                            <asp:DropDownList ID="ddlSecciones" runat="server" Width="150px">
-                                                <asp:ListItem></asp:ListItem>
-                                            </asp:DropDownList>
-                                        </div>
-                                        <div class="row" style="padding:1%;margin:2%;">
-                                            <asp:Button ID="btnBuscar" runat="server" Text="Filtrar" Width="150px" />                             
-                                            <asp:Button ID="btnLimpiarfiltros" runat="server" Text="Limpiar Filtros"  Width="150px" />
+                                            <asp:Button ID="btnBuscar" runat="server" Text="Filtrar" Width="49%" style="margin-right:5px;height:40%;"/>                             
+                                            <asp:Button ID="btnLimpiarfiltros" runat="server" Text="Limpiar Filtros"  Width="49%" OnClick="btnLimpiarfiltros_Click" />
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-5">
-                                        <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="row" style="background-color:blanchedalmond;margin-top:1%;height:91%;">
                                             <div id="grilla" style="text-align:center;margin-left:auto;margin-right:auto;margin-top:4%;width:100%;">
-                                                <asp:GridView ID="gvNoticias" runat="server" Width="95%" HorizontalAlign="Center" BackColor="White" BorderColor="#CCCCCC"
-                                                                BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" 
-                                                                 >
+                                                <asp:GridView ID="gvPronosticos" runat="server" Width="95%" HorizontalAlign="Center" BackColor="White" BorderColor="#CCCCCC"
+                                                              BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" >
                                                     <Columns>
-                                                        <asp:BoundField DataField="Codigo" HeaderText="Codigo" HeaderStyle-BackColor="#7ca3c3" ItemStyle-BackColor="White" 
-                                                                        ItemStyle-HorizontalAlign="Center" >
+                                                        <asp:BoundField DataField="Ciudad.Pais" HeaderText="Pais" HeaderStyle-BackColor="#7ca3c3" ItemStyle-BackColor="White" ItemStyle-HorizontalAlign="Center" >
                                                         <ControlStyle Width="0px" />
                                                         <HeaderStyle BackColor="#7ca3c3"></HeaderStyle>
 
                                                         <ItemStyle HorizontalAlign="Center" BackColor="White"></ItemStyle>
                                                         </asp:BoundField>
-                                                        <asp:BoundField DataField="Fecha" HeaderText="Fecha" HeaderStyle-BackColor="#7ca3c3" ItemStyle-BackColor="White" 
-                                                                        ItemStyle-HorizontalAlign="Center" >
-                                                        <HeaderStyle BackColor="#7ca3c3"></HeaderStyle>
-
-                                                        <ItemStyle HorizontalAlign="Center" BackColor="White"></ItemStyle>
-                                                        </asp:BoundField>
-                                                        <asp:BoundField DataField="Titulo" HeaderText="Titulo" HeaderStyle-BackColor="#7ca3c3" ItemStyle-BackColor="White" 
-                                                                        ItemStyle-HorizontalAlign="Center">
+                                                        <asp:BoundField DataField="Ciudad.Nombre_ciudad" HeaderText="Ciudad" HeaderStyle-BackColor="#7ca3c3" ItemStyle-BackColor="White" ItemStyle-HorizontalAlign="Center" >
                                                         <HeaderStyle BackColor="#7ca3c3"></HeaderStyle>
 
                                                         <ItemStyle HorizontalAlign="Center" BackColor="White"></ItemStyle>
@@ -96,17 +79,6 @@
                                         </div>
                                     </div>
                                 
-                                    <div class="col-sm-4">
-                                        <div class="row">
-                                            <div class="card card-warning" style="width:95%;background-color:darkgray;text-align:left;">
-                                                <center>
-                                                    <div class="col-12">
-                                                        <%--<uc1:mostrar_noticia ID="mostrar_noticia1" runat="server" />--%>
-                                                    </div>
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 

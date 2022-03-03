@@ -23,7 +23,6 @@ public partial class abm_ciudades : System.Web.UI.Page
     }
 
 
-
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
         try
@@ -87,39 +86,41 @@ public partial class abm_ciudades : System.Web.UI.Page
 
     protected void btnModificar_Click(object sender, EventArgs e)
     {
-        //try
-        //{
-        //    secciones seccion = (secciones)Session["Seccion"];
+        try
+        {
+            Ciudad ciudad = (Ciudad)Session["Ciudad"];
 
-        //    if (seccion != null)
-        //    {
-        //        seccion.nombre_secc = txtNombre.Text.Trim();
+            if (ciudad != null)
+            {
+                ciudad.Nombre_ciudad = txtNombre.Text.Trim();
+                ciudad.Pais = txtPais.Text.Trim();
 
-        //        new Servicio().modificar_seccion(seccion);
+                new ServicioClient().ModificarCiudad(ciudad);
 
-        //        lblMsj.Text = "Sección Modificada";
-        //        lblMsj.ForeColor = Color.Green;
+                lblMsj.Text = "Ciudad Modificada";
+                lblMsj.ForeColor = Color.Green;
 
-        //        txtCodigo.ReadOnly = false;
+                txtCodigo.ReadOnly = false;
 
-        //        txtCodigo.Text = "";
-        //        txtNombre.Text = "";
+                txtCodigo.Text = "";
+                txtNombre.Text = "";
+                txtPais.Text = "";
 
-        //        btnGuardar.Enabled = false;
-        //        btnEliminar.Enabled = false;
-        //        btnModificar.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        lblMsj.Text = "No hay seccion que modificar, busque una";
-        //        lblMsj.ForeColor = Color.DarkOrange;
-        //    }
-        //}
-        //catch (Exception ex)
-        //{
-        //    lblMsj.Text = ex.Message;
-        //    lblMsj.ForeColor = Color.Red;
-        //}
+                btnGuardar.Enabled = false;
+                btnEliminar.Enabled = false;
+                btnModificar.Enabled = false;
+            }
+            else
+            {
+                lblMsj.Text = "No hay Ciudad que modificar, busque una";
+                lblMsj.ForeColor = Color.DarkOrange;
+            }
+        }
+        catch (Exception ex)
+        {
+            lblMsj.Text = ex.Message;
+            lblMsj.ForeColor = Color.Red;
+        }
     }
 
     protected void btnGuardar_Click(object sender, EventArgs e)

@@ -64,8 +64,8 @@ namespace Entidades
             get { return prob_lluvias; }
             set
             {
-                if (value >= 0 && value <= 100)
-                    throw new Exception("Indique un valor del 0 al 100 %");
+                if (value <= 0 && value >= 100)
+                    throw new Exception("Indique un valor del 0 al 100 % (Prob Tormentas)");
                 else
                     prob_lluvias = value;
             }
@@ -76,8 +76,8 @@ namespace Entidades
             get { return prob_tormenta; }
             set
             {
-                if (value >= 0 && value <= 100)
-                    throw new Exception("Indique un valor del 0 al 100 %");
+                if (value <= 0 && value >= 100)
+                    throw new Exception("Indique un valor del 0 al 100 % (Prob Tormentas)");
                 else
                     prob_tormenta = value;
             }
@@ -88,7 +88,7 @@ namespace Entidades
             get { return tipo_cielo; }
             set
             {
-                if (value != "despejado" || value != "parcialmente_nuboso" || value != "nuboso")
+                if (value != "despejado" && value != "parcialmente_nuboso" && value != "nuboso")
                     throw new Exception("Tipo de Cielo Incorrecto.");
                 else
                     tipo_cielo = value;

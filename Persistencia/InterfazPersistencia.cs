@@ -44,5 +44,7 @@ namespace Persistencia
     public interface InterfazPersistenciaPronosticosHora
     {
         void CrearPronosticoHora(Pronostico_hora ph, SqlTransaction trn);
+
+        List<Pronostico_hora> ListarPronosticosHora(int interno, SqlTransaction trn);
     }
 }

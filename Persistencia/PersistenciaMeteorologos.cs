@@ -32,7 +32,7 @@ namespace Persistencia
             {
                 cnn.Open();
 
-                SqlCommand cmd = new SqlCommand("logueo_empleado", cnn);
+                SqlCommand cmd = new SqlCommand("logueo_meteorologo", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("user", username);
                 cmd.Parameters.AddWithValue("pass", password);

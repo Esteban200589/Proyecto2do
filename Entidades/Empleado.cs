@@ -26,10 +26,11 @@ namespace Entidades
             }
         }
 
-        public override string Tipo
-        {
-            get { return "Empleado"; }
-        }
+        //[DataMember]
+        //public override string Tipo
+        //{
+        //    get { return "Empleado"; }
+        //}
 
         public Empleado(int pHoras, string pUser, string pPass, string pName) 
             : base(pUser, pPass, pName)

@@ -88,13 +88,14 @@ namespace Persistencia
                 cmd.Parameters.AddWithValue("fecha", fecha);
                 SqlDataReader dr = cmd.ExecuteReader();
 
+                SqlTransaction trn = null;
                 Pronostico_tiempo p = null;
                 Ciudad city = null;
                 Usuario user = null;
 
                 while (dr.Read())
                 {
-                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]));
+                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]),trn);
                     city = PersistenciaCiudades.GetInstanciaCiudades().BuscarCiudad(dr["ciudad"].ToString());
                     user = PersistenciaMeteorologos.GetInstanciaMeteorologos().BuscarMeteorologo(dr["usuario"].ToString());
                     p = new Pronostico_tiempo(Convert.ToInt32(dr["interno"]), Convert.ToDateTime(dr["fecha"]), city, user, list_ph);
@@ -129,13 +130,14 @@ namespace Persistencia
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataReader dr = cmd.ExecuteReader();
 
+                SqlTransaction trn = null;
                 Pronostico_tiempo p = null;
                 Ciudad city = null;
                 Usuario user = null;
 
                 while (dr.Read())
                 {
-                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]));
+                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]),trn);
                     city = PersistenciaCiudades.GetInstanciaCiudades().BuscarCiudad(dr["ciudad"].ToString());
                     user = PersistenciaMeteorologos.GetInstanciaMeteorologos().BuscarMeteorologo(dr["usuario"].ToString());
                     p = new Pronostico_tiempo(Convert.ToInt32(dr["interno"]), Convert.ToDateTime(dr["fecha"]), city, user, list_ph);
