@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
+using System.Xml;
 using Entidades;
 using Logica;
 
@@ -50,6 +51,21 @@ namespace PronosticosWCF
 
         #region usuarios
 
+        void IServicio.CrearUsuario(Usuario u)
+        {
+            FabricaLogica.GetLogicaUsuarios().CrearUsuario(u);
+        }
+
+        void IServicio.ModificarUsuario(Usuario u)
+        {
+            FabricaLogica.GetLogicaUsuarios().ModificarUsuario(u);
+        }
+
+        void IServicio.EliminarUsuario(Usuario u)
+        {
+            FabricaLogica.GetLogicaUsuarios().EliminarUsuario(u);
+        }
+
         Usuario IServicio.LoginUsuario(string username, string password)
         {
             return FabricaLogica.GetLogicaUsuarios().LoginUsuario(username, password);
@@ -77,6 +93,11 @@ namespace PronosticosWCF
         List<Pronostico_tiempo> IServicio.ListarPronosticosAnioActual()
         {
             return FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosAnioActual();
+        }
+
+        XmlDocument IServicio.PronosticosXML(DateTime fecha)
+        {
+            return FabricaLogica.GetLogicaPronosticosTiempo().PronosticosXML(fecha);
         }
 
         #endregion

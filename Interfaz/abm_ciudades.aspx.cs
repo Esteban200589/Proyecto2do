@@ -22,7 +22,6 @@ public partial class abm_ciudades : System.Web.UI.Page
         }
     }
 
-
     protected void btnBuscar_Click(object sender, EventArgs e)
     {
         try
@@ -35,21 +34,17 @@ public partial class abm_ciudades : System.Web.UI.Page
 
                 if (ciudad == null)
                 {
-                    //txtCedula.Text = "";
-                    txtNombre.Text = "";
-                    txtPais.Text = "";
-
                     btnGuardar.Enabled = true;
                     btnEliminar.Enabled = false;
                     btnModificar.Enabled = false;
 
-                    lblMsj.Text = "No se encontró la ciudad, puede Crearla";
+                    lblMsj.Text = "No se encontró la Ciudad, puede Crearla";
                     lblMsj.ForeColor = Color.DarkOrange;
                 }
 
                 else
                 {
-                    lblMsj.Text = "Periodista encontrado";
+                    lblMsj.Text = "Ciudad encontrada";
                     lblMsj.ForeColor = Color.Green;
 
                     txtCodigo.Text = ciudad.Codigo;
@@ -70,13 +65,6 @@ public partial class abm_ciudades : System.Web.UI.Page
             }
 
         }
-
-        catch (System.Web.Services.Protocols.SoapException ex)
-        {
-            lblMsj.Text = ex.Detail.InnerText;
-            lblMsj.ForeColor = Color.Red;
-        }
-
         catch (Exception ex)
         {
             lblMsj.Text = ex.Message;
@@ -125,97 +113,87 @@ public partial class abm_ciudades : System.Web.UI.Page
 
     protected void btnGuardar_Click(object sender, EventArgs e)
     {
-        //secciones secc = null;
-        //try
-        //{
-        //    secc = new secciones()
-        //    {
-        //        codigo_secc = txtCodigo.Text.Trim(),
-        //        nombre_secc = txtNombre.Text.Trim(),
-        //    };
-        //}
-        //catch (Exception ex)
-        //{
-        //    lblMsj.Text = ex.Message;
-        //    lblMsj.ForeColor = Color.Red;
-        //    return;
-        //}
-        //try
-        //{
-        //    new Servicio().agregar_seccion(secc);
+        try
+        {
+            Ciudad ciudad = new Ciudad()
+            {
+                Codigo = txtCodigo.Text.Trim(),
+                Nombre_ciudad = txtNombre.Text.Trim(),
+                Pais = txtPais.Text.Trim()
+            };
 
-        //    lblMsj.Text = "Sección guardada con exito!";
-        //    lblMsj.ForeColor = Color.Green;
+            new ServicioClient().CrearCiudad(ciudad);
 
-        //    txtCodigo.ReadOnly = false;
+            lblMsj.Text = "Ciudad guardada con exito!";
+            lblMsj.ForeColor = Color.Green;
 
-        //    txtCodigo.Text = "";
-        //    txtNombre.Text = "";
+            txtCodigo.ReadOnly = false;
 
-        //    btnGuardar.Enabled = false;
-        //    btnModificar.Enabled = false;
-        //    btnEliminar.Enabled = false;
-        //}
-        //catch (System.Web.Services.Protocols.SoapException ex)
-        //{
-        //    lblMsj.Text = ex.Detail.InnerText;
-        //    lblMsj.ForeColor = Color.Red;
-        //}
-        //catch (Exception ex)
-        //{
-        //    lblMsj.Text = ex.Message;
-        //    lblMsj.ForeColor = Color.Red;
-        //}
+            txtCodigo.Text = "";
+            txtNombre.Text = "";
+            txtPais.Text = "";
+
+            btnGuardar.Enabled = false;
+            btnModificar.Enabled = false;
+            btnEliminar.Enabled = false;
+        }
+        catch (Exception ex)
+        {
+            lblMsj.Text = ex.Message;
+            lblMsj.ForeColor = Color.Red;
+        }
     }
 
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
-        //try
-        //{
-        //    secciones seccion = null;
+        try
+        {
+            Ciudad ciudad = null;
 
-        //    if (Session["Seccion"] != null)
-        //    {
-        //        seccion = (secciones)Session["Seccion"];
-        //        new Servicio().borrar_seccion(seccion);
+            if (Session["Ciudad"] != null)
+            {
+                ciudad = (Ciudad)Session["Ciudad"];
+                new ServicioClient().EliminarCiudad(ciudad);
 
-        //        lblMsj.Text = "Sección Eliminada";
-        //        lblMsj.ForeColor = Color.Green;
+                lblMsj.Text = "Ciudad Eliminada";
+                lblMsj.ForeColor = Color.Green;
 
-        //        txtCodigo.Text = "";
-        //        txtNombre.Text = "";
+                txtCodigo.ReadOnly = false;
 
-        //        btnGuardar.Enabled = false;
-        //        btnEliminar.Enabled = true;
-        //        btnModificar.Enabled = false;
-        //    }
-        //    else
-        //    {
-        //        lblMsj.Text = "Debe elegir una sección";
-        //        lblMsj.ForeColor = Color.DarkOrange;
-        //        return;
-        //    }
-        //}
+                txtCodigo.Text = "";
+                txtNombre.Text = "";
+                txtPais.Text = "";
 
-        //catch (System.Web.Services.Protocols.SoapException ex)
-        //{
-        //    lblMsj.Text = ex.Detail.InnerText;
-        //    lblMsj.ForeColor = Color.Red;
-        //}
-        //catch (Exception ex)
-        //{
-        //    lblMsj.Text = ex.Message;
-        //    lblMsj.ForeColor = Color.Red;
-        //}
+                btnGuardar.Enabled = false;
+                btnEliminar.Enabled = false;
+                btnModificar.Enabled = false;
+            }
+            else
+            {
+                lblMsj.Text = "Debe elegir una Ciudad";
+                lblMsj.ForeColor = Color.DarkOrange;
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            lblMsj.Text = ex.Message;
+            lblMsj.ForeColor = Color.Red;
+        }
     }
 
     protected void btnLimpiar_Click(object sender, EventArgs e)
     {
         txtCodigo.ReadOnly = false;
-
         txtCodigo.Text = "";
         txtNombre.Text = "";
+        txtPais.Text = "";
+        Session["Ciudad"] = null;
+        lblMsj.Text = "";
 
-        Session["Seccion"] = null;
+        btnGuardar.Enabled = false;
+        btnModificar.Enabled = false;
+        btnEliminar.Enabled = false;
+        btnBuscar.Enabled = true;
     }
 }

@@ -23,7 +23,7 @@ namespace Logica
             return instancia;
         }
 
-        static InterfazPersistenciaPronosticosHora FabricaHora = FabricaPersistencia.getPersistenciaPronosticosHora();
+        //static InterfazPersistenciaPronosticosHora FabricaHora = FabricaPersistencia.getPersistenciaPronosticosHora();
         static InterfazPersistenciaPronosticosTiempo FabricaTiempo = FabricaPersistencia.getPersistenciaPronosticosTiempo();
 
         public void CrearPronosticoTiempo(Pronostico_tiempo pt)
@@ -41,99 +41,99 @@ namespace Logica
             return FabricaTiempo.ListarPronosticosAnioActual();
         }
 
-
-        public XmlDocument PronosticoTiempoXML(DateTime fecha)
+        public XmlDocument PronosticosXML(DateTime fecha)
         {
-            //obtengo datos
-            List<Pronostico_tiempo> listado_pt = FabricaTiempo.ListarPronosticosFecha(fecha);
+            List<Pronostico_tiempo> lista = FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosPorFecha(fecha);
 
-            //convierto a xml
             XmlDocument documento = new XmlDocument();
             documento.LoadXml("<?xml version='1.0' encoding='utf-8' ?> <Root> </Root>");
             XmlNode root = documento.DocumentElement;
 
-            //recorro la lista para crear los nodos
-            foreach (Pronostico_tiempo pt in listado_pt)
+            foreach (Pronostico_tiempo pt in lista)
             {
-                XmlElement nodo = documento.CreateElement("PronosticoTiempo");
+                XmlElement nodo = documento.CreateElement("Pronostico_Tiempo");
 
-                XmlElement interno = documento.CreateElement("Interno");
-                interno.InnerText = pt.Interno.ToString();
-                nodo.AppendChild(interno);
+                //XmlElement interno = documento.CreateElement("Interno");
+                //interno.InnerText = pt.Interno.ToString();
+                //nodo.AppendChild(interno);
+                
+                nodo.SetAttribute("ID", pt.Interno.ToString());
 
-                XmlElement fecha_ = documento.CreateElement("Fecha");
-                fecha_.InnerText = pt.Fecha.ToString();
-                nodo.AppendChild(fecha_);
+                XmlElement pais = documento.CreateElement("Pais");
+                pais.InnerText = pt.Ciudad.Pais.ToString();
+                nodo.AppendChild(pais);
 
                 XmlElement ciudad = documento.CreateElement("Ciudad");
-                ciudad.InnerText = pt.Ciudad.ToString();
+                ciudad.InnerText = pt.Ciudad.Nombre_ciudad.ToString();
                 nodo.AppendChild(ciudad);
 
-                XmlElement usuario = documento.CreateElement("Usuario");
-                usuario.InnerText = pt.Usuario.ToString();
-                nodo.AppendChild(usuario);
+                foreach (Pronostico_hora ph in pt.LIST_pronosticos_hora)
+                {
+                    XmlElement nodo_ph = documento.CreateElement("Pronostico_hora");
+                    //XmlAttribute attr = documento.CreateAttribute("Interno");
+                    //nodo_ph.SetAttribute("_pt", pt.Interno.ToString());
 
-                XmlElement ptcos_hora = documento.CreateElement("PtcosHora");
-                ptcos_hora.InnerText = pt.LIST_pronosticos_hora.ToString();
-                nodo.AppendChild(ptcos_hora);
+                    //XmlElement interno_ref = documento.CreateElement("Interno");
+                    //interno_ref.InnerText = pt.Interno.ToString();
+                    //nodo_ph.AppendChild(interno_ref);
+
+                    XmlElement hora = documento.CreateElement("Hora");
+
+                    string str_hora = ph.Hora.ToString();
+                    string str_pad_hora = str_hora.PadLeft(4, '0');
+                    str_hora = str_pad_hora.Substring(0, 2) + ":" + str_pad_hora.Substring(2, 2);
+                    hora.InnerText = str_hora+" hrs";
+
+                    // hora.InnerText = ph.Hora.ToString();
+                    nodo_ph.AppendChild(hora);
+
+                    XmlElement max = documento.CreateElement("Temp_Max");
+                    max.InnerText = ph.Temp_max.ToString() + " °C";
+                    nodo_ph.AppendChild(max);
+
+                    XmlElement min = documento.CreateElement("Temp_Min");
+                    min.InnerText = ph.Temp_min.ToString() + " °C";
+                    nodo_ph.AppendChild(min);
+
+                    XmlElement lluvia = documento.CreateElement("Prob_Lluvias");
+                    lluvia.InnerText = ph.Prob_lluvias.ToString() + " %";
+                    nodo_ph.AppendChild(lluvia);
+
+                    XmlElement tormenta = documento.CreateElement("Prob_Tormenta");
+                    tormenta.InnerText = ph.Prob_tormenta.ToString() + " %";
+                    nodo_ph.AppendChild(tormenta);
+
+                    XmlElement viento = documento.CreateElement("Velo_Viento");
+                    viento.InnerText = ph.V_viento.ToString() + " m/s²";
+                    nodo_ph.AppendChild(viento);
+
+                    XmlElement cielo = documento.CreateElement("Tipo_Cielo");
+
+                    string html_tipo = "";
+                    string tipo = ph.Tipo_cielo.ToString();
+
+                    switch (tipo)
+                    {
+                        case "nublado":
+                            html_tipo = "Nublado";
+                            break;
+                        case "parcialmente_nuboso":
+                            html_tipo = "Parcialmente Nublado";
+                            break;
+                        case "despejado":
+                            html_tipo = "Despejado";
+                            break;
+                    }   
+
+                    cielo.InnerText = html_tipo;
+                    nodo_ph.AppendChild(cielo);
+
+                    nodo.AppendChild(nodo_ph);
+                }
 
                 root.AppendChild(nodo);
-
             }
-
             return documento;
         }
-
-
-        //public XmlDocument PronosticoHoraXML(int interno)
-        //{
-        //    //obtengo datos
-        //    List<Pronostico_hora> listado_ph = FabricaHora.ListarPronosticosHora(interno);
-
-        //    //convierto a xml
-        //    XmlDocument documento = new XmlDocument();
-        //    documento.LoadXml("<?xml version='1.0' encoding='utf-8' ?> <Root> </Root>");
-        //    XmlNode root = documento.DocumentElement;
-
-        //    //recorro la lista para crear los nodos
-        //    foreach (Pronostico_hora ph in listado_ph)
-        //    {
-        //        XmlElement nodo = documento.CreateElement("PronosticoHora");
-
-        //        XmlElement hora = documento.CreateElement("Hora");
-        //        hora.InnerText = ph.Hora.ToString();
-        //        nodo.AppendChild(hora);
-
-        //        XmlElement temp_max = documento.CreateElement("Maxima");
-        //        temp_max.InnerText = ph.Temp_max.ToString();
-        //        nodo.AppendChild(temp_max);
-
-        //        XmlElement temp_min = documento.CreateElement("Minima");
-        //        temp_min.InnerText = ph.Temp_min.ToString("yyyy");
-        //        nodo.AppendChild(temp_min);
-
-        //        XmlElement viento = documento.CreateElement("Viento");
-        //        viento.InnerText = ph.V_viento.ToString();
-        //        nodo.AppendChild(viento);
-
-        //        XmlElement lluvias = documento.CreateElement("Lluvias");
-        //        lluvias.InnerText = ph.Prob_lluvias.ToString();
-        //        nodo.AppendChild(lluvias);
-
-        //        XmlElement tormenta = documento.CreateElement("Tormenta");
-        //        tormenta.InnerText = ph.Prob_tormenta.ToString();
-        //        nodo.AppendChild(tormenta);
-
-        //        XmlElement cielo = documento.CreateElement("Cielo");
-        //        cielo.InnerText = ph.Tipo_cielo.ToString();
-        //        nodo.AppendChild(cielo);
-
-        //        root.AppendChild(nodo);
-
-        //    }
-
-        //    return documento;
-        //}
-
     }
 }

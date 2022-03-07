@@ -31,7 +31,7 @@ namespace Entidades
             get { return fecha; }
             set
             {
-                fecha = Convert.ToDateTime(fecha.ToString("dd/MM/yyyy"));
+                fecha = value;
             }
         }
         [DataMember]
@@ -78,6 +78,11 @@ namespace Entidades
             Ciudad = pCity;
             Usuario = pUser;
             LIST_pronosticos_hora = pList;
+        }
+
+        public Pronostico_tiempo()
+        {
+
         }
     }
 }

@@ -24,6 +24,40 @@ namespace Logica
         static InterfazPersistenciaEmpleados FabricaEmpleados = FabricaPersistencia.getPersistenciaEmpleados();
         static InterfazPersistenciaMeteorologos FabricaMeteorologos = FabricaPersistencia.getPersistenciaMeteorologos();
 
+        public void CrearUsuario(Usuario u)
+        {
+            if (u is Empleado)
+            {
+                FabricaEmpleados.CrearEmpleado((Empleado)u);
+            }
+            else
+            {
+                FabricaMeteorologos.CrearMeteorologo((Meteorologo)u);
+            }
+        }
+        public void ModificarUsuario(Usuario u)
+        {
+            if (u is Empleado)
+            {
+                FabricaEmpleados.ModificarEmpleado((Empleado)u);
+            }
+            else
+            {
+                FabricaMeteorologos.ModificarMeteorologo((Meteorologo)u);
+            }
+        }
+        public void EliminarUsuario(Usuario u)
+        {
+            if (u is Empleado)
+            {
+                FabricaEmpleados.EliminarEmpleado((Empleado)u);
+            }
+            else
+            {
+                FabricaMeteorologos.EliminarMeteorologo((Meteorologo)u);
+            }
+        }
+
         public Usuario LoginUsuario(string username, string password)
         {
             Usuario user = FabricaEmpleados.LoginEmpleado(username, password);
@@ -33,7 +67,6 @@ namespace Logica
             
             return user;
         }
-
         public Usuario BuscarUsuario(string username)
         {
             Usuario user = FabricaEmpleados.BuscarEmpleado(username);

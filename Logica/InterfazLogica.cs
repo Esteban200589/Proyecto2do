@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Entidades;
+using System.Xml;
 
 namespace Logica
 {
@@ -22,8 +20,11 @@ namespace Logica
 
     public interface InterfazLogicaUsuarios
     {
-        Usuario LoginUsuario(string username, string password);
+        void CrearUsuario(Usuario u);
+        void ModificarUsuario(Usuario u);
+        void EliminarUsuario(Usuario u);
 
+        Usuario LoginUsuario(string username, string password);
         Usuario BuscarUsuario(string username);
     }
 
@@ -32,8 +33,9 @@ namespace Logica
         void CrearPronosticoTiempo(Pronostico_tiempo pt);
 
         List<Pronostico_tiempo> ListarPronosticosPorFecha(DateTime fecha);
-
         List<Pronostico_tiempo> ListarPronosticosAnioActual();
+
+        XmlDocument PronosticosXML(DateTime fecha);
     }
 }
 

@@ -23,6 +23,115 @@ namespace Persistencia
         }
 
 
+        public void CrearMeteorologo(Meteorologo m)
+        {
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+
+            try
+            {
+                cnn.Open();
+                SqlCommand cmd = new SqlCommand("crear_usuario_meteorologo", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("username", m.Username);
+                cmd.Parameters.AddWithValue("nombre", m.Nombre);
+                cmd.Parameters.AddWithValue("pass", m.Password);
+                cmd.Parameters.AddWithValue("telefono", m.Telefono);
+                cmd.Parameters.AddWithValue("correo", m.Correo);
+
+                SqlParameter ret = new SqlParameter();
+                ret.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(ret);
+                cmd.ExecuteNonQuery();
+
+                int valor = Convert.ToInt32(ret.Value);
+
+                if (valor == -1)
+                    throw new Exception("Ya existe ese Usuario.");
+                if (valor == -2)
+                    throw new Exception("Hubo un error de Permisos al querer crear el Usuario.");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }
+
+        public void ModificarMeteorologo(Meteorologo m)
+        {
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+
+            try
+            {
+                cnn.Open();
+                SqlCommand cmd = new SqlCommand("modificar_ususario_meteorologo", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("username", m.Username);
+                cmd.Parameters.AddWithValue("nombre", m.Nombre);
+                cmd.Parameters.AddWithValue("pass", m.Password);
+                cmd.Parameters.AddWithValue("telefono", m.Telefono);
+                cmd.Parameters.AddWithValue("correo", m.Correo);
+
+                SqlParameter ret = new SqlParameter();
+                ret.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(ret);
+                cmd.ExecuteNonQuery();
+
+                int valor = Convert.ToInt32(ret.Value);
+
+                if (valor == -1)
+                    throw new Exception("No existe el Usuario.");
+                if (valor == -2)
+                    throw new Exception("No existe el Empleado.");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+
+        }
+
+        public void EliminarMeteorologo(Meteorologo m)
+        {
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+
+            try
+            {
+                cnn.Open();
+                SqlCommand cmd = new SqlCommand("eliminar_ususario_meteorologo", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("username", m.Username);
+
+                SqlParameter ret = new SqlParameter();
+                ret.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(ret);
+                cmd.ExecuteNonQuery();
+
+                int valor = Convert.ToInt32(ret.Value);
+
+                if (valor == -1)
+                    throw new Exception("No existe el Usuario.");
+                if (valor == -2)
+                    throw new Exception("No existe el Meteorologo.");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }
+
+
         public Meteorologo LoginMeteorologo(string username, string password)
         {
             Meteorologo user = null;
@@ -112,6 +221,5 @@ namespace Persistencia
             }
             return p;
         }
-
     }
 }

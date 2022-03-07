@@ -38,9 +38,9 @@
                                 </div>
 
                                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                    <%--<div class="form-group col-12">
-                                        map
-                                    </div>--%>
+                                    <div class="form-group col-12" style="margin:1%;">
+                                        <img src="" id="img" style="width:auto;height:auto;"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>

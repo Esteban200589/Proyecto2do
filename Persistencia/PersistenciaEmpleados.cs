@@ -23,6 +23,113 @@ namespace Persistencia
         }
 
 
+        public void CrearEmpleado(Empleado e)
+        {
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+
+            try
+            {
+                cnn.Open();
+                SqlCommand cmd = new SqlCommand("crear_usuario_empleado", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("username", e.Username);
+                cmd.Parameters.AddWithValue("nombre", e.Nombre);
+                cmd.Parameters.AddWithValue("pass", e.Password);
+                cmd.Parameters.AddWithValue("hrs", e.Carga_horaria);
+
+                SqlParameter ret = new SqlParameter();
+                ret.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(ret);
+                cmd.ExecuteNonQuery();
+
+                int valor = Convert.ToInt32(ret.Value);
+
+                if (valor == -1)
+                    throw new Exception("Ya existe ese Usuario.");
+                if (valor == -2)
+                    throw new Exception("Hubo un error de Permisos al querer crear el Usuario.");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }
+
+        public void ModificarEmpleado(Empleado e)
+        {
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+
+            try
+            {
+                cnn.Open();
+                SqlCommand cmd = new SqlCommand("modificar_ususario_empleado", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("username", e.Username);
+                cmd.Parameters.AddWithValue("nombre", e.Nombre);
+                cmd.Parameters.AddWithValue("pass", e.Password);
+                cmd.Parameters.AddWithValue("hrs", e.Carga_horaria);
+
+                SqlParameter ret = new SqlParameter();
+                ret.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(ret);
+                cmd.ExecuteNonQuery();
+
+                int valor = Convert.ToInt32(ret.Value);
+
+                if (valor == -1)
+                    throw new Exception("No existe el Usuario.");
+                if (valor == -2)
+                    throw new Exception("No existe el Empleado.");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+
+        }
+
+        public void EliminarEmpleado(Empleado e)
+        {
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+
+            try
+            {
+                cnn.Open();
+                SqlCommand cmd = new SqlCommand("eliminar_ususario_empleado", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("username", e.Username);
+
+                SqlParameter ret = new SqlParameter();
+                ret.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(ret);
+                cmd.ExecuteNonQuery();
+
+                int valor = Convert.ToInt32(ret.Value);
+
+                if (valor == -1)
+                    throw new Exception("No existe el Usuario.");
+                if (valor == -2)
+                    throw new Exception("No existe el Empleado.");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }
+
+
         public Empleado LoginEmpleado(string username, string password)
         {
             Empleado user = null;
@@ -85,3 +192,4 @@ namespace Persistencia
         }
     }
 }
+

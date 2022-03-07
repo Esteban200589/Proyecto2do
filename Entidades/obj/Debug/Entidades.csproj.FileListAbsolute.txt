@@ -1,9 +1,10 @@
-C:\Users\Administrador\Desktop\Proyecto2do\Entidades\bin\Debug\Entidades.dll
-C:\Users\Administrador\Desktop\Proyecto2do\Entidades\bin\Debug\Entidades.pdb
-C:\Users\Administrador\Desktop\Proyecto2do\Entidades\obj\Debug\Entidades.dll
-C:\Users\Administrador\Desktop\Proyecto2do\Entidades\obj\Debug\Entidades.pdb
 C:\Users\Inforpyme\Desktop\Proyecto2do\Entidades\bin\Debug\Entidades.dll
 C:\Users\Inforpyme\Desktop\Proyecto2do\Entidades\bin\Debug\Entidades.pdb
 C:\Users\Inforpyme\Desktop\Proyecto2do\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
 C:\Users\Inforpyme\Desktop\Proyecto2do\Entidades\obj\Debug\Entidades.dll
 C:\Users\Inforpyme\Desktop\Proyecto2do\Entidades\obj\Debug\Entidades.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\bin\Debug\Entidades.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\bin\Debug\Entidades.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\obj\Debug\Entidades.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\obj\Debug\Entidades.pdb

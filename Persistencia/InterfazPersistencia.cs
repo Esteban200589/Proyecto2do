@@ -12,11 +12,19 @@ namespace Persistencia
 {
     public interface InterfazPersistenciaEmpleados
     {
+        void CrearEmpleado(Empleado e);
+        void ModificarEmpleado(Empleado e);
+        void EliminarEmpleado(Empleado e);
+
         Empleado LoginEmpleado(string username, string password);
         Empleado BuscarEmpleado(string username);
     }
     public interface InterfazPersistenciaMeteorologos
     {
+        void CrearMeteorologo(Meteorologo m);
+        void ModificarMeteorologo(Meteorologo m);
+        void EliminarMeteorologo(Meteorologo m);
+
         Meteorologo LoginMeteorologo(string username, string password);
         Meteorologo BuscarMeteorologoActivo(string username);
     }

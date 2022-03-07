@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Entidades;
 using System.Data.SqlClient;
 using System.Data;
+using System.Globalization;
 
 namespace Persistencia
 {
@@ -78,6 +79,7 @@ namespace Persistencia
             SqlConnection cnn = new SqlConnection(Conexion.Cnn);
 
             List<Pronostico_hora> list_ph = new List<Pronostico_hora>();
+            //IFormatProvider formato = new CultureInfo("en-US", true);
 
             try
             {

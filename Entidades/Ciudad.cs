@@ -37,6 +37,8 @@ namespace Entidades
             {
                 if (value == null)
                     throw new Exception("Debe contener un nombre.");
+                else if (value == "")
+                    throw new Exception("Debe contener un nombre.");
                 else if (value.Length >= 30)
                     throw new Exception("El nombre debe contener como máximo 30 caracteres.");
                 else
@@ -50,6 +52,8 @@ namespace Entidades
             set
             {
                 if (value == null)
+                    throw new Exception("Debe indicar el País.");
+                else if (value == "")
                     throw new Exception("Debe indicar el País.");
                 else if (value.Length >= 20)
                     throw new Exception("El país debe contener como máximo 20 caracteres.");         

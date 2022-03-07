@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    
+   
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -90,9 +90,9 @@
                                         </asp:GridView>
                                     </div><br/>
                                 </div>   
-                                </div>
                             </div>
                         </div>
+
                         <!-- /.card-footer -->
                         <div class="card-footer"> 
                                         
@@ -117,6 +117,7 @@
                             </div>
                         </div>
                     </div>
+                        
                 </div>
             </div>
         </div>

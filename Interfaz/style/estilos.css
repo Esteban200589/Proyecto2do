@@ -14,7 +14,6 @@
 @import url(bootstrap.css.map);
 @import url(bootstrap.min.css.map);
 
-
 #as-navbar-toggler {
     position: absolute;
     right: 1%;
@@ -43,11 +42,17 @@
     bottom: 13px;
 }
 
-
 #perfil {
     position: absolute;
     right: 1%;
     top: 10%;
     height: 35px;
     margin-bottom: 10px;
+}
+
+@media screen and (min-width: 280px) and (max-width: 768px) {
+    #perfil{
+        display:none;
+        visibility:hidden;
+    }
 }

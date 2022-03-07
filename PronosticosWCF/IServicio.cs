@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
+using System.Xml;
 using Entidades;
 using Logica;
 
@@ -39,6 +40,15 @@ namespace PronosticosWCF
         #region usuarios
 
         [OperationContract]
+        void CrearUsuario(Usuario u);
+
+        [OperationContract]
+        void ModificarUsuario(Usuario u);
+
+        [OperationContract]
+        void EliminarUsuario(Usuario u);
+
+        [OperationContract]
         Usuario LoginUsuario(string username, string password);
 
         [OperationContract]
@@ -57,6 +67,8 @@ namespace PronosticosWCF
         [OperationContract]
         List<Pronostico_tiempo> ListarPronosticosAnioActual();
 
+        [OperationContract]
+        XmlDocument PronosticosXML(DateTime fecha);
         #endregion
     }
 }

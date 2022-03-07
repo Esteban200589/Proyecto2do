@@ -4,7 +4,6 @@ C:\Users\Administrador\Desktop\Proyecto2do\Persistencia\bin\Release\Entidades.dl
 C:\Users\Administrador\Desktop\Proyecto2do\Persistencia\bin\Release\Entidades.pdb
 C:\Users\Administrador\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.dll
 C:\Users\Administrador\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.pdb
-C:\Users\Administrador\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.csprojResolveAssemblyReference.cache
 C:\Users\Inforpyme\Desktop\Proyecto2do\Persistencia\bin\Release\Persistencia.dll
 C:\Users\Inforpyme\Desktop\Proyecto2do\Persistencia\bin\Release\Persistencia.pdb
 C:\Users\Inforpyme\Desktop\Proyecto2do\Persistencia\bin\Release\Entidades.dll
@@ -14,3 +13,6 @@ C:\Users\Inforpyme\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.csp
 C:\Users\Inforpyme\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.csproj.CopyComplete
 C:\Users\Inforpyme\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.dll
 C:\Users\Inforpyme\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.csprojAssemblyReference.cache
+C:\Users\Administrador\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Desktop\Proyecto2do\Persistencia\obj\Release\Persistencia.csproj.CopyComplete

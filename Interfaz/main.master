@@ -23,12 +23,12 @@
             <div class="conteiner-fluid">
 
                 <a href="#" class="navbar-brand">Menú Principal</a>
-                <div id="perfil" class="col-sm-3 col-md-6 col-lg-6 col-xl-6" style="width:20%; text-align:center;float:left;">
+                <div id="perfil" class="col-sm-3 col-md-6 col-lg-6 col-xl-6" style="width:30%; text-align:right;float:right;margin-left:1%;">
                     <%--<span>Fecha: <asp:Label ID="lblFecha" runat="server" Text="Label"></asp:Label></span>--%>
                     <div>
                         <asp:Label ID="lblTipoUser" runat="server"></asp:Label>
-                        <asp:Label ID="lblUsername" runat="server"></asp:Label><br />
-                        <asp:Button ID="logout" class="btn btn-secondary" Text="Logout" runat="server" style="padding:2%;" OnClick="logout_Click"/>
+                        <asp:Label ID="lblUsername" runat="server"></asp:Label>
+                        <asp:Button ID="logout" class="btn btn-secondary" Text="Logout" runat="server" style="padding:2%;margin-left:2%;" OnClick="logout_Click"/>
                     </div>
                 </div> 
 
@@ -39,22 +39,9 @@
                      <span>x</span>
                 </button> 
 
-                <div id="menuNav1" runat="server" class="menu collapse navbar-collapse">
-                    <ul class="navbar-nav ms-6">
-                        <li class="nav-item"><a class="nav-link" href="index.aspx">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="abm_ciudades.aspx">Ciudades</a></li>
-                        <li class="nav-item"><a class="nav-link" href="abm_empleados.aspx">Empleados</a></li>
-                        <li class="nav-item"><a class="nav-link" href="abm_meteorologos.aspx">Meteorologos</a></li>
-                    </ul>
-                </div>
+                <div id="menuNav1" runat="server" class="menu collapse navbar-collapse"> </div>
 
-                <div id="menuNav2"  runat="server" class="menu collapse navbar-collapse">
-                    <ul class="navbar-nav ms-6">
-                        <li class="nav-item"><a class="nav-link" href="index.aspx">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="generar_pronostico.aspx">Generar Pronostico</a></li>
-                        <li class="nav-item"><a class="nav-link" href="listado_pronosticos.aspx">Listado de Pronosticos</a></li>
-                    </ul>
-                </div>
+                <div id="menuNav2"  runat="server" class="menu collapse navbar-collapse"> </div>
             </div>
         </nav><br/>
 
@@ -67,17 +54,6 @@
 
     <script>
         console.log('Master');
-
-        $('#menuNav1').css('display', 'none');
-        $('#menuNav2').css('display', 'none');
-        $('#menuNav1').css('visibility', 'hidden');
-        $('#menuNav2').css('visibility', 'hidden');
-
-        if ($('#lblTipoUser').text() == 'Empleado')
-            $('#menuNav1').css('visibility', 'visible');
-        
-        if ($('#lblTipoUser').text() == 'Meteorologo')
-            $('#menuNav2').css('visibility', 'visible');
 
         //$("#as-navbar-toggler").click(function () {
         //    this.style.display = 'none';

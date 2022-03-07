@@ -1,12 +1,3 @@
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Logica.dll
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Logica.pdb
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Entidades.dll
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Persistencia.dll
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Entidades.pdb
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Persistencia.pdb
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Debug\Logica.dll
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Debug\Logica.pdb
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Debug\Logica.csprojResolveAssemblyReference.cache
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\bin\Debug\Logica.dll
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\bin\Debug\Logica.pdb
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\bin\Debug\Entidades.dll
@@ -18,3 +9,14 @@ C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\obj\Debug\Logica.csproj.CoreCompil
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\obj\Debug\Logica.csproj.CopyComplete
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\obj\Debug\Logica.dll
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\obj\Debug\Logica.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Logica.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Logica.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Entidades.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Persistencia.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Entidades.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Debug\Persistencia.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Debug\Logica.csprojAssemblyReference.cache
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Debug\Logica.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Debug\Logica.csproj.CopyComplete
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Debug\Logica.dll
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Debug\Logica.pdb

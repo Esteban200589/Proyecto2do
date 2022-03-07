@@ -8,3 +8,5 @@ C:\Users\Inforpyme\Desktop\Proyecto2do\Entidades\obj\Release\Entidades.csproj.As
 C:\Users\Inforpyme\Desktop\Proyecto2do\Entidades\obj\Release\Entidades.csproj.CoreCompileInputs.cache
 C:\Users\Inforpyme\Desktop\Proyecto2do\Entidades\obj\Release\Entidades.dll
 C:\Users\Inforpyme\Desktop\Proyecto2do\Entidades\obj\Release\Entidades.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\obj\Release\Entidades.csprojAssemblyReference.cache
+C:\Users\Administrador\Desktop\Proyecto2do\Entidades\obj\Release\Entidades.csproj.CoreCompileInputs.cache

@@ -84,6 +84,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Entidades\Entidades.csproj">
       <Project>{33db95ee-e354-469d-96b4-0ff9ef06ff1a}</Project>
       <Name>Entidades</Name>

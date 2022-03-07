@@ -8,7 +8,6 @@ using System.Web.UI.WebControls;
 using System.Drawing;
 using Entidades;
 using Logica;
-
 public partial class main : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -24,9 +23,26 @@ public partial class main : System.Web.UI.MasterPage
                 Usuario user = (Usuario)Session["Usuario"];
 
                 if (user is Empleado)
+                {
+                    this.menuNav1.InnerHtml = "<ul class='navbar-nav ms-6'>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='index.aspx'>Inicio</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_ciudades.aspx'>Ciudades</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_empleados.aspx'>Empleados</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_meteorologos.aspx'>Meteorologos</a></li>";
+                    this.menuNav1.InnerHtml += "</ul>";
+
                     lblTipoUser.Text = "Empleado";
-                else // is Meteorologo
+                }
+                else
+                {
+                    this.menuNav1.InnerHtml = "<ul class='navbar-nav ms-6'>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='index.aspx'>Inicio</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='generar_pronostico.aspx'>Generar Pronosticos</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='listado_pronosticos.aspx'>Listar Pronosticos</a></li>";
+                    this.menuNav1.InnerHtml += "</ul>";
+
                     lblTipoUser.Text = "Meteorologo";
+                }
 
                 lblUsername.Text = user.Username;
                 lblUsername.ForeColor = Color.Green;
@@ -39,7 +55,6 @@ public partial class main : System.Web.UI.MasterPage
             lblMsj.ForeColor = Color.Red;
         }
     }
-
 
     protected void logout_Click(object sender, EventArgs e)
     {

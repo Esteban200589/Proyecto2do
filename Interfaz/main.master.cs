@@ -13,8 +13,6 @@ public partial class main : System.Web.UI.MasterPage
     protected void Page_Load(object sender, EventArgs e)
     {
         //lblFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-        //menuNav1.Attributes.Add("style", "display:none;");
-        //menuNav2.Attributes.Add("style", "display:none;");
 
         try
         {
@@ -25,10 +23,26 @@ public partial class main : System.Web.UI.MasterPage
                 Usuario user = (Usuario)Session["Usuario"];
 
                 if (user is Empleado)
-                    lblTipoUser.Text = "Empleado";
-                else // is Meteorologo
-                    lblTipoUser.Text = "Meteorologo";
+                {
+                    this.menuNav1.InnerHtml = "<ul class='navbar-nav ms-6'>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='index.aspx'>Inicio</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_ciudades.aspx'>Ciudades</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_empleados.aspx'>Empleados</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_meteorologos.aspx'>Meteorologos</a></li>";
+                    this.menuNav1.InnerHtml += "</ul>";
 
+                    lblTipoUser.Text = "Empleado";
+                }
+                else {
+                    this.menuNav1.InnerHtml = "<ul class='navbar-nav ms-6'>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='index.aspx'>Inicio</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='generar_pronostico.aspx'>Generar Pronosticos</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='listado_pronosticos.aspx'>Listar Pronosticos</a></li>";
+                    this.menuNav1.InnerHtml += "</ul>";
+
+                    lblTipoUser.Text = "Meteorologo";
+                }
+                
                 lblUsername.Text = user.Username;
                 lblUsername.ForeColor = Color.Green;
                 lblTipoUser.ForeColor = Color.Green;

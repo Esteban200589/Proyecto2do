@@ -6,7 +6,6 @@ C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Release\Entidades.pdb
 C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Release\Logica.dll
 C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Release\Logica.pdb
 C:\Users\Administrador\Desktop\Proyecto2do\Logica\bin\Release\Persistencia.pdb
-C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Release\Logica.csprojResolveAssemblyReference.cache
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\bin\Release\Logica.dll
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\bin\Release\Logica.pdb
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\bin\Release\Entidades.dll
@@ -18,3 +17,6 @@ C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\obj\Release\Logica.csproj.CoreComp
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\obj\Release\Logica.csproj.CopyComplete
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\obj\Release\Logica.dll
 C:\Users\Inforpyme\Desktop\Proyecto2do\Logica\obj\Release\Logica.pdb
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Release\Logica.csprojAssemblyReference.cache
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Release\Logica.csproj.CoreCompileInputs.cache
+C:\Users\Administrador\Desktop\Proyecto2do\Logica\obj\Release\Logica.csproj.CopyComplete

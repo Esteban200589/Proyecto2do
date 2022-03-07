@@ -12,7 +12,6 @@ go
 use Proyecto_Pronosticos
 go
 
-
 -----------------------------------------------------------------------------------------------------------
 					/*/*/*/*/*/*/*/*/*/*	SERVIDOR   	*/*/*/*/*/*/*/*/*/*/
 -----------------------------------------------------------------------------------------------------------
@@ -163,60 +162,10 @@ go
 		end	  
 		else
 		begin
-			return -1
+			return -2
 		end
 	end
 	go
------------------------------------------------------------------------------------------------------------
-		-- ELIMINAR USUARIO EMPLEADO --		2
------------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'eliminar_ususario_empleado')
-		drop proc eliminar_ususario_empleado
-	go
-	create procedure eliminar_ususario_empleado 
-		@username varchar(20)
-	as
-	begin
-		declare @var_sentencia varchar(max)
-		declare @rol varchar(50)
-
-		if not(exists(select * from usuarios where username = @username))
-			return -1
-		
-		set @rol = 'rol_empleados'
-		exec sp_droprolemember @rolename=@rol, @membername=@username 
-		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
-		exec sp_dropsrvrolemember @loginame=@username, @rolename='securityadmin'
-
-		begin try
-			begin transaction
-				delete empleados where usuario = @username
-				delete usuarios where username = @username
-			commit transaction
-		end try
-		begin catch
-			rollback transaction
-			return @@error
-		end catch
-		
-		if (@@ERROR = 0)
-		begin
-
-			set @var_sentencia = 'drop user [' + @username + ']'
-			exec (@var_sentencia)
-
-			set @var_sentencia = 'drop login [' + @username + ']'
-			exec (@var_sentencia)	
-
-			return 1
-		end	  
-		else
-		begin
-			return -1
-		end	
-	end
-	go
------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
 		-- CREAR USUARIO METEOROLOGO --		3
 -----------------------------------------------------------------------------------------------------------
@@ -256,17 +205,69 @@ go
 			return @@error
 		end catch
 		
-		set @var_sentencia ='create login ['+@username+'] with password = '+QUOTENAME(@pass, '''')
-		exec (@var_sentencia)
+		if (@@ERROR = 0)
+		begin
+			set @var_sentencia ='create login ['+@username+'] with password = '+QUOTENAME(@pass, '''')
+			exec (@var_sentencia)
 
-		set @var_sentencia = 'create user [' + @username + '] from login [' + @username + ']'
-		exec (@var_sentencia)
+			set @var_sentencia = 'create user [' + @username + '] from login [' + @username + ']'
+			exec (@var_sentencia)
+			
+			set @rol = 'rol_empleados'
+			exec sp_addrolemember @rolename=@rol, @membername=@username
+			exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
+			exec sp_addsrvrolemember @loginame=@username, @rolename= 'dbcreator'
+			  
+			return 1
+		end	  
+		else
+		begin
+			return -2
+		end
+	end
+	go
+-----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+		-- ELIMINAR USUARIO EMPLEADO --		2
+-----------------------------------------------------------------------------------------------------------
+	if exists (select * from sysobjects where name = 'eliminar_ususario_empleado')
+		drop proc eliminar_ususario_empleado
+	go
+	create procedure eliminar_ususario_empleado 
+		@username varchar(20)
+	as
+	begin
+		declare @var_sentencia varchar(max)
+		declare @rol varchar(50)
+
+		if not(exists(select * from usuarios where username = @username))
+			return -1
+		if not(exists(select * from empleados where usuario = @username))
+			return -2
 		
 		set @rol = 'rol_empleados'
-		exec sp_addrolemember @rolename=@rol, @membername=@username
-		exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
-		exec sp_addsrvrolemember @loginame=@username, @rolename= 'dbcreator'
-			  
+		exec sp_droprolemember @rolename=@rol, @membername=@username 
+		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
+		exec sp_dropsrvrolemember @loginame=@username, @rolename='securityadmin'
+
+		begin try
+			begin transaction
+				delete empleados where usuario = @username
+				delete usuarios where username = @username
+			commit transaction
+		end try
+		begin catch
+			rollback transaction
+			-- return @@error
+			raiserror(0,16,16,@@error)
+		end catch
+		
+		set @var_sentencia = 'drop user [' + @username + ']'
+		exec (@var_sentencia)
+
+		set @var_sentencia = 'drop login [' + @username + ']'
+		exec (@var_sentencia)	
+
 		return 1
 	end
 	go
@@ -285,30 +286,39 @@ go
 		
 		if not(exists(select * from usuarios where username = @username))
 			return -1
-		
-		set @rol = 'rol_meteorologos'
-		exec sp_droprolemember @rolename=@rol, @membername=@username 
-		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
-		exec sp_dropsrvrolemember @loginame=@username, @rolename= 'dbcreator'
+		if not(exists(select * from meteorologos where usuario = @username))
+			return -2
+		if exists(select * from pronosticos_tiempo where usuario = @username)
+		begin
+			update meteorologos set deleted = 1 where usuario = @username
+		end
+			else
+		begin
+			set @rol = 'rol_meteorologos'
+			exec sp_droprolemember @rolename=@rol, @membername=@username 
+			exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
+			exec sp_dropsrvrolemember @loginame=@username, @rolename= 'dbcreator'
 
-		begin try
-			begin transaction
-				delete meteorologos where usuario = @username
-				delete usuarios where username = @username
-			commit transaction
-		end try
-		begin catch
-			rollback transaction
-			return @@error
-		end catch	
-		
-		set @var_sentencia = 'drop user [' + @username + ']'
-		exec (@var_sentencia)
-
-		set @var_sentencia = 'drop login [' + @username + ']'
-		exec (@var_sentencia)
+			begin try
+				begin transaction
+					delete meteorologos where usuario = @username
+					delete usuarios where username = @username
+				commit transaction
+			end try
+			begin catch
+				rollback transaction
+				-- return @@error
+				raiserror(0,16,16,@@error)
+			end catch	
 			
-		return 1
+			set @var_sentencia = 'drop user [' + @username + ']'
+			exec (@var_sentencia)
+
+			set @var_sentencia = 'drop login [' + @username + ']'
+			exec (@var_sentencia)
+			
+			return 1
+		end
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
@@ -773,7 +783,7 @@ grant execute on crear_pronostico_tiempo to rol_meteorologos
 go
 grant execute on crear_pronostico_hora to rol_meteorologos
 go
-grant execute on modificar_ususario_meteorologo to rol_empleados
+grant execute on modificar_ususario_meteorologo to rol_meteorologos
 go
 
 grant execute on buscar_ciudad_activa to rol_meteorologos
@@ -783,7 +793,7 @@ go
 
 grant execute on listar_ciudades to rol_empleados
 go
-grant execute on listar_pronosticos_hora to rol_empleados
+grant execute on listar_pronosticos_hora to rol_meteorologos
 go
 
 -----------------------------------------------------------------------------------------------------------
@@ -823,6 +833,16 @@ exec crear_usuario_meteorologo 'Laura36663', 'Larua Setevelatan', '123laur**', '
 exec crear_usuario_meteorologo 'Usuario1',   'Usuario1',		  '000admi**', '094143100', 'usuario1@gmail.com'
 
 
+--exec eliminar_ususario_empleado 'Esteban89'
+--exec eliminar_ususario_empleado 'Analia123'
+--exec eliminar_ususario_empleado 'Admin'
+--exec eliminar_ususario_empleado 'Usuario2'
+
+--exec eliminar_ususario_meteorologo 'Carlos29'
+--exec eliminar_ususario_meteorologo 'Laura36663'
+--exec eliminar_ususario_meteorologo 'Usuario1'
+
+
 insert ciudades (codigo,nombre_ciudad,pais)
 	values ('URUMVD', 'Montevideo', 'Uruguay'),
 		   ('URUCAN', 'Canelones', 'Uruguay'),
@@ -841,7 +861,7 @@ go
 insert pronosticos_tiempo (fecha,usuario,ciudad)
 	values ('20220310 06:00:00','Carlos29','URUMVD'),
 		   ('20220310 06:15:00','Carlos29','URUCAN'),
-		   ('20220310 07:30:00','Analia123','URUCAN'),
+		   ('20220310 07:30:00','Carlos29','URUCAN'),
 		   ('20220310 08:00:00','Laura36663','URUPDE'),
 		   ('20220310 09:15:00','Laura36663','URUPDE'),
 		   ('20220310 15:30:00','Carlos29','URUMVD'),
@@ -857,9 +877,9 @@ insert pronosticos_tiempo (fecha,usuario,ciudad)
 		   ('20220311 08:00:00','Carlos29','URUSAN'),
 		   ('20220311 09:15:00','Carlos29','URUMVD'),
 		   ('20220311 15:30:00','Carlos29','URUMVD'),
-		   ('20220312 18:00:00','Esteban89','URUMVD'),
+		   ('20220312 18:00:00','Carlos29','URUMVD'),
 		   ('20220312 18:15:00','Carlos29','BRSSAP'),
-		   ('20220312 18:30:00','Esteban89','URUMVD'),
+		   ('20220312 18:30:00','Laura36663','URUMVD'),
 		   ('20220313 20:00:00','Laura36663','ARGBAS'),
 		   ('20220313 20:15:00','Laura36663','URUMVD'),
 		   ('20220313 23:30:00','Laura36663','URUMVD')
