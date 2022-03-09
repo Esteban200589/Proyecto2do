@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="946101af-f87a-4926-b450-5bf4e2762704" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a6f799ae-a8c4-4afb-9951-fd05537c1e7c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -21,12 +21,11 @@
     <MetadataSource Address="http://localhost/PronosticosWCF/Servicio.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Servicio.wsdl" MetadataType="Wsdl" ID="624315cd-3cbc-4ed3-afb2-c2c498b1c881" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?wsdl" />
-    <MetadataFile FileName="Servicio.xsd" MetadataType="Schema" ID="c795b651-cbdf-4c70-bb0e-b5384ea3d0a2" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd0" />
-    <MetadataFile FileName="Servicio1.xsd" MetadataType="Schema" ID="e87465e6-b094-46b2-8e73-10416ddf6bbe" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd1" />
-    <MetadataFile FileName="Servicio2.xsd" MetadataType="Schema" ID="1637090f-12a7-43fc-a07c-1d8bfd66e451" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd2" />
-    <MetadataFile FileName="Servicio3.xsd" MetadataType="Schema" ID="d8f693ac-eb3c-4600-a55d-2c11cfc264d5" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd3" />
-    <MetadataFile FileName="Servicio.disco" MetadataType="Disco" ID="07c19a40-f6d5-4ba2-bbbf-47dcaa242069" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?disco" />
+    <MetadataFile FileName="Servicio2.xsd" MetadataType="Schema" ID="81efcea8-06ff-493b-9368-4b5d685d0ce0" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd2" />
+    <MetadataFile FileName="Servicio.wsdl" MetadataType="Wsdl" ID="fe977f48-4b9c-4e84-84a8-2f18fcdcec02" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?wsdl" />
+    <MetadataFile FileName="Servicio.xsd" MetadataType="Schema" ID="c478b3cd-2065-4f0d-a5a2-ecd7b66a08ef" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd0" />
+    <MetadataFile FileName="Servicio1.xsd" MetadataType="Schema" ID="f3768684-3f29-4ae9-83a8-811a07323fb7" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd1" />
+    <MetadataFile FileName="Servicio.disco" MetadataType="Disco" ID="2b8054fd-89df-4c3e-9444-2ee722270d83" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

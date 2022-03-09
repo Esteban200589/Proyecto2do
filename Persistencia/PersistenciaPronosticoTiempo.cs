@@ -26,7 +26,7 @@ namespace Persistencia
 
         public void CrearPronosticoTiempo(Pronostico_tiempo pt)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             SqlCommand cmd = new SqlCommand("crear_pronostico_tiempo", cnn);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -76,7 +76,7 @@ namespace Persistencia
         public List<Pronostico_tiempo> ListarPronosticosFecha(DateTime fecha)
         {
             List<Pronostico_tiempo> lista = new List<Pronostico_tiempo>();
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             List<Pronostico_hora> list_ph = new List<Pronostico_hora>();
             //IFormatProvider formato = new CultureInfo("en-US", true);
@@ -120,7 +120,7 @@ namespace Persistencia
         public List<Pronostico_tiempo> ListarPronosticosAnioActual()
         {
             List<Pronostico_tiempo> lista = new List<Pronostico_tiempo>();
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             List<Pronostico_hora> list_ph = new List<Pronostico_hora>();
 

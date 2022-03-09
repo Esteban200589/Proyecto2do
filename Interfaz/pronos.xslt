@@ -10,7 +10,7 @@
         </xsl:copy>-->
 
 		<div class="table">
-			<div class="row" style="background-color:#9b9b9b;height:27px;">
+			<div class="row" style="background-color:#9b9b9b;height:57px;">
 				<div class="col-6 label"> Pais </div>
 				<div class="col-6 label"> Ciudad </div>
 			</div>
@@ -19,10 +19,14 @@
 
 				<div class="row">
 					<div class="col-6 pais" style="background-color:#CCCCCC;">
-						<xsl:value-of select="Pais" />
+						<span style="padding-top:2%;">
+							<xsl:value-of select="Pais" />
+						</span>
 					</div>
 					<div class="col-6 ciudad" style="background-color:#CCCCCC;">
-						<xsl:value-of select="Ciudad" />
+						<span style="padding-top:2%;">
+							<xsl:value-of select="Ciudad" />
+						</span>
 					</div>
 					<div class="col-12 hora" style="background-color:white;border-width:1px;border-style:solid;text-align:left;">
 						<xsl:for-each select="Root/Pronostico_Tiempo/Pronostico_Hora  | node()">						

@@ -95,7 +95,7 @@ namespace PronosticosWCF
             return FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosAnioActual();
         }
 
-        XmlDocument IServicio.PronosticosXML(DateTime fecha)
+        string IServicio.PronosticosXML(DateTime fecha)
         {
             return FabricaLogica.GetLogicaPronosticosTiempo().PronosticosXML(fecha);
         }

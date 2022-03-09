@@ -35,8 +35,6 @@ namespace Logica
         List<Pronostico_tiempo> ListarPronosticosPorFecha(DateTime fecha);
         List<Pronostico_tiempo> ListarPronosticosAnioActual();
 
-        XmlDocument PronosticosXML(DateTime fecha);
+        string PronosticosXML(DateTime fecha);
     }
 }
-
-// XmlDocument ListadoNoticiasXML();}

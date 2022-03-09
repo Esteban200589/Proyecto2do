@@ -41,7 +41,7 @@ namespace Logica
             return FabricaTiempo.ListarPronosticosAnioActual();
         }
 
-        public XmlDocument PronosticosXML(DateTime fecha)
+        public string PronosticosXML(DateTime fecha)
         {
             List<Pronostico_tiempo> lista = FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosPorFecha(fecha);
 
@@ -133,7 +133,7 @@ namespace Logica
 
                 root.AppendChild(nodo);
             }
-            return documento;
+            return documento.OuterXml;
         }
     }
 }

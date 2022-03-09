@@ -14,6 +14,7 @@
 <body>
     <form id="form1" runat="server">      
         <section class="content">
+
             <div class="container-fluid">
                 <div class="row">
                         <!-- general form elements disabled -->
@@ -23,8 +24,7 @@
                             </div>
 
                             <div class="col-sm-12">
-
-                                <div class="row" style="margin:2%;">
+                                <div class="row" style="margin: 2%;height:765px;">
                                     
                                     <div id="login">
                                         <a href="login.aspx" class="btn btn-secondary" style="float:right;position:absolute;right:10%;top:-60px;color:white;">LOGIN</a>
@@ -34,20 +34,29 @@
                                         <div class="row" style="padding:1%;margin:2%;">
                                             <%--<label class="col-form-label" for="exampleFormControlInput1">Fecha: </label>
                                             <br />--%>
-                                            <asp:Calendar ID="calendario" class="table-light" runat="server" Height="16px" Width="400px"></asp:Calendar>
+                                            <asp:Calendar ID="calendario" runat="server" Height="404px" Width="100%" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black">
+                                            <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+                                            <NextPrevStyle VerticalAlign="Bottom" />
+                                            <OtherMonthDayStyle ForeColor="#808080" />
+                                            <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+                                            <SelectorStyle BackColor="#CCCCCC" />
+                                            <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+                                            <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
+                                            <WeekendDayStyle BackColor="#FFFFCC" />
+                                        </asp:Calendar>
                                         </div>
                                         <div class="row" style="padding:1%;margin:2%;">
                                             <asp:Button ID="btnBuscar" class="btn btn-secondary" runat="server" Text="Filtrar" Width="45%" style="margin-left:5px;margin-right:5px;height:40%;" OnClick="btnBuscar_Click"/>                             
-                                            <asp:Button ID="btnLimpiarfiltros" class="btn btn-secondary" runat="server" Text="Limpiar Filtros"  Width="45%" style="margin-left:5px;margin-right:5px;height:40%;" OnClick="btnLimpiarfiltros_Click" />
+                                            <asp:Button ID="btnLimpiarfiltros" class="btn btn-secondary" runat="server" Text="Limpiar"  Width="45%" style="margin-left:5px;margin-right:5px;height:40%;" OnClick="btnLimpiarfiltros_Click" />
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-9">
-                                        <div class="row" style="background-color:blanchedalmond;margin-top:1%;height:91%;">
-                                            <div id="grilla" style="text-align:center;margin-left:auto;margin-right:auto;margin-top:1%;width:100%;">
-                                                <asp:Xml ID="Xml_Pronosticos" runat="server" TransformSource="~/App_Data/pronosticos.xslt"></asp:Xml>
+                                    <div class="col-sm-9" style="height: 60%;overflow-y:scroll;">
+                                        <div class="row" style=" margin-top: 1px; height: 91%; width: 100%;">
+                                            <div id="grilla" style="text-align: center; margin-top: 1%; width: 100%; max-height: 70%;">
+                                                <asp:Xml ID="Xml_Pronosticos" runat="server" TransformSource="~/pronos.xslt"></asp:Xml>
                                             </div>
-                                            <br/>
+                                            <br />
                                         </div>
                                     </div>
                                 
@@ -69,13 +78,6 @@
                     </div>
                 </div>
 
-                <br />
-
-                <%--<div class="container">
-                    <div class="row">
-                    
-                    </div>
-                </div>--%>
         </section>
     </form>
 

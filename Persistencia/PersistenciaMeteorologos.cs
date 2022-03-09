@@ -25,7 +25,7 @@ namespace Persistencia
 
         public void CrearMeteorologo(Meteorologo m)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -62,7 +62,7 @@ namespace Persistencia
 
         public void ModificarMeteorologo(Meteorologo m)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -100,7 +100,7 @@ namespace Persistencia
 
         public void EliminarMeteorologo(Meteorologo m)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -135,7 +135,7 @@ namespace Persistencia
         public Meteorologo LoginMeteorologo(string username, string password)
         {
             Meteorologo user = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -165,7 +165,7 @@ namespace Persistencia
         internal Meteorologo BuscarMeteorologo(string username)
         {
             Meteorologo u = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
             try
             {
                 cnn.Open();
@@ -195,7 +195,7 @@ namespace Persistencia
         public Meteorologo BuscarMeteorologoActivo(string username)
         {
             Meteorologo p = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
             try
             {
                 cnn.Open();

@@ -40,8 +40,6 @@
                 </button> 
 
                 <div id="menuNav1" runat="server" class="menu collapse navbar-collapse"> </div>
-
-                <div id="menuNav2"  runat="server" class="menu collapse navbar-collapse"> </div>
             </div>
         </nav><br/>
 

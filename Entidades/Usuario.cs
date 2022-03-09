@@ -23,7 +23,7 @@ namespace Entidades
         {
             get { return username; }
             set {
-                if (value.Trim().Length >= 20)
+                if (value.Trim().Length > 20)
                     throw new Exception("El Username debe contener hasta 20 caracteres máximo");   
                 else
                     username = value; 

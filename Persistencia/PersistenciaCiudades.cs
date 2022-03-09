@@ -25,7 +25,7 @@ namespace Persistencia
 
         public void CrearCiudad(Ciudad c)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -58,7 +58,7 @@ namespace Persistencia
 
         public void ModificarCiudad(Ciudad c)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -92,7 +92,7 @@ namespace Persistencia
 
         public void EliminarCiudad(Ciudad c)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -125,7 +125,7 @@ namespace Persistencia
         internal Ciudad BuscarCiudad(string codigo)
         {
             Ciudad c = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
             try
             {
                 cnn.Open();
@@ -154,7 +154,7 @@ namespace Persistencia
         public Ciudad BuscarCiudadActiva(string codigo)
         {
             Ciudad c = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
             try
             {
                 cnn.Open();
@@ -184,7 +184,7 @@ namespace Persistencia
         public List<Ciudad> ListarCiudades()
         {
             List<Ciudad> lista = new List<Ciudad>();
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -218,7 +218,7 @@ namespace Persistencia
         public List<Ciudad> ListarCiudadesSinPronosticos()
         {
             List<Ciudad> lista = new List<Ciudad>();
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {

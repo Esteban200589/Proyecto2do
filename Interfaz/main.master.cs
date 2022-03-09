@@ -38,6 +38,7 @@ public partial class main : System.Web.UI.MasterPage
                     this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='index.aspx'>Inicio</a></li>";
                     this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='generar_pronostico.aspx'>Generar Pronosticos</a></li>";
                     this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='listado_pronosticos.aspx'>Listar Pronosticos</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href=' '>Listado Sin Asignación</a></li>";
                     this.menuNav1.InnerHtml += "</ul>";
 
                     lblTipoUser.Text = "Meteorologo";

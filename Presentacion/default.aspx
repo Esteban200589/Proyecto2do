@@ -85,15 +85,17 @@
                     </div>
                 </div>--%>
         </section>
-
-
-        <script>
-        //$("#gvNoticias > tbody > tr:nth-child(1) > th:nth-child(1)").css("display", "none");
-        //$("#gvNoticias > tbody > tr > td:nth-child(1)").css("display", "none");
-        </script>
-
-
     </form>
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="javascript" src="style/bootstrap.min.js"></script>
+    <script type="javascript" src="style/popper.js"></script>
+    <script type="javascript" src="style/jquery-3.0.0-vsdoc.js"></script>
 
-</body>
+    <script>
+    //$("#gvNoticias > tbody > tr:nth-child(1) > th:nth-child(1)").css("display", "none");
+    //$("#gvNoticias > tbody > tr > td:nth-child(1)").css("display", "none");
+    </script>
+
+    </body>
 </html>

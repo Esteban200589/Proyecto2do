@@ -40,8 +40,6 @@
                 </button> 
 
                 <div id="menuNav1" runat="server" class="menu collapse navbar-collapse"> </div>
-
-                <div id="menuNav2"  runat="server" class="menu collapse navbar-collapse"> </div>
             </div>
         </nav><br/>
 
@@ -54,29 +52,6 @@
 
     <script>
         console.log('Master');
-
-        $('#menuNav1').css('visibility', 'hidden');
-        $('#menuNav2').css('visibility', 'hidden');
-
-        if ($('#lblTipoUser').text() == 'Empleado') {
-            $('#menuNav1').css('visibility', 'visible');
-        }
-
-        if ($('#lblTipoUser').text() == 'Meteorologo') {
-            $('#menuNav2').css('visibility', 'visible');
-        }
-
-        //$("#as-navbar-toggler").click(function () {
-        //    this.style.display = 'none';
-        //    $("#as-navbar-close").css({ 'display': 'block', 'float': 'right' });
-        //    $("#menuNav1").removeClass('collapse');
-        //});
-
-        //$("#as-navbar-close").click(function () {
-        //    this.style.display = 'none';
-        //    $("#as-navbar-toggler").css({ 'display': 'block' });
-        //    $("#menuNav").addClass('collapse');
-        //});
     </script>
 </body>
 </html>

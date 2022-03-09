@@ -68,7 +68,7 @@ namespace PronosticosWCF
         List<Pronostico_tiempo> ListarPronosticosAnioActual();
 
         [OperationContract]
-        XmlDocument PronosticosXML(DateTime fecha);
+        string PronosticosXML(DateTime fecha);
         #endregion
     }
 }

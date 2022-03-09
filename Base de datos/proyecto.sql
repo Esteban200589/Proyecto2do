@@ -607,6 +607,7 @@ go
 		select * from meteorologos m
 		inner join usuarios u on u.username = m.usuario
 		where m.usuario not in (select usuario from pronosticos_tiempo)
+		and deleted = 0
 	end
 	go
 

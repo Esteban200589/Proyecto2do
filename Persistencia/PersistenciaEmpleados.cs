@@ -25,7 +25,7 @@ namespace Persistencia
 
         public void CrearEmpleado(Empleado e)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -61,7 +61,7 @@ namespace Persistencia
 
         public void ModificarEmpleado(Empleado e)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -98,7 +98,7 @@ namespace Persistencia
 
         public void EliminarEmpleado(Empleado e)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -133,7 +133,7 @@ namespace Persistencia
         public Empleado LoginEmpleado(string username, string password)
         {
             Empleado user = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
             try
             {
@@ -164,7 +164,7 @@ namespace Persistencia
         public Empleado BuscarEmpleado(string username)
         {
             Empleado u = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn);
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
             try
             {
                 cnn.Open();
