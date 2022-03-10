@@ -147,8 +147,15 @@ namespace Persistencia
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
+                {
                     user = new Empleado(Convert.ToInt32(dr["carga_horaria"]), 
                         username, password, dr["nombre_completo"].ToString());
+                }
+                else
+                {
+                    throw new Exception("Datos Incorrectos");
+                }
+                    
             }
             catch (Exception ex)
             {

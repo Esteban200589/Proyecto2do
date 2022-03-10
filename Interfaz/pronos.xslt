@@ -1,4 +1,4 @@
-﻿<!--<?xml version="1.0" encoding="utf-8"?>-->
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl"
 >
@@ -19,14 +19,14 @@
 
 				<div class="row">
 					<div class="col-6 pais" style="background-color:#CCCCCC;">
-						<span style="padding-top:2%;">
+						<div style="padding-top:2%;">
 							<xsl:value-of select="Pais" />
-						</span>
+						</div>
 					</div>
 					<div class="col-6 ciudad" style="background-color:#CCCCCC;">
-						<span style="padding-top:2%;">
+						<div style="padding-top:2%;">
 							<xsl:value-of select="Ciudad" />
-						</span>
+						</div>
 					</div>
 					<div class="col-12 hora" style="background-color:white;border-width:1px;border-style:solid;text-align:left;">
 						<xsl:for-each select="Root/Pronostico_Tiempo/Pronostico_Hora  | node()">						
@@ -36,10 +36,10 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-2 label">
+								<div class="col-2 label" style="margin-top:15px;font-weight:bold;">
 									<xsl:value-of select="Temp_Max" />
 								</div>
-								<div class="col-2 label">
+								<div class="col-2 label" style="margin-top:15px;font-weight:bold;">
 									<xsl:value-of select="Temp_Min" />
 								</div>
 							</div>

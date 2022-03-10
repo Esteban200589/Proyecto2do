@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.master" AutoEventWireup="true" CodeFile="listado_pronosticos.aspx.cs" Inherits="listado_pronosticos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/main.master" AutoEventWireup="true" CodeFile="listado_sin_asignacion.aspx.cs" Inherits="listado_sin_asignacion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -12,24 +12,11 @@
                         <!-- general form elements disabled -->
                         <div class="card card-warning" style="width:100%;">
                             <div class="card-header" style="background-color: #7ca3c3; color: #ffffff;">
-                                <h3 class="card-title">BIENVENIDO</h3>
+                                <h3 class="card-title">LISTADO SIN ASIGNACIÓN</h3>
                             </div>
                             <br />
                             <br />
-                            <div class="col-sm-3" style="padding:1px;">
-                                <div class="row" style="padding:1%;margin:2%;">
-                                  
-                                    <asp:Calendar ID="calendario" runat="server" Height="404px" Width="100%" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black">
-                                        <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
-                                        <NextPrevStyle VerticalAlign="Bottom" />
-                                        <OtherMonthDayStyle ForeColor="#808080" />
-                                        <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
-                                        <SelectorStyle BackColor="#CCCCCC" />
-                                        <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
-                                        <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
-                                        <WeekendDayStyle BackColor="#FFFFCC" />
-                                    </asp:Calendar>
-                                </div>
+                            <div class="col-sm-3" style="padding:1px;">                   
                                 <div class="row" style="padding:1%;margin:2%;">
                                     <asp:Button ID="btnBuscar" class="btn btn-secondary" runat="server" Text="Filtrar" Width="45%" style="margin-left:5px;margin-right:5px;height:40%;"/>                             
                                     <asp:Button ID="btnLimpiarfiltros" class="btn btn-secondary" runat="server" Text="Limpiar"  Width="45%" style="margin-left:5px;margin-right:5px;height:40%;" />
@@ -37,7 +24,7 @@
                             </div>
                             <div class="row">
                                 <div id="grilla" style="text-align:center;margin-left:auto;margin-right:auto;width:100%;">
-                                    <asp:GridView ID="gvListadoPronosticos" runat="server" Width="95%" HorizontalAlign="Center" BackColor="White" BorderColor="#CCCCCC"
+                                    <asp:GridView ID="gvNoticiasInicio" runat="server" Width="95%" HorizontalAlign="Center" BackColor="White" BorderColor="#CCCCCC"
                                                     BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" >
                                         <Columns>
                                             <asp:BoundField DataField="Codigo" HeaderText="Codigo" HeaderStyle-BackColor="#7ca3c3" ItemStyle-BackColor="White" ItemStyle-HorizontalAlign="Center" >

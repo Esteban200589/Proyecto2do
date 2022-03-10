@@ -32,4 +32,9 @@ public partial class login : System.Web.UI.Page
             txtUser.Text = "";
         }
     }
+
+    protected void btnVolver_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/default.aspx");
+    }
 }

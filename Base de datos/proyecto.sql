@@ -588,11 +588,12 @@ go
 		drop proc listar_ciudades_sin
 	go
 	create proc listar_ciudades_sin
+		@anio int
 	as
 	begin
 		select * from ciudades c 
 		where deleted = 0 
-		and c.codigo not in (select ciudad from pronosticos_tiempo)
+		and c.codigo not in (select ciudad from pronosticos_tiempo where YEAR(fecha) = @anio)
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
@@ -602,11 +603,12 @@ go
 		drop proc listar_meteorologos_sin
 	go
 	create proc listar_meteorologos_sin
+		@anio int
 	as
 	begin
 		select * from meteorologos m
 		inner join usuarios u on u.username = m.usuario
-		where m.usuario not in (select usuario from pronosticos_tiempo)
+		where m.usuario not in (select usuario from pronosticos_tiempo where YEAR(fecha) = @anio)
 		and deleted = 0
 	end
 	go

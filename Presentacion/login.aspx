@@ -37,7 +37,7 @@
                                     <asp:Button runat="server" id="btnLogin" type="submit" class="btn btn-secondary" text="Login" 
                                         style="margin-left:auto; margin-right:auto;" OnClick="btnLogin_Click" />
                                     <asp:Button runat="server" id="btnVolver" type="submit" class="btn btn-secondary" text="Volver" 
-                                        style="margin-left:auto; margin-right:auto;"/>
+                                        style="margin-left:auto; margin-right:auto;" OnClick="btnVolver_Click"/>
                                 </div>
                             </div>
                         </div>

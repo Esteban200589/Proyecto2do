@@ -24,22 +24,22 @@ namespace Logica
         static InterfazPersistenciaCiudades FabricaCiudades = FabricaPersistencia.getPersistenciaCiudades();
 
 
-        public void CrearCiudad(Ciudad c)
+        public void CrearCiudad(Ciudad c, Usuario u)
         {
-            FabricaCiudades.CrearCiudad(c);
+            FabricaCiudades.CrearCiudad(c,u);
         }
-        public void ModificarCiudad(Ciudad c)
+        public void ModificarCiudad(Ciudad c, Usuario u)
         {
-            FabricaCiudades.ModificarCiudad(c);
+            FabricaCiudades.ModificarCiudad(c,u);
         }
-        public void EliminarCiudad(Ciudad c)
+        public void EliminarCiudad(Ciudad c, Usuario u)
         {
-            FabricaCiudades.EliminarCiudad(c);
+            FabricaCiudades.EliminarCiudad(c,u);
         }
 
-        public Ciudad BuscarCiudadActiva(string codigo)
+        public Ciudad BuscarCiudadActiva(string codigo, Usuario u)
         {
-            return FabricaCiudades.BuscarCiudadActiva(codigo);
+            return FabricaCiudades.BuscarCiudadActiva(codigo,u);
         }
 
         public List<Ciudad> ListarCiudades()

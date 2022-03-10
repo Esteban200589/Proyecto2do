@@ -13,7 +13,7 @@ public partial class login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Session["Usuario_Logueado"] = null;
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)
@@ -24,15 +24,24 @@ public partial class login : System.Web.UI.Page
             
             if (user != null)
             {
-                Session["Usuario"] = user;
+                Session["Usuario_Logueado"] = user;
+                //Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 Response.Redirect("~/index.aspx");
+                //Response.Redirect("~/index.aspx",false);
             }
         }
         catch (Exception ex)
         {
             lblMsj.Text = ex.Message;
+            lblMsj.ForeColor = Color.Red;
+
             txtPass.Text = "";
             txtUser.Text = "";
         }
+    }
+
+    protected void btnVolver_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/default.aspx");
     }
 }

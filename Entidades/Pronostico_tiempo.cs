@@ -79,10 +79,5 @@ namespace Entidades
             Usuario = pUser;
             LIST_pronosticos_hora = pList;
         }
-
-        public Pronostico_tiempo()
-        {
-
-        }
     }
 }

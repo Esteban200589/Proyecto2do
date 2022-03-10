@@ -23,9 +23,9 @@ namespace Persistencia
         }
 
 
-        public void CrearCiudad(Ciudad c)
+        public void CrearCiudad(Ciudad c, Usuario u)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(u));
 
             try
             {
@@ -56,7 +56,7 @@ namespace Persistencia
             }
         }
 
-        public void ModificarCiudad(Ciudad c)
+        public void ModificarCiudad(Ciudad c, Usuario u)
         {
             SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
@@ -90,7 +90,7 @@ namespace Persistencia
 
         }
 
-        public void EliminarCiudad(Ciudad c)
+        public void EliminarCiudad(Ciudad c, Usuario u)
         {
             SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
@@ -151,7 +151,7 @@ namespace Persistencia
             return c;
         }
 
-        public Ciudad BuscarCiudadActiva(string codigo)
+        public Ciudad BuscarCiudadActiva(string codigo, Usuario u)
         {
             Ciudad c = null;
             SqlConnection cnn = new SqlConnection(Conexion.Cnn());

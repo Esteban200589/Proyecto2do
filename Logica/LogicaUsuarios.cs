@@ -60,6 +60,11 @@ namespace Logica
 
         public Usuario LoginUsuario(string username, string password)
         {
+            if (username == "")
+                throw new Exception("Datos Incorrectos");
+            if (password == "")
+                throw new Exception("Datos Incorrectos");
+
             Usuario user = FabricaEmpleados.LoginEmpleado(username, password);
 
             if (user == null)

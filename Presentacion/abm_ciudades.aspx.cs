@@ -10,15 +10,19 @@ using Entidades;
 using Logica;
 public partial class abm_ciudades : System.Web.UI.Page
 {
+    Usuario user_log = null;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         //this.Response.Write(sender);
-
+        
         if (!IsPostBack)
         {
             btnGuardar.Enabled = false;
             btnModificar.Enabled = false;
             btnEliminar.Enabled = false;
+
+            user_log = (Usuario)Session["Usuario_Logueado"];
         }
     }
 
@@ -28,7 +32,7 @@ public partial class abm_ciudades : System.Web.UI.Page
         {
             if (txtCodigo.Text != "")
             {
-                Ciudad ciudad = FabricaLogica.GetLogicaCiudades().BuscarCiudadActiva(txtCodigo.Text);
+                Ciudad ciudad = FabricaLogica.GetLogicaCiudades().BuscarCiudadActiva(txtCodigo.Text, user_log);
 
                 txtCodigo.ReadOnly = true;
 
@@ -90,7 +94,7 @@ public partial class abm_ciudades : System.Web.UI.Page
                 ciudad.Nombre_ciudad = txtNombre.Text.Trim();
                 ciudad.Pais = txtPais.Text.Trim();
 
-                FabricaLogica.GetLogicaCiudades().ModificarCiudad(ciudad);
+                FabricaLogica.GetLogicaCiudades().ModificarCiudad(ciudad, user_log);
 
                 lblMsj.Text = "Ciudad Modificada";
                 lblMsj.ForeColor = Color.Green;
@@ -122,10 +126,9 @@ public partial class abm_ciudades : System.Web.UI.Page
     {
         try
         {
-            Ciudad ciudad = new Ciudad(txtCodigo.Text.Trim(), 
-                txtNombre.Text.Trim(), txtNombre.Text.Trim());
+            Ciudad ciudad = new Ciudad(txtCodigo.Text.Trim(), txtNombre.Text.Trim(), txtNombre.Text.Trim());
 
-            FabricaLogica.GetLogicaCiudades().CrearCiudad(ciudad);
+            FabricaLogica.GetLogicaCiudades().CrearCiudad(ciudad, user_log);
 
             lblMsj.Text = "Ciudad guardada con exito!";
             lblMsj.ForeColor = Color.Green;
@@ -156,7 +159,7 @@ public partial class abm_ciudades : System.Web.UI.Page
             if (Session["Ciudad"] != null)
             {
                 ciudad = (Ciudad)Session["Ciudad"];
-                FabricaLogica.GetLogicaCiudades().EliminarCiudad(ciudad);
+                FabricaLogica.GetLogicaCiudades().EliminarCiudad(ciudad, user_log);
 
                 lblMsj.Text = "Ciudad Eliminada";
                 lblMsj.ForeColor = Color.Green;

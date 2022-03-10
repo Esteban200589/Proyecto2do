@@ -34,17 +34,14 @@ namespace Entidades
         {
             get { return password; }
             set {
-                Regex Rx = new Regex("[0-9][0-9][0-9][A-z][A-z][A-z][A-z][^A-z0-9 ][^A-z0-9 ]");
-
-                if (value.Trim().Length != 9)
-                    throw new Exception("El Password es incorrecto ");
-                else if (Rx.IsMatch(value.Trim()))
-                    password = value;
-                else
+                if (value.Trim().Replace(" ","").Length != 9)
+                    throw new Exception("El Password es incorrecto - debe contener 9 caracteres!");
+                else if (string.IsNullOrEmpty(value))
+                    throw new Exception("Ingrese el Password");
+                else if (Regex.IsMatch(value, "@*[0-9]{3}[A-Z]{4}[^0-9A-Z]{2}"))
                     throw new Exception("El Password es incorrecto (expression).");
-
-                //else if (Regex.IsMatch(value, "[0-9]{3}[A-Z]{4}[^0-9A-Z]{2}"))
-                //    throw new Exception("El Password es incorrecto (expression).");
+                else
+                    password = value;  
             }
         }
         [DataMember]
@@ -76,3 +73,6 @@ namespace Entidades
 
 //else if (Regex.IsMatch(value, "\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*") == false)
 // throw new Exception("El formato es incorrecto.");
+//Regex Rx = new Regex("[0-9][0-9][0-9][A-z][A-z][A-z][A-z][^A-z0-9 ][^A-z0-9 ]");
+// else if (Rx.IsMatch(value.Trim()))
+//    password = value;

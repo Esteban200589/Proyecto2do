@@ -8,11 +8,11 @@ namespace Logica
 {
     public interface InterfazLogicaCiudades
     {
-        void CrearCiudad(Ciudad c);
-        void ModificarCiudad(Ciudad c);
-        void EliminarCiudad(Ciudad c);
+        void CrearCiudad(Ciudad c, Usuario u);
+        void ModificarCiudad(Ciudad c, Usuario u);
+        void EliminarCiudad(Ciudad c, Usuario u);
 
-        Ciudad BuscarCiudadActiva(string codigo);
+        Ciudad BuscarCiudadActiva(string codigo, Usuario u);
 
         List<Ciudad> ListarCiudades();
         List<Ciudad> ListarCiudadesSinPronosticos();
