@@ -12,3 +12,17 @@ C:\Users\Administrador\Desktop\Proyecto2do\PronosticosWCF\obj\Debug\PronosticosW
 C:\Users\Administrador\Desktop\Proyecto2do\PronosticosWCF\obj\Debug\PronosticosWCF.csproj.CopyComplete
 C:\Users\Administrador\Desktop\Proyecto2do\PronosticosWCF\obj\Debug\PronosticosWCF.dll
 C:\Users\Administrador\Desktop\Proyecto2do\PronosticosWCF\obj\Debug\PronosticosWCF.pdb
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\obj\Debug\PronosticosWCF.csproj.AssemblyReference.cache
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\obj\Debug\PronosticosWCF.csproj.CoreCompileInputs.cache
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\obj\Debug\PronosticosWCF.dll
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\obj\Debug\PronosticosWCF.pdb
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\bin\PronosticosWCF.dll.config
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\bin\PronosticosWCF.dll
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\bin\PronosticosWCF.pdb
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\bin\Entidades.dll
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\bin\Logica.dll
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\bin\Persistencia.dll
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\bin\Entidades.pdb
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\bin\Logica.pdb
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\bin\Persistencia.pdb
+C:\Users\Inforpyme\Desktop\Proyecto2do\PronosticosWCF\obj\Debug\PronosticosWCF.csproj.CopyComplete

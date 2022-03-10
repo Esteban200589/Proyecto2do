@@ -48,13 +48,13 @@
                         <div class="card-footer"> 
                                         
                             <div class="row">
-                                <div class="col-sm-12" style="text-align:center;">
+                                <%--<div class="col-sm-12" style="text-align:center;">
                                     <asp:Button ID="btnBuscar" class="btn btn-secondary" runat="server" Text="Buscar" Width="90px" OnClick="btnBuscar_Click" />                       
                                     <asp:Button ID="btnModificar" class="btn btn-secondary" runat="server" Text="Modificar" Width="90px" OnClick="btnModificar_Click"/>                       
                                     <asp:Button ID="btnGuardar" class="btn btn-secondary" runat="server" Text="Guardar" Width="90px" OnClick="btnGuardar_Click"  />   
                                     <asp:Button ID="btnEliminar" class="btn btn-secondary" runat="server" Text="Eliminar" Width="90px" OnClick="btnEliminar_Click" />
                                     <asp:Button ID="btnLimpiar" class="btn btn-secondary" runat="server" Text="Limpiar" Width="90px" OnClick="btnLimpiar_Click" />  
-                                </div>
+                                </div>--%>
                             </div>
                                         
                             <div class="row">

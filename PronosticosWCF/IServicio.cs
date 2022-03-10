@@ -18,16 +18,16 @@ namespace PronosticosWCF
         #region ciudades
 
         [OperationContract]
-        void CrearCiudad(Ciudad c);
+        void CrearCiudad(Ciudad c, Usuario user_log);
 
         [OperationContract]
-        void ModificarCiudad(Ciudad c);
+        void ModificarCiudad(Ciudad c, Usuario user_log);
 
         [OperationContract]
-        void EliminarCiudad(Ciudad c);
+        void EliminarCiudad(Ciudad c, Usuario user_log);
 
         [OperationContract]
-        Ciudad BuscarCiudadActiva(string codigo);
+        Ciudad BuscarCiudadActiva(string codigo, Usuario user_log);
 
         [OperationContract]
         List<Ciudad> ListarCiudades();

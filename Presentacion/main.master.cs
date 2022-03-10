@@ -16,11 +16,12 @@ public partial class main : System.Web.UI.MasterPage
 
         try
         {
-            if (Session["Usuario"] == null)
-                Response.Redirect("login.aspx");
+            if (Session["Usuario"] == null) { }
+                //Response.Redirect("login.aspx");
             else
             {
-                Usuario user = (Usuario)Session["Usuario"];
+                //Usuario user = (Usuario)Session["Usuario"];
+                Usuario user = FabricaLogica.GetLogicaUsuarios().BuscarUsuario("Admin");
 
                 if (user is Empleado)
                 {

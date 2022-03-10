@@ -17,24 +17,24 @@ namespace PronosticosWCF
     {
         #region ciudades
 
-        void IServicio.CrearCiudad(Ciudad c)
+        void IServicio.CrearCiudad(Ciudad c, Usuario user_log)
         {
-            FabricaLogica.GetLogicaCiudades().CrearCiudad(c);
+            FabricaLogica.GetLogicaCiudades().CrearCiudad(c, user_log);
         }
 
-        void IServicio.ModificarCiudad(Ciudad c)
+        void IServicio.ModificarCiudad(Ciudad c, Usuario user_log)
         {
-            FabricaLogica.GetLogicaCiudades().ModificarCiudad(c);
+            FabricaLogica.GetLogicaCiudades().ModificarCiudad(c, user_log);
         }
 
-        void IServicio.EliminarCiudad(Ciudad c)
+        void IServicio.EliminarCiudad(Ciudad c, Usuario user_log)
         {
-            FabricaLogica.GetLogicaCiudades().EliminarCiudad(c);
+            FabricaLogica.GetLogicaCiudades().EliminarCiudad(c, user_log);
         }
 
-        Ciudad IServicio.BuscarCiudadActiva(string codigo)
+        Ciudad IServicio.BuscarCiudadActiva(string codigo, Usuario user_log)
         {
-            return FabricaLogica.GetLogicaCiudades().BuscarCiudadActiva(codigo);
+            return FabricaLogica.GetLogicaCiudades().BuscarCiudadActiva(codigo, user_log);
         }
 
         List<Ciudad> IServicio.ListarCiudades()

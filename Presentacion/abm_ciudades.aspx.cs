@@ -16,196 +16,196 @@ public partial class abm_ciudades : System.Web.UI.Page
     {
         //this.Response.Write(sender);
         
-        if (!IsPostBack)
-        {
-            btnGuardar.Enabled = false;
-            btnModificar.Enabled = false;
-            btnEliminar.Enabled = false;
+        //if (!IsPostBack)
+        //{
+        //    btnGuardar.Enabled = false;
+        //    btnModificar.Enabled = false;
+        //    btnEliminar.Enabled = false;
 
-            user_log = (Usuario)Session["Usuario_Logueado"];
-        }
+        //    user_log = (Usuario)Session["Usuario_Logueado"];
+        //}
     }
 
-    protected void btnBuscar_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            if (txtCodigo.Text != "")
-            {
-                Ciudad ciudad = FabricaLogica.GetLogicaCiudades().BuscarCiudadActiva(txtCodigo.Text, user_log);
+    //protected void btnBuscar_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        if (txtCodigo.Text != "")
+    //        {
+    //            Ciudad ciudad = FabricaLogica.GetLogicaCiudades().BuscarCiudadActiva(txtCodigo.Text, user_log);
 
-                txtCodigo.ReadOnly = true;
+    //            txtCodigo.ReadOnly = true;
 
-                if (ciudad == null)
-                {
-                    btnGuardar.Enabled = true;
-                    btnEliminar.Enabled = false;
-                    btnModificar.Enabled = false;
+    //            if (ciudad == null)
+    //            {
+    //                btnGuardar.Enabled = true;
+    //                btnEliminar.Enabled = false;
+    //                btnModificar.Enabled = false;
 
-                    lblMsj.Text = "No se encontró la ciudad, puede Crearla";
-                    lblMsj.ForeColor = Color.DarkOrange;
-                }
+    //                lblMsj.Text = "No se encontró la ciudad, puede Crearla";
+    //                lblMsj.ForeColor = Color.DarkOrange;
+    //            }
 
-                else
-                {
-                    lblMsj.Text = "Ciudad encontrada";
-                    lblMsj.ForeColor = Color.Green;
+    //            else
+    //            {
+    //                lblMsj.Text = "Ciudad encontrada";
+    //                lblMsj.ForeColor = Color.Green;
 
-                    txtCodigo.Text = ciudad.Codigo;
-                    txtNombre.Text = ciudad.Nombre_ciudad;
-                    txtPais.Text = ciudad.Pais;
+    //                txtCodigo.Text = ciudad.Codigo;
+    //                txtNombre.Text = ciudad.Nombre_ciudad;
+    //                txtPais.Text = ciudad.Pais;
 
-                    btnGuardar.Enabled = false;
-                    btnEliminar.Enabled = true;
-                    btnModificar.Enabled = true;
+    //                btnGuardar.Enabled = false;
+    //                btnEliminar.Enabled = true;
+    //                btnModificar.Enabled = true;
 
-                    Session["Ciudad"] = ciudad;
-                }
-            }
-            else
-            {
-                lblMsj.Text = "Debe ingresar un código";
-                lblMsj.ForeColor = Color.DarkOrange;
-            }
+    //                Session["Ciudad"] = ciudad;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            lblMsj.Text = "Debe ingresar un código";
+    //            lblMsj.ForeColor = Color.DarkOrange;
+    //        }
 
-        }
+    //    }
 
-        catch (System.Web.Services.Protocols.SoapException ex)
-        {
-            lblMsj.Text = ex.Detail.InnerText;
-            lblMsj.ForeColor = Color.Red;
-        }
+    //    catch (System.Web.Services.Protocols.SoapException ex)
+    //    {
+    //        lblMsj.Text = ex.Detail.InnerText;
+    //        lblMsj.ForeColor = Color.Red;
+    //    }
 
-        catch (Exception ex)
-        {
-            lblMsj.Text = ex.Message;
-            lblMsj.ForeColor = Color.Red;
-        }
-    }
+    //    catch (Exception ex)
+    //    {
+    //        lblMsj.Text = ex.Message;
+    //        lblMsj.ForeColor = Color.Red;
+    //    }
+    //}
 
-    protected void btnModificar_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Ciudad ciudad = (Ciudad)Session["Ciudad"];
+    //protected void btnModificar_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        Ciudad ciudad = (Ciudad)Session["Ciudad"];
 
-            if (ciudad != null)
-            {
-                ciudad.Nombre_ciudad = txtNombre.Text.Trim();
-                ciudad.Pais = txtPais.Text.Trim();
+    //        if (ciudad != null)
+    //        {
+    //            ciudad.Nombre_ciudad = txtNombre.Text.Trim();
+    //            ciudad.Pais = txtPais.Text.Trim();
 
-                FabricaLogica.GetLogicaCiudades().ModificarCiudad(ciudad, user_log);
+    //            FabricaLogica.GetLogicaCiudades().ModificarCiudad(ciudad, user_log);
 
-                lblMsj.Text = "Ciudad Modificada";
-                lblMsj.ForeColor = Color.Green;
+    //            lblMsj.Text = "Ciudad Modificada";
+    //            lblMsj.ForeColor = Color.Green;
 
-                txtCodigo.ReadOnly = false;
+    //            txtCodigo.ReadOnly = false;
 
-                txtCodigo.Text = "";
-                txtNombre.Text = "";
-                txtPais.Text = "";
+    //            txtCodigo.Text = "";
+    //            txtNombre.Text = "";
+    //            txtPais.Text = "";
 
-                btnGuardar.Enabled = false;
-                btnEliminar.Enabled = false;
-                btnModificar.Enabled = false;
-            }
-            else
-            {
-                lblMsj.Text = "No hay Ciudad que modificar, busque una";
-                lblMsj.ForeColor = Color.DarkOrange;
-            }
-        }
-        catch (Exception ex)
-        {
-            lblMsj.Text = ex.Message;
-            lblMsj.ForeColor = Color.Red;
-        }
-    }
+    //            btnGuardar.Enabled = false;
+    //            btnEliminar.Enabled = false;
+    //            btnModificar.Enabled = false;
+    //        }
+    //        else
+    //        {
+    //            lblMsj.Text = "No hay Ciudad que modificar, busque una";
+    //            lblMsj.ForeColor = Color.DarkOrange;
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblMsj.Text = ex.Message;
+    //        lblMsj.ForeColor = Color.Red;
+    //    }
+    //}
 
-    protected void btnGuardar_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Ciudad ciudad = new Ciudad(txtCodigo.Text.Trim(), txtNombre.Text.Trim(), txtNombre.Text.Trim());
+    //protected void btnGuardar_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        Ciudad ciudad = new Ciudad(txtCodigo.Text.Trim(), txtNombre.Text.Trim(), txtNombre.Text.Trim());
 
-            FabricaLogica.GetLogicaCiudades().CrearCiudad(ciudad, user_log);
+    //        FabricaLogica.GetLogicaCiudades().CrearCiudad(ciudad, user_log);
 
-            lblMsj.Text = "Ciudad guardada con exito!";
-            lblMsj.ForeColor = Color.Green;
+    //        lblMsj.Text = "Ciudad guardada con exito!";
+    //        lblMsj.ForeColor = Color.Green;
 
-            txtCodigo.ReadOnly = false;
+    //        txtCodigo.ReadOnly = false;
 
-            txtCodigo.Text = "";
-            txtNombre.Text = "";
-            txtPais.Text = "";
+    //        txtCodigo.Text = "";
+    //        txtNombre.Text = "";
+    //        txtPais.Text = "";
 
-            btnGuardar.Enabled = false;
-            btnModificar.Enabled = false;
-            btnEliminar.Enabled = false;
-        }
-        catch (Exception ex)
-        {
-            lblMsj.Text = ex.Message;
-            lblMsj.ForeColor = Color.Red;
-        }
-    }
+    //        btnGuardar.Enabled = false;
+    //        btnModificar.Enabled = false;
+    //        btnEliminar.Enabled = false;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblMsj.Text = ex.Message;
+    //        lblMsj.ForeColor = Color.Red;
+    //    }
+    //}
 
-    protected void btnEliminar_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Ciudad ciudad = null;
+    //protected void btnEliminar_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        Ciudad ciudad = null;
 
-            if (Session["Ciudad"] != null)
-            {
-                ciudad = (Ciudad)Session["Ciudad"];
-                FabricaLogica.GetLogicaCiudades().EliminarCiudad(ciudad, user_log);
+    //        if (Session["Ciudad"] != null)
+    //        {
+    //            ciudad = (Ciudad)Session["Ciudad"];
+    //            FabricaLogica.GetLogicaCiudades().EliminarCiudad(ciudad, user_log);
 
-                lblMsj.Text = "Ciudad Eliminada";
-                lblMsj.ForeColor = Color.Green;
+    //            lblMsj.Text = "Ciudad Eliminada";
+    //            lblMsj.ForeColor = Color.Green;
 
-                txtCodigo.ReadOnly = false;
+    //            txtCodigo.ReadOnly = false;
 
-                txtCodigo.Text = "";
-                txtNombre.Text = "";
-                txtPais.Text = "";
+    //            txtCodigo.Text = "";
+    //            txtNombre.Text = "";
+    //            txtPais.Text = "";
 
-                btnGuardar.Enabled = false;
-                btnEliminar.Enabled = false;
-                btnModificar.Enabled = false;
-            }
-            else
-            {
-                lblMsj.Text = "Debe elegir una Ciudad";
-                lblMsj.ForeColor = Color.DarkOrange;
-                return;
-            }
-        }
+    //            btnGuardar.Enabled = false;
+    //            btnEliminar.Enabled = false;
+    //            btnModificar.Enabled = false;
+    //        }
+    //        else
+    //        {
+    //            lblMsj.Text = "Debe elegir una Ciudad";
+    //            lblMsj.ForeColor = Color.DarkOrange;
+    //            return;
+    //        }
+    //    }
 
-        catch (System.Web.Services.Protocols.SoapException ex)
-        {
-            lblMsj.Text = ex.Detail.InnerText;
-            lblMsj.ForeColor = Color.Red;
-        }
-        catch (Exception ex)
-        {
-            lblMsj.Text = ex.Message;
-            lblMsj.ForeColor = Color.Red;
-        }
-    }
+    //    catch (System.Web.Services.Protocols.SoapException ex)
+    //    {
+    //        lblMsj.Text = ex.Detail.InnerText;
+    //        lblMsj.ForeColor = Color.Red;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblMsj.Text = ex.Message;
+    //        lblMsj.ForeColor = Color.Red;
+    //    }
+    //}
 
-    protected void btnLimpiar_Click(object sender, EventArgs e)
-    {
-        txtCodigo.ReadOnly = false;
-        txtCodigo.Text = "";
-        txtNombre.Text = "";
-        txtPais.Text = "";
-        Session["Ciudad"] = null;
-        lblMsj.Text = "";
+    //protected void btnLimpiar_Click(object sender, EventArgs e)
+    //{
+    //    txtCodigo.ReadOnly = false;
+    //    txtCodigo.Text = "";
+    //    txtNombre.Text = "";
+    //    txtPais.Text = "";
+    //    Session["Ciudad"] = null;
+    //    lblMsj.Text = "";
 
-        btnGuardar.Enabled = false;
-        btnModificar.Enabled = false;
-        btnEliminar.Enabled = false;
-        btnBuscar.Enabled = true;
-    }
+    //    btnGuardar.Enabled = false;
+    //    btnModificar.Enabled = false;
+    //    btnEliminar.Enabled = false;
+    //    btnBuscar.Enabled = true;
+    //}
 }

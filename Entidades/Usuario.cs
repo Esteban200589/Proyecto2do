@@ -34,11 +34,13 @@ namespace Entidades
         {
             get { return password; }
             set {
+                Regex exp = new Regex(@"\z[0-9]{3}\z[a-zA-Z]{4}\z[^A-Za-z0-9]{2}");
+
                 if (value.Trim().Replace(" ","").Length != 9)
                     throw new Exception("El Password es incorrecto - debe contener 9 caracteres!");
                 else if (string.IsNullOrEmpty(value))
                     throw new Exception("Ingrese el Password");
-                else if (Regex.IsMatch(value, "@*[0-9]{3}[A-Z]{4}[^0-9A-Z]{2}"))
+                else if (exp.IsMatch(value))
                     throw new Exception("El Password es incorrecto (expression).");
                 else
                     password = value;  

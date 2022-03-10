@@ -5,13 +5,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using System.Drawing;
 using ref_Servicio;
 
 public partial class login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Session["Usuario_Logueado"] = null;
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)

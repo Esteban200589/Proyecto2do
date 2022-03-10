@@ -49,11 +49,9 @@ public partial class abm_empleados : System.Web.UI.Page
 
                     txtUsername.Text = usuario.Username;
                     txtPassword.Text = usuario.Password;
+                    txtPassword.TextMode = TextBoxMode.Password;
                     txtNombre.Text = usuario.Nombre;
-
-                    string horas = usuario.Carga_horaria.ToString();
-                    horas = horas.Substring(0, 2) + ":" + horas.Substring(2, 2);
-                    txtHoras.Text = horas.PadLeft(4, '0');
+                    txtHoras.Text = usuario.Carga_horaria.ToString();
 
                     btnGuardar.Enabled = false;
                     btnEliminar.Enabled = true;
@@ -87,9 +85,7 @@ public partial class abm_empleados : System.Web.UI.Page
                 usuario.Username = txtUsername.Text.Trim();
                 usuario.Password = txtPassword.Text.Trim();
                 usuario.Nombre = txtNombre.Text.Trim();
-
-                string horas = txtHoras.Text;
-                usuario.Carga_horaria = Convert.ToInt32(horas.Replace(":", ""));
+                usuario.Carga_horaria = Convert.ToInt32(txtHoras.Text);
 
                 new ServicioClient().ModificarUsuario(usuario);
 

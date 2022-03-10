@@ -20,15 +20,13 @@ public partial class login : System.Web.UI.Page
     {
         try
         {
-            Usuario user = FabricaLogica.GetLogicaUsuarios().LoginUsuario(txtUser.Text, txtPass.Text);
+            //Usuario user = FabricaLogica.GetLogicaUsuarios().LoginUsuario(txtUser.Text, txtPass.Text);
             
-            if (user != null)
-            {
-                Session["Usuario_Logueado"] = user;
-                //Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                Response.Redirect("~/index.aspx");
-                //Response.Redirect("~/index.aspx",false);
-            }
+            //if (user != null)
+            //{
+            //    Session["Usuario_Logueado"] = user;
+            //    Response.Redirect("~/index.aspx");
+            //}
         }
         catch (Exception ex)
         {

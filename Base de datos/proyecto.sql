@@ -36,8 +36,7 @@ go
 -----------------------------------------------------------------------------------------------------------
 create table usuarios (
 	username varchar(20) not null primary key,
-	password varchar(9) not null 
-		check(password like '[0-9][0-9][0-9][A-Z][A-Z][A-Z][A-Z][^0-9A-Z][^0-9A-Z]'),
+	password varchar(9) not null check(password like '[0-9][0-9][0-9][A-Z][A-Z][A-Z][A-Z][^0-9A-Z][^0-9A-Z]'),
 	nombre_completo varchar(50) not null
 )
 go
@@ -52,16 +51,14 @@ go
 create table meteorologos (
 	usuario varchar(20) primary key,
 	telefono varchar(20) not null,
-	correo varchar(30) not null
-		check(correo like '%_@__%.__%'),
+	correo varchar(30) not null check(correo like '%_@__%.__%'),
 	deleted bit not null default(0),
 	foreign key (usuario) references usuarios (username)
 )
 go
 
 create table ciudades (
-	codigo varchar(6) not null primary key
-		check(codigo like '[A-Z][A-Z][A-Z][A-Z][A-Z][A-Z]'),
+	codigo varchar(6) not null primary key check(codigo like '[A-Z][A-Z][A-Z][A-Z][A-Z][A-Z]'),
 	nombre_ciudad varchar(30) not null,
 	pais varchar(20) not null,
 	deleted bit not null default(0)
@@ -72,28 +69,21 @@ create table pronosticos_tiempo (
 	interno int not null primary key identity(1,1),
 	usuario varchar(20) not null,
 	ciudad varchar(6) not null,
-	fecha date not null
-		check(fecha >= getDate()) default(getdate()),
+	fecha date not null check(convert(date, fecha) >= convert(date, getDate())),
 	foreign key (usuario) references usuarios (username),
 	foreign key (ciudad) references ciudades (codigo),
 )
 go
 
 create table pronosticos_hora (
-	hora int not null
-		check (hora >= 0 and hora <= 2359),
+	hora int not null check (hora >= 0 and hora <= 2359),
 	interno int not null,
 	temp_max int not null,
 	temp_min int not null,
 	v_viento int not null,
-	tipo_cielo varchar(20) not null
-		check (tipo_cielo like 'despejado' 
-		    or tipo_cielo like 'parcialmente_nuboso'
-		    or tipo_cielo like 'nuboso'),
-	prob_lluvias int not null
-		check(prob_lluvias >= 0 and prob_lluvias <= 100),
-	prob_tormenta int not null,
-		check(prob_tormenta >= 0 and prob_tormenta <= 100),
+	tipo_cielo varchar(20) not null check (tipo_cielo like 'nuboso' or tipo_cielo like 'despejado' or tipo_cielo like 'parcialmente_nuboso'),
+	prob_lluvias int not null check(prob_lluvias >= 0 and prob_lluvias <= 100),
+	prob_tormenta int not null, check(prob_tormenta >= 0 and prob_tormenta <= 100),
 	primary key (interno,hora),
 	foreign key (interno) references pronosticos_tiempo (interno)
 )
@@ -230,10 +220,10 @@ go
 -----------------------------------------------------------------------------------------------------------
 		-- ELIMINAR USUARIO EMPLEADO --		2
 -----------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'eliminar_ususario_empleado')
-		drop proc eliminar_ususario_empleado
+	if exists (select * from sysobjects where name = 'eliminar_usuario_empleado')
+		drop proc eliminar_usuario_empleado
 	go
-	create procedure eliminar_ususario_empleado 
+	create procedure eliminar_usuario_empleado 
 		@username varchar(20)
 	as
 	begin
@@ -274,10 +264,10 @@ go
 -----------------------------------------------------------------------------------------------------------
 		-- ELIMINAR USUARIO METEOROLOGO --		4
 -----------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'eliminar_ususario_meteorologo')
-		drop proc eliminar_ususario_meteorologo
+	if exists (select * from sysobjects where name = 'eliminar_usuario_meteorologo')
+		drop proc eliminar_usuario_meteorologo
 	go
-	create procedure eliminar_ususario_meteorologo 
+	create procedure eliminar_usuario_meteorologo 
 		@username varchar(20)
 	as
 	begin
@@ -325,10 +315,10 @@ go
 -----------------------------------------------------------------------------------------------------------
 		-- MODIFICAR USUARIO EMPLEADO --		5
 -----------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'modificar_ususario_empleado')
-		drop proc modificar_ususario_empleado
+	if exists (select * from sysobjects where name = 'modificar_usuario_empleado')
+		drop proc modificar_usuario_empleado
 	go
-	create procedure modificar_ususario_empleado 
+	create procedure modificar_usuario_empleado 
 		@username varchar(20),
 		@nombre varchar(50),
 		@pass varchar(9),
@@ -357,10 +347,10 @@ go
 -----------------------------------------------------------------------------------------------------------
 		-- MODIFICAR USUARIO METEOROLOGO --		6
 -----------------------------------------------------------------------------------------------------------
-	if exists (select * from sysobjects where name = 'modificar_ususario_meteorologo')
-		drop proc modificar_ususario_meteorologo
+	if exists (select * from sysobjects where name = 'modificar_usuario_meteorologo')
+		drop proc modificar_usuario_meteorologo
 	go
-	create procedure modificar_ususario_meteorologo 
+	create procedure modificar_usuario_meteorologo 
 		@username varchar(20),
 		@nombre varchar(50),
 		@pass varchar(9),
@@ -734,6 +724,13 @@ go
 		-- EMPLEADOS
 -----------------------------------------------------------------------------------------------------------
 
+grant create schema to rol_empleados;
+go
+grant alter any user to rol_empleados;
+go
+grant alter any role to rol_empleados;
+go
+
 grant execute on crear_usuario_empleado to rol_empleados
 go
 grant execute on crear_usuario_meteorologo to rol_empleados
@@ -812,19 +809,16 @@ go
 --		   ('Carlos29',  '129carl**', 'Carlos Techera'),
 --		   ('Laura36663','123laur**', 'Larua Setevelatan'),
 --		   ('Admin',     '000admi**', 'Administrador')
---go
 
 --insert empleados (usuario,carga_horaria)
 --	values ('Esteban89', 44),
 --	       ('Analia123', 24),
 --	       ('Admin',	 16)
---go
 
 --insert meteorologos (usuario,telefono,correo)
 --	values ('Carlos29',   '098790944', 'carlosfernandez@gmail.com'),
 --		   ('Laura36663', '094143488', 'laura36@gmail.com'),
 --		   ('Admin',	  '099099099', 'admin-sistema@gmail.com')
---go
 
 exec crear_usuario_empleado 'Esteban89', 'Esteban Piccardo', '123este**', 44
 exec crear_usuario_empleado 'Analia123', 'Analia Rodriguez', '123anal**', 24
@@ -862,35 +856,36 @@ insert ciudades (codigo,nombre_ciudad,pais)
 go
 
 insert pronosticos_tiempo (fecha,usuario,ciudad)
-	values ('20220310 06:00:00','Carlos29','URUMVD'),
-		   ('20220310 06:15:00','Carlos29','URUCAN'),
-		   ('20220310 07:30:00','Carlos29','URUCAN'),
-		   ('20220310 08:00:00','Laura36663','URUPDE'),
-		   ('20220310 09:15:00','Laura36663','URUPDE'),
-		   ('20220310 15:30:00','Carlos29','URUMVD'),
-		   ('20220310 18:00:00','Carlos29','URUPIR'),
-		   ('20220310 18:15:00','Carlos29','URUMVD'),
-		   ('20220310 18:30:00','Carlos29','URUMVD'),
-		   ('20220310 20:00:00','Laura36663','URUMVD'),
-		   ('20220310 20:15:00','Laura36663','URUPIR'),
-		   ('20220310 23:30:00','Laura36663','URUMVD'),
-		   ('20220311 06:00:00','Carlos29','URUMVD'),
-		   ('20220311 06:15:00','Carlos29','URUSAN'),
-		   ('20220311 07:30:00','Carlos29','URUSAN'),
-		   ('20220311 08:00:00','Carlos29','URUSAN'),
-		   ('20220311 09:15:00','Carlos29','URUMVD'),
-		   ('20220311 15:30:00','Carlos29','URUMVD'),
-		   ('20220312 18:00:00','Carlos29','URUMVD'),
-		   ('20220312 18:15:00','Carlos29','BRSSAP'),
-		   ('20220312 18:30:00','Laura36663','URUMVD'),
-		   ('20220313 20:00:00','Laura36663','ARGBAS'),
-		   ('20220313 20:15:00','Laura36663','URUMVD'),
-		   ('20220313 23:30:00','Laura36663','URUMVD')
+	values ('20220310','Carlos29','URUMVD'),
+		   ('20220310','Carlos29','URUCAN'),
+		   ('20220310','Carlos29','URUCAN'),
+		   ('20220310','Laura36663','URUPDE'),
+		   ('20220310','Laura36663','URUPDE'),
+		   ('20220310','Carlos29','URUMVD'),
+		   ('20220310 ','Carlos29','URUPIR'),
+		   ('20220310','Carlos29','URUMVD'),
+		   ('20220310','Carlos29','URUMVD'),
+		   ('20220310','Laura36663','URUMVD'),
+		   ('20220310','Laura36663','URUPIR'),
+		   ('20220310','Laura36663','URUMVD'),
+		   ('20220311','Carlos29','URUMVD'),
+		   ('20220311','Carlos29','URUSAN'),
+		   ('20220311','Carlos29','URUSAN'),
+		   ('20220311','Carlos29','URUSAN'),
+		   ('20220311','Carlos29','URUMVD'),
+		   ('20220311','Carlos29','URUMVD'),
+		   ('20220312','Carlos29','URUMVD'),
+		   ('20220312','Carlos29','BRSSAP'),
+		   ('20220312','Laura36663','URUMVD'),
+		   ('20220313','Laura36663','ARGBAS'),
+		   ('20220313','Laura36663','URUMVD'),
+		   ('20220313','Laura36663','URUMVD')
 go
 
 insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob_lluvias,prob_tormenta)
 	values  (1,600,24,18,45,'despejado',60,20),
-			(2,615,24,18,45,'despejado',60,20),
+			(1,630,21,19,38,'despejado',50,18),
+			(2,645,24,18,45,'nuboso',35,20),
 			(3,730,24,18,45,'despejado',60,20),
 			(4,800,24,18,45,'despejado',60,20),
 			(5,915,24,18,45,'despejado',60,20),
@@ -898,19 +893,19 @@ insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob
 			(7,1800,24,18,45,'despejado',60,20),
 			(8,1815,24,18,45,'parcialmente_nuboso',60,20),
 			(9,1830,24,18,45,'parcialmente_nuboso',60,20),
-			(10,2000,24,18,45,'parcialmente_nuboso',60,20),
-			(11,2015,24,18,45,'parcialmente_nuboso',60,20),
-			(12,2330,24,18,45,'parcialmente_nuboso',60,20),
-			(13,600,24,18,45,'despejado',60,20),
-			(14,615,24,18,45,'despejado',60,20),
-			(15,730,24,18,45,'despejado',60,20),
-			(16,800,24,18,45,'despejado',60,20),
-			(17,915,24,18,45,'despejado',60,20),
+			(10,2000,24,18,45,'parcialmente_nuboso',80,20),
+			(11,2015,24,18,45,'parcialmente_nuboso',45,20),
+			(12,2330,24,18,45,'parcialmente_nuboso',40,20),
+			(13,600,24,18,45,'despejado',30,20),
+			(14,615,24,18,45,'despejado',30,20),
+			(15,730,24,18,45,'despejado',30,20),
+			(16,800,24,18,45,'despejado',10,20),
+			(17,915,24,18,45,'despejado',15,20),
 			(18,1530,24,18,45,'nuboso',60,20),
-			(19,1800,24,18,45,'nuboso',60,20),
+			(19,1800,24,18,45,'nuboso',100,20),
 			(20,1815,24,18,45,'despejado',60,20),
-			(21,1830,24,18,45,'nuboso',60,20),
+			(21,1830,24,18,45,'nuboso',50,20),
 			(22,2000,24,18,45,'nuboso',60,20),
-			(23,2015,24,18,45,'nuboso',60,20),
+			(23,2015,24,18,45,'nuboso',40,20),
 			(24,2330,24,18,45,'nuboso',60,20)		
 go

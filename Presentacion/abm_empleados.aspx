@@ -22,17 +22,17 @@
                                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group col-12">
                                         <label>USUARIO</label>
-                                        <asp:TextBox  ID="txtUsername" class="form-control" runat="server"  ToolTip=" " ></asp:TextBox>
+                                        <asp:TextBox  ID="txtUsername" class="form-control" runat="server" ></asp:TextBox>
                                     </div>
                                     
                                     <div class="form-group col-12">
                                         <label>CONTRASEÑA</label>
-                                        <asp:TextBox  ID="txtPassword" class="form-control" runat="server"  ToolTip=" " ></asp:TextBox>
+                                        <asp:TextBox  ID="txtPassword" class="form-control" runat="server"></asp:TextBox>
                                     </div>
                                   
                                     <div class="form-group col-12">
                                         <label>NOMBRE COMPLETO</label>
-                                        <asp:TextBox  ID="txtNombre" class="form-control" runat="server"  ToolTip=" " ></asp:TextBox>
+                                        <asp:TextBox  ID="txtNombre" class="form-control" runat="server" ></asp:TextBox>
                                     </div>
 
                                 </div>
