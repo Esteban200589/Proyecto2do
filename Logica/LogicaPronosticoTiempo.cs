@@ -67,9 +67,10 @@ namespace Logica
                 ciudad.InnerText = pt.Ciudad.Nombre_ciudad.ToString();
                 nodo.AppendChild(ciudad);
 
+                int cnt = 1;
                 foreach (Pronostico_hora ph in pt.LIST_pronosticos_hora)
                 {
-                    XmlElement nodo_ph = documento.CreateElement("Pronostico_hora");
+                    XmlElement nodo_ph = documento.CreateElement("Pronostico_hora_"+cnt);
                     //XmlAttribute attr = documento.CreateAttribute("Interno");
                     //nodo_ph.SetAttribute("_pt", pt.Interno.ToString());
 
@@ -110,25 +111,30 @@ namespace Logica
                     XmlElement cielo = documento.CreateElement("Tipo_Cielo");
 
                     string html_tipo = "";
+                    string html_color = "";
                     string tipo = ph.Tipo_cielo.ToString();
 
                     switch (tipo)
                     {
-                        case "nublado":
-                            html_tipo = "Nublado";
+                        case "nuboso":
+                            html_tipo = "Nuboso";
+                            html_color = "background-color:#f3aa56;";
                             break;
                         case "parcialmente_nuboso":
-                            html_tipo = "Parcialmente Nublado";
+                            html_tipo = "Parcialmente Nuboso";
+                            html_color = "background-color:#abf356;";
                             break;
                         case "despejado":
                             html_tipo = "Despejado";
+                            html_color = "background-color:#56aaf3;";
                             break;
                     }   
-
+                    cielo.SetAttribute("style", html_color);
                     cielo.InnerText = html_tipo;
                     nodo_ph.AppendChild(cielo);
 
                     nodo.AppendChild(nodo_ph);
+                    cnt++;
                 }
 
                 root.AppendChild(nodo);

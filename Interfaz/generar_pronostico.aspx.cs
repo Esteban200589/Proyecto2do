@@ -14,9 +14,6 @@ public partial class generar_pronostico : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        txtInterno.ReadOnly = true;
-        txtInterno.Visible = false;
-
         if (!IsPostBack)
         {
             cargar_ciudades();
@@ -25,9 +22,6 @@ public partial class generar_pronostico : System.Web.UI.Page
 
     protected void btnAgregarPronoHora_Click(object sender, EventArgs e)
     {
-        //agregar a grilla
-        //agregar a session
-
         try
         {
             Pronostico_hora ph = new Pronostico_hora()

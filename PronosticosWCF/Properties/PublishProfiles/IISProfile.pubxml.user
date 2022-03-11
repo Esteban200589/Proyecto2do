@@ -8,38 +8,38 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword />
     <_PublishTargetUrl>http://localhost/PronosticosWCF</_PublishTargetUrl>
-    <History>True|2022-03-10T14:14:25.5776666Z;True|2022-03-10T09:09:14.7803255-03:00;False|2022-03-10T09:05:03.4744789-03:00;True|2022-03-03T15:33:38.2344190-03:00;True|2022-03-03T13:46:26.6494177-03:00;True|2022-03-03T13:26:02.9462663-03:00;True|2022-03-03T13:24:54.9951522-03:00;True|2022-03-03T13:23:33.9140809-03:00;True|2022-03-03T13:20:33.6277778-03:00;True|2022-03-03T13:11:32.4147746-03:00;True|2022-03-03T13:09:49.7286815-03:00;True|2022-03-03T13:05:08.4393752-03:00;True|2022-03-03T13:03:19.8550431-03:00;True|2022-03-03T13:02:13.6514089-03:00;True|2022-03-03T13:00:13.9824513-03:00;True|2022-03-03T12:53:57.3078142-03:00;True|2022-03-03T12:53:17.2052903-03:00;True|2022-03-03T12:50:49.1696809-03:00;True|2022-03-03T12:49:34.4672801-03:00;True|2022-03-03T12:47:08.5977380-03:00;</History>
+    <History>True|2022-03-11T16:27:32.4653863Z;True|2022-03-11T13:20:08.3423923-03:00;True|2022-03-11T11:24:53.3516630-03:00;True|2022-03-11T10:42:37.0678708-03:00;True|2022-03-11T10:42:29.0471068-03:00;True|2022-03-11T10:27:31.4183358-03:00;True|2022-03-10T11:14:25.5776666-03:00;True|2022-03-10T09:09:14.7803255-03:00;False|2022-03-10T09:05:03.4744789-03:00;True|2022-03-03T15:33:38.2344190-03:00;True|2022-03-03T13:46:26.6494177-03:00;True|2022-03-03T13:26:02.9462663-03:00;True|2022-03-03T13:24:54.9951522-03:00;True|2022-03-03T13:23:33.9140809-03:00;True|2022-03-03T13:20:33.6277778-03:00;True|2022-03-03T13:11:32.4147746-03:00;True|2022-03-03T13:09:49.7286815-03:00;True|2022-03-03T13:05:08.4393752-03:00;True|2022-03-03T13:03:19.8550431-03:00;True|2022-03-03T13:02:13.6514089-03:00;True|2022-03-03T13:00:13.9824513-03:00;True|2022-03-03T12:53:57.3078142-03:00;True|2022-03-03T12:53:17.2052903-03:00;True|2022-03-03T12:50:49.1696809-03:00;True|2022-03-03T12:49:34.4672801-03:00;True|2022-03-03T12:47:08.5977380-03:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Entidades.dll">
-      <publishTime>03/10/2022 21:52:34</publishTime>
+      <publishTime>03/11/2022 13:27:16</publishTime>
     </File>
     <File Include="bin/Entidades.pdb">
-      <publishTime>03/10/2022 21:52:34</publishTime>
+      <publishTime>03/11/2022 13:27:16</publishTime>
     </File>
     <File Include="bin/Logica.dll">
-      <publishTime>03/10/2022 22:45:04</publishTime>
+      <publishTime>03/11/2022 13:27:16</publishTime>
     </File>
     <File Include="bin/Logica.pdb">
-      <publishTime>03/10/2022 22:45:04</publishTime>
+      <publishTime>03/11/2022 13:27:16</publishTime>
     </File>
     <File Include="bin/Persistencia.dll">
-      <publishTime>03/10/2022 22:45:04</publishTime>
+      <publishTime>03/11/2022 13:27:16</publishTime>
     </File>
     <File Include="bin/Persistencia.pdb">
-      <publishTime>03/10/2022 22:45:04</publishTime>
+      <publishTime>03/11/2022 13:27:16</publishTime>
     </File>
     <File Include="bin/PronosticosWCF.dll">
-      <publishTime>03/10/2022 22:45:04</publishTime>
+      <publishTime>03/11/2022 13:27:24</publishTime>
     </File>
     <File Include="bin/PronosticosWCF.pdb">
-      <publishTime>03/10/2022 22:45:04</publishTime>
+      <publishTime>03/11/2022 13:27:24</publishTime>
     </File>
     <File Include="Servicio.svc">
-      <publishTime>03/10/2022 19:10:44</publishTime>
+      <publishTime>03/11/2022 10:20:52</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/10/2022 21:53:17</publishTime>
+      <publishTime>03/11/2022 10:27:31</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -21,6 +21,15 @@ public partial class login : System.Web.UI.Page
         {
             var usuario = Session["Usuario"] != null ? (Usuario)Session["Usuario"] : null;
             Usuario user = new ServicioClient().LoginUsuario(txtUser.Text, txtPass.Text, usuario);
+
+            //Usuario user = new Usuario
+            //{
+            //    Username = "Carlos29",
+            //    Password = "129carl**"
+            //};
+
+            Session["Usuario"] = user;
+
             if (user != null)
             {
                 Session["Usuario"] = user;

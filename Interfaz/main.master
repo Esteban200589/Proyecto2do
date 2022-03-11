@@ -48,6 +48,7 @@
         <div style="text-align:center;">                   
             <asp:Label id="lblMsj" for="exampleFormControlInput1" runat="server"></asp:Label>                  
         </div>
+
     </form>
 
     <script>

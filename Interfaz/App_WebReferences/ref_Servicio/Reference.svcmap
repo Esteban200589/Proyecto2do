@@ -21,11 +21,11 @@
     <MetadataSource Address="http://localhost/PronosticosWCF/Servicio.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Servicio.xsd" MetadataType="Schema" ID="d743ef87-6915-4a94-97fe-63839879b5e7" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd2" />
-    <MetadataFile FileName="Servicio.wsdl" MetadataType="Wsdl" ID="3be34adf-beea-4c17-9cea-0ec054fbd683" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?wsdl" />
-    <MetadataFile FileName="Servicio1.xsd" MetadataType="Schema" ID="f051b75f-0085-413c-a57c-c47596f8687e" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd0" />
-    <MetadataFile FileName="Servicio2.xsd" MetadataType="Schema" ID="47501c2f-733c-4695-b3e7-72b64e0fdc80" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?xsd=xsd1" />
-    <MetadataFile FileName="Servicio.disco" MetadataType="Disco" ID="27be3e7c-49de-4120-9ae2-0d21ee14e51b" SourceId="1" SourceUrl="http://desktop-espial/PronosticosWCF/Servicio.svc?disco" />
+    <MetadataFile FileName="Servicio3.xsd" MetadataType="Schema" ID="5673a5cf-5166-4935-97a7-35f49279a5cf" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?xsd=xsd1" />
+    <MetadataFile FileName="Servicio1.disco" MetadataType="Disco" ID="be6ba8eb-56c8-4730-952b-63d9bf4bec84" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?disco" />
+    <MetadataFile FileName="Servicio32.xsd" MetadataType="Schema" ID="1e29f096-cbed-4ba5-85e7-065ad9b7c7f2" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?xsd=xsd2" />
+    <MetadataFile FileName="Servicio1.wsdl" MetadataType="Wsdl" ID="b4bc1270-de8b-4e1a-9498-e06d2641b4a5" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?wsdl" />
+    <MetadataFile FileName="Servicio33.xsd" MetadataType="Schema" ID="ea7f93eb-4db3-4913-bd85-10f1c543a1e7" SourceId="1" SourceUrl="http://desktop-mgr3b3l/PronosticosWCF/Servicio.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
