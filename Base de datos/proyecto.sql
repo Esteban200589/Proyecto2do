@@ -100,6 +100,13 @@ create role rol_meteorologos
 go
 
 
+grant create schema to rol_empleados;
+go
+grant alter any user to rol_empleados;
+go
+grant alter any role to rol_empleados;
+go
+
 -----------------------------------------------------------------------------------------------------------
 			      /*/*/*/*/*/*/*/*/*/*	  PROCEDIMIENTOS	 */*/*/*/*/*/*/*/*/*/
 -----------------------------------------------------------------------------------------------------------
@@ -203,7 +210,7 @@ go
 			set @var_sentencia = 'create user [' + @username + '] from login [' + @username + ']'
 			exec (@var_sentencia)
 			
-			set @rol = 'rol_empleados'
+			set @rol = 'rol_meteorologos'
 			exec sp_addrolemember @rolename=@rol, @membername=@username
 			exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
 			exec sp_addsrvrolemember @loginame=@username, @rolename= 'dbcreator'
@@ -724,24 +731,17 @@ go
 		-- EMPLEADOS
 -----------------------------------------------------------------------------------------------------------
 
-grant create schema to rol_empleados;
-go
-grant alter any user to rol_empleados;
-go
-grant alter any role to rol_empleados;
-go
-
 grant execute on crear_usuario_empleado to rol_empleados
 go
 grant execute on crear_usuario_meteorologo to rol_empleados
 go
-grant execute on eliminar_ususario_empleado to rol_empleados
+grant execute on eliminar_usuario_empleado to rol_empleados
 go
-grant execute on eliminar_ususario_meteorologo to rol_empleados
+grant execute on eliminar_usuario_meteorologo to rol_empleados
 go
-grant execute on modificar_ususario_empleado to rol_empleados
+grant execute on modificar_usuario_empleado to rol_empleados
 go
-grant execute on modificar_ususario_meteorologo to rol_empleados
+grant execute on modificar_usuario_meteorologo to rol_empleados
 go
 
 grant execute on buscar_ciudad to rol_empleados
@@ -783,7 +783,7 @@ grant execute on crear_pronostico_tiempo to rol_meteorologos
 go
 grant execute on crear_pronostico_hora to rol_meteorologos
 go
-grant execute on modificar_ususario_meteorologo to rol_meteorologos
+grant execute on modificar_usuario_meteorologo to rol_meteorologos
 go
 
 grant execute on buscar_ciudad_activa to rol_meteorologos
@@ -791,9 +791,17 @@ go
 grant execute on buscar_ciudad to rol_meteorologos
 go
 
-grant execute on listar_ciudades to rol_empleados
+grant execute on listar_pronosticos_anio to rol_meteorologos
 go
 grant execute on listar_pronosticos_hora to rol_meteorologos
+go
+grant execute on listar_pronosticos_fecha to rol_meteorologos
+go
+grant execute on listar_ciudades to rol_meteorologos
+go
+grant execute on listar_ciudades_sin to rol_meteorologos
+go
+grant execute on listar_meteorologos_sin to rol_meteorologos
 go
 
 -----------------------------------------------------------------------------------------------------------
@@ -885,13 +893,14 @@ go
 insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob_lluvias,prob_tormenta)
 	values  (1,600,24,18,45,'despejado',60,20),
 			(1,630,21,19,38,'despejado',50,18),
-			(2,645,24,18,45,'nuboso',35,20),
+			(2,615,24,18,45,'nuboso',35,20),
+			(2,655,21,16,13,'nuboso',48,20),
 			(3,730,24,18,45,'despejado',60,20),
-			(4,800,24,18,45,'despejado',60,20),
+			(4,800,24,18,56,'despejado',60,20),
 			(5,915,24,18,45,'despejado',60,20),
-			(6,1530,24,18,45,'despejado',60,20),
-			(7,1800,24,18,45,'despejado',60,20),
-			(8,1815,24,18,45,'parcialmente_nuboso',60,20),
+			(6,1530,24,18,53,'despejado',60,20),
+			(7,1800,24,18,20,'despejado',60,20),
+			(8,1815,24,18,25,'parcialmente_nuboso',60,20),
 			(9,1830,24,18,45,'parcialmente_nuboso',60,20),
 			(10,2000,24,18,45,'parcialmente_nuboso',80,20),
 			(11,2015,24,18,45,'parcialmente_nuboso',45,20),
@@ -909,3 +918,5 @@ insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob
 			(23,2015,24,18,45,'nuboso',40,20),
 			(24,2330,24,18,45,'nuboso',60,20)		
 go
+
+-- exec buscar_meteorologo 'Carlos29'

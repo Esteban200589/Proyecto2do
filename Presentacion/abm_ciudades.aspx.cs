@@ -10,8 +10,6 @@ using Entidades;
 using Logica;
 public partial class abm_ciudades : System.Web.UI.Page
 {
-    Usuario user_log = null;
-
     protected void Page_Load(object sender, EventArgs e)
     {
         //this.Response.Write(sender);

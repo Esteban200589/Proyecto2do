@@ -28,7 +28,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
         {
             if (txtUsername.Text != "")
             {
-                Meteorologo usuario = (Meteorologo)new ServicioClient().BuscarUsuario(txtUsername.Text);
+                Meteorologo usuario = (Meteorologo)new ServicioClient().BuscarUsuario(txtUsername.Text, (Usuario)base.Session["Usuario"]);
 
                 txtUsername.ReadOnly = true;
 
@@ -49,6 +49,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
 
                     txtUsername.Text = usuario.Username;
                     txtPassword.Text = usuario.Password;
+                    txtPassword.TextMode = TextBoxMode.Password;
                     txtNombre.Text = usuario.Nombre;
                     txtTelefono.Text = usuario.Telefono;
                     txtCorreo.Text = usuario.Correo;
@@ -88,7 +89,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
                 usuario.Telefono = txtTelefono.Text.Trim();
                 usuario.Correo = txtCorreo.Text.Trim();
 
-                new ServicioClient().ModificarUsuario(usuario);
+                new ServicioClient().ModificarUsuario(usuario, (Usuario)Session["Usuario"]);
 
                 lblMsj.Text = "Usuario Modificado";
                 lblMsj.ForeColor = Color.Green;
@@ -131,7 +132,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
                 Correo = txtCorreo.Text.Trim()
             };
 
-            new ServicioClient().CrearUsuario(usuario);
+            new ServicioClient().CrearUsuario(usuario, (Usuario)base.Session["Usuario"]);
 
             lblMsj.Text = "Ciudad guardada con exito!";
             lblMsj.ForeColor = Color.Green;
@@ -164,7 +165,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
             if (Session["Ciudad"] != null)
             {
                 usuario = (Meteorologo)Session["Usuario"];
-                new ServicioClient().EliminarUsuario(usuario);
+                new ServicioClient().EliminarUsuario(usuario, (Usuario)Session["Usuario"]);
 
                 lblMsj.Text = "Ciudad Eliminada";
                 lblMsj.ForeColor = Color.Green;

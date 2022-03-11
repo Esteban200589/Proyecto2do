@@ -37,67 +37,67 @@ namespace PronosticosWCF
             return FabricaLogica.GetLogicaCiudades().BuscarCiudadActiva(codigo, user_log);
         }
 
-        List<Ciudad> IServicio.ListarCiudades()
+        List<Ciudad> IServicio.ListarCiudades(Usuario user_log)
         {
-            return FabricaLogica.GetLogicaCiudades().ListarCiudades();
+            return FabricaLogica.GetLogicaCiudades().ListarCiudades(user_log);
         }
 
-        List<Ciudad> IServicio.ListarCiudadesSinPronosticos()
+        List<Ciudad> IServicio.ListarCiudadesSinPronosticos(Usuario user_log)
         {
-            return FabricaLogica.GetLogicaCiudades().ListarCiudadesSinPronosticos();
+            return FabricaLogica.GetLogicaCiudades().ListarCiudadesSinPronosticos(user_log);
         }
 
         #endregion
 
         #region usuarios
 
-        void IServicio.CrearUsuario(Usuario u)
+        void IServicio.CrearUsuario(Usuario u, Usuario user_log)
         {
-            FabricaLogica.GetLogicaUsuarios().CrearUsuario(u);
+            FabricaLogica.GetLogicaUsuarios().CrearUsuario(u, user_log);
         }
 
-        void IServicio.ModificarUsuario(Usuario u)
+        void IServicio.ModificarUsuario(Usuario u, Usuario user_log)
         {
-            FabricaLogica.GetLogicaUsuarios().ModificarUsuario(u);
+            FabricaLogica.GetLogicaUsuarios().ModificarUsuario(u, user_log);
         }
 
-        void IServicio.EliminarUsuario(Usuario u)
+        void IServicio.EliminarUsuario(Usuario u, Usuario user_log)
         {
-            FabricaLogica.GetLogicaUsuarios().EliminarUsuario(u);
+            FabricaLogica.GetLogicaUsuarios().EliminarUsuario(u, user_log);
         }
 
-        Usuario IServicio.LoginUsuario(string username, string password)
+        Usuario IServicio.LoginUsuario(string username, string password, Usuario user_log)
         {
-            return FabricaLogica.GetLogicaUsuarios().LoginUsuario(username, password);
+            return FabricaLogica.GetLogicaUsuarios().LoginUsuario(username, password, user_log);
         }
 
-        Usuario IServicio.BuscarUsuario(string username)
+        Usuario IServicio.BuscarUsuario(string username, Usuario user_log)
         {
-            return FabricaLogica.GetLogicaUsuarios().BuscarUsuario(username);
+            return FabricaLogica.GetLogicaUsuarios().BuscarUsuario(username, user_log);
         }
 
         #endregion
 
         #region pronosticos
 
-        void IServicio.CrearPronosticoTiempo(Pronostico_tiempo pt)
+        void IServicio.CrearPronosticoTiempo(Pronostico_tiempo pt, Usuario user_log)
         {
-            FabricaLogica.GetLogicaPronosticosTiempo().CrearPronosticoTiempo(pt);
+            FabricaLogica.GetLogicaPronosticosTiempo().CrearPronosticoTiempo(pt, user_log);
         }
 
-        List<Pronostico_tiempo> IServicio.ListarPronosticosPorFecha(DateTime fecha)
+        List<Pronostico_tiempo> IServicio.ListarPronosticosPorFecha(DateTime fecha, Usuario user_log)
         {
-            return FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosPorFecha(fecha);
+            return FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosPorFecha(fecha, user_log);
         }
 
-        List<Pronostico_tiempo> IServicio.ListarPronosticosAnioActual()
+        List<Pronostico_tiempo> IServicio.ListarPronosticosAnioActual(Usuario user_log)
         {
-            return FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosAnioActual();
+            return FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosAnioActual(user_log);
         }
 
-        string IServicio.PronosticosXML(DateTime fecha)
+        string IServicio.PronosticosXML(DateTime fecha, Usuario user_log)
         {
-            return FabricaLogica.GetLogicaPronosticosTiempo().PronosticosXML(fecha);
+            return FabricaLogica.GetLogicaPronosticosTiempo().PronosticosXML(fecha, user_log);
         }
 
         #endregion

@@ -28,7 +28,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
         {
             if (txtUsername.Text != "")
             {
-                Meteorologo usuario = (Meteorologo)FabricaLogica.GetLogicaUsuarios().BuscarUsuario(txtUsername.Text);
+                Meteorologo usuario = (Meteorologo)FabricaLogica.GetLogicaUsuarios().BuscarUsuario(txtUsername.Text, (Usuario)Session["Usuario"]);
 
                 txtUsername.ReadOnly = true;
 
@@ -49,6 +49,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
 
                     txtUsername.Text = usuario.Username;
                     txtPassword.Text = usuario.Password;
+                    txtPassword.TextMode = TextBoxMode.Password;
                     txtNombre.Text = usuario.Nombre;
                     txtTelefono.Text = usuario.Telefono;
                     txtCorreo.Text = usuario.Correo;
@@ -88,7 +89,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
                 usuario.Telefono = txtTelefono.Text.Trim();
                 usuario.Correo = txtCorreo.Text.Trim();
 
-                FabricaLogica.GetLogicaUsuarios().ModificarUsuario(usuario);
+                FabricaLogica.GetLogicaUsuarios().ModificarUsuario(usuario, (Usuario)Session["Usuario"]);
 
                 lblMsj.Text = "Usuario Modificado";
                 lblMsj.ForeColor = Color.Green;
@@ -97,6 +98,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
 
                 txtUsername.Text = "";
                 txtPassword.Text = "";
+
                 txtNombre.Text = "";
                 txtTelefono.Text = "";
                 txtCorreo.Text = "";
@@ -126,7 +128,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
                 txtCorreo.Text.Trim(), txtUsername.Text.Trim(), 
                 txtPassword.Text.Trim(), txtNombre.Text.Trim());
 
-            FabricaLogica.GetLogicaUsuarios().CrearUsuario(usuario);
+            FabricaLogica.GetLogicaUsuarios().CrearUsuario(usuario, (Usuario)Session["Usuario"]);
 
             lblMsj.Text = "Ciudad guardada con exito!";
             lblMsj.ForeColor = Color.Green;
@@ -159,7 +161,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
             if (Session["Ciudad"] != null)
             {
                 usuario = (Meteorologo)Session["Usuario"];
-                FabricaLogica.GetLogicaUsuarios().EliminarUsuario(usuario);
+                FabricaLogica.GetLogicaUsuarios().EliminarUsuario(usuario, (Usuario)Session["Usuario"]);
 
                 lblMsj.Text = "Ciudad Eliminada";
                 lblMsj.ForeColor = Color.Green;

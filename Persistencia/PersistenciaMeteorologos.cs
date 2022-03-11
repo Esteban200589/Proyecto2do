@@ -23,9 +23,9 @@ namespace Persistencia
         }
 
 
-        public void CrearMeteorologo(Meteorologo m)
+        public void CrearMeteorologo(Meteorologo m, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
@@ -60,14 +60,14 @@ namespace Persistencia
             }
         }
 
-        public void ModificarMeteorologo(Meteorologo m)
+        public void ModificarMeteorologo(Meteorologo m, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
                 cnn.Open();
-                SqlCommand cmd = new SqlCommand("modificar_ususario_meteorologo", cnn);
+                SqlCommand cmd = new SqlCommand("modificar_usuario_meteorologo", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("username", m.Username);
                 cmd.Parameters.AddWithValue("nombre", m.Nombre);
@@ -95,17 +95,16 @@ namespace Persistencia
             {
                 cnn.Close();
             }
-
         }
 
-        public void EliminarMeteorologo(Meteorologo m)
+        public void EliminarMeteorologo(Meteorologo m, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
                 cnn.Open();
-                SqlCommand cmd = new SqlCommand("eliminar_ususario_meteorologo", cnn);
+                SqlCommand cmd = new SqlCommand("eliminar_usuario_meteorologo", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("username", m.Username);
 
@@ -132,10 +131,10 @@ namespace Persistencia
         }
 
 
-        public Meteorologo LoginMeteorologo(string username, string password)
+        public Meteorologo LoginMeteorologo(string username, string password, Usuario user_log)
         {
             Meteorologo user = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
@@ -162,10 +161,10 @@ namespace Persistencia
             return user;
         }
 
-        internal Meteorologo BuscarMeteorologo(string username)
+        internal Meteorologo BuscarMeteorologo(string username, Usuario user_log)
         {
             Meteorologo u = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
             try
             {
                 cnn.Open();
@@ -192,10 +191,10 @@ namespace Persistencia
             return u;
         }
 
-        public Meteorologo BuscarMeteorologoActivo(string username)
+        public Meteorologo BuscarMeteorologoActivo(string username, Usuario user_log)
         {
             Meteorologo p = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
             try
             {
                 cnn.Open();

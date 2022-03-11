@@ -23,9 +23,9 @@ namespace Persistencia
         }
 
 
-        public void CrearCiudad(Ciudad c, Usuario u)
+        public void CrearCiudad(Ciudad c, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn(u));
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
@@ -56,9 +56,9 @@ namespace Persistencia
             }
         }
 
-        public void ModificarCiudad(Ciudad c, Usuario u)
+        public void ModificarCiudad(Ciudad c, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
@@ -90,9 +90,9 @@ namespace Persistencia
 
         }
 
-        public void EliminarCiudad(Ciudad c, Usuario u)
+        public void EliminarCiudad(Ciudad c, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
@@ -122,10 +122,10 @@ namespace Persistencia
         }
 
 
-        internal Ciudad BuscarCiudad(string codigo)
+        internal Ciudad BuscarCiudad(string codigo, Usuario user_log)
         {
             Ciudad c = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
             try
             {
                 cnn.Open();
@@ -151,10 +151,10 @@ namespace Persistencia
             return c;
         }
 
-        public Ciudad BuscarCiudadActiva(string codigo, Usuario u)
+        public Ciudad BuscarCiudadActiva(string codigo, Usuario user_log)
         {
             Ciudad c = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
             try
             {
                 cnn.Open();
@@ -181,10 +181,10 @@ namespace Persistencia
         }
 
 
-        public List<Ciudad> ListarCiudades()
+        public List<Ciudad> ListarCiudades(Usuario user_log)
         {
             List<Ciudad> lista = new List<Ciudad>();
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
@@ -215,10 +215,10 @@ namespace Persistencia
             return lista;
         }
 
-        public List<Ciudad> ListarCiudadesSinPronosticos()
+        public List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log)
         {
             List<Ciudad> lista = new List<Ciudad>();
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {

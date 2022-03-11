@@ -28,7 +28,7 @@ public partial class abm_empleados : System.Web.UI.Page
         {
             if (txtUsername.Text != "")
             {
-                Empleado usuario = (Empleado)new ServicioClient().BuscarUsuario(txtUsername.Text);
+                Empleado usuario = (Empleado)new ServicioClient().BuscarUsuario(txtUsername.Text, (Usuario)base.Session["Usuario"]);
 
                 txtUsername.ReadOnly = true;
 
@@ -87,7 +87,7 @@ public partial class abm_empleados : System.Web.UI.Page
                 usuario.Nombre = txtNombre.Text.Trim();
                 usuario.Carga_horaria = Convert.ToInt32(txtHoras.Text);
 
-                new ServicioClient().ModificarUsuario(usuario);
+                new ServicioClient().ModificarUsuario(usuario, (Usuario)base.Session["Usuario"]);
 
                 lblMsj.Text = "Usuario Modificado";
                 lblMsj.ForeColor = Color.Green;
@@ -130,7 +130,7 @@ public partial class abm_empleados : System.Web.UI.Page
                 Carga_horaria = Convert.ToInt32(txtHoras.Text.Trim())
             };
 
-            new ServicioClient().CrearUsuario(usuario);
+            new ServicioClient().CrearUsuario(usuario, (Usuario)base.Session["Usuario"]);
 
             lblMsj.Text = "Ciudad guardada con exito!";
             lblMsj.ForeColor = Color.Green;
@@ -162,7 +162,7 @@ public partial class abm_empleados : System.Web.UI.Page
             if (Session["Ciudad"] != null)
             {
                 usuario = (Empleado)Session["Usuario"];
-                new ServicioClient().EliminarUsuario(usuario);
+                new ServicioClient().EliminarUsuario(usuario, (Usuario)Session["Usuario"]);
 
                 lblMsj.Text = "Ciudad Eliminada";
                 lblMsj.ForeColor = Color.Green;

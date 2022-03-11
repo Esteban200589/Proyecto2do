@@ -59,5 +59,10 @@ namespace Entidades
             Telefono = pTel;
             Correo = pCo;
         }
+
+        public Meteorologo()
+        {
+            // default
+        }
     }
 }

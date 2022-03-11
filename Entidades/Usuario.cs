@@ -34,13 +34,13 @@ namespace Entidades
         {
             get { return password; }
             set {
-                Regex exp = new Regex(@"\z[0-9]{3}\z[a-zA-Z]{4}\z[^A-Za-z0-9]{2}");
+                Regex exp = new Regex(@"[0-9]{3}[a-zA-Z]{4}[^A-Za-z0-9]{2}");
 
                 if (value.Trim().Replace(" ","").Length != 9)
                     throw new Exception("El Password es incorrecto - debe contener 9 caracteres!");
                 else if (string.IsNullOrEmpty(value))
                     throw new Exception("Ingrese el Password");
-                else if (exp.IsMatch(value))
+                else if (!exp.IsMatch(value))
                     throw new Exception("El Password es incorrecto (expression).");
                 else
                     password = value;  
@@ -69,6 +69,11 @@ namespace Entidades
             Username = pUser;
             Password = pPass;
             Nombre = pName;
+        }
+
+        public Usuario()
+        {
+            // default
         }
     }
 }

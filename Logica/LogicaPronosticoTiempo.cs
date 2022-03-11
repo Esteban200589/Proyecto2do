@@ -26,24 +26,24 @@ namespace Logica
         //static InterfazPersistenciaPronosticosHora FabricaHora = FabricaPersistencia.getPersistenciaPronosticosHora();
         static InterfazPersistenciaPronosticosTiempo FabricaTiempo = FabricaPersistencia.getPersistenciaPronosticosTiempo();
 
-        public void CrearPronosticoTiempo(Pronostico_tiempo pt)
+        public void CrearPronosticoTiempo(Pronostico_tiempo pt, Usuario user_log)
         {
-            FabricaTiempo.CrearPronosticoTiempo(pt);
+            FabricaTiempo.CrearPronosticoTiempo(pt, user_log);
         }
 
-        public List<Pronostico_tiempo> ListarPronosticosPorFecha(DateTime fecha)
+        public List<Pronostico_tiempo> ListarPronosticosPorFecha(DateTime fecha, Usuario user_log)
         {
-            return FabricaTiempo.ListarPronosticosFecha(fecha);
+            return FabricaTiempo.ListarPronosticosFecha(fecha, user_log);
         }
 
-        public List<Pronostico_tiempo> ListarPronosticosAnioActual()
+        public List<Pronostico_tiempo> ListarPronosticosAnioActual(Usuario user_log)
         {
-            return FabricaTiempo.ListarPronosticosAnioActual();
+            return FabricaTiempo.ListarPronosticosAnioActual(user_log);
         }
 
-        public string PronosticosXML(DateTime fecha)
+        public string PronosticosXML(DateTime fecha, Usuario user_log)
         {
-            List<Pronostico_tiempo> lista = FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosPorFecha(fecha);
+            List<Pronostico_tiempo> lista = FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosPorFecha(fecha, user_log);
 
             XmlDocument documento = new XmlDocument();
             documento.LoadXml("<?xml version='1.0' encoding='utf-8' ?> <Root> </Root>");

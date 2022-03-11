@@ -23,7 +23,7 @@ namespace Persistencia
         }
 
 
-        public void CrearPronosticoHora(Pronostico_hora ph, SqlTransaction trn)
+        public void CrearPronosticoHora(Pronostico_hora ph, SqlTransaction trn, Usuario user_log)
         {
             SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
@@ -60,7 +60,7 @@ namespace Persistencia
             }
         }
 
-        public List<Pronostico_hora> ListarPronosticosHora(int interno, SqlTransaction trn)
+        public List<Pronostico_hora> ListarPronosticosHora(int interno, SqlTransaction trn, Usuario user_log)
         {
             List<Pronostico_hora> lista = new List<Pronostico_hora>();
             SqlConnection cnn = new SqlConnection(Conexion.Cnn());

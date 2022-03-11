@@ -26,7 +26,7 @@ public partial class abm_empleados : System.Web.UI.Page
         {
             if (txtUsername.Text != "")
             {
-                Empleado usuario = (Empleado)FabricaLogica.GetLogicaUsuarios().BuscarUsuario(txtUsername.Text);
+                Empleado usuario = (Empleado)FabricaLogica.GetLogicaUsuarios().BuscarUsuario(txtUsername.Text, (Usuario)Session["Usuario"]);
              
                 txtUsername.ReadOnly = true;
 
@@ -90,7 +90,7 @@ public partial class abm_empleados : System.Web.UI.Page
                 usuario.Nombre = txtNombre.Text.Trim();
                 usuario.Carga_horaria = Convert.ToInt32(txtHoras.Text);
 
-                FabricaLogica.GetLogicaUsuarios().ModificarUsuario(usuario);
+                FabricaLogica.GetLogicaUsuarios().ModificarUsuario(usuario, (Usuario)Session["Usuario"]);
 
                 lblMsj.Text = "Usuario Modificado";
                 lblMsj.ForeColor = Color.Green;
@@ -128,7 +128,7 @@ public partial class abm_empleados : System.Web.UI.Page
             Empleado usuario = new Empleado(Convert.ToInt32(horas.Replace(":", "")), 
                 txtUsername.Text.Trim(), txtPassword.Text.Trim(), txtNombre.Text.Trim());
            
-            FabricaLogica.GetLogicaUsuarios().CrearUsuario(usuario);
+            FabricaLogica.GetLogicaUsuarios().CrearUsuario(usuario, (Usuario)Session["Usuario"]);
 
             lblMsj.Text = "Ciudad guardada con exito!";
             lblMsj.ForeColor = Color.Green;
@@ -160,7 +160,7 @@ public partial class abm_empleados : System.Web.UI.Page
             if (Session["Ciudad"] != null)
             {
                 usuario = (Empleado)Session["Usuario"];
-                FabricaLogica.GetLogicaUsuarios().EliminarUsuario(usuario);
+                FabricaLogica.GetLogicaUsuarios().EliminarUsuario(usuario, (Usuario)Session["Usuario"]);
 
                 lblMsj.Text = "Ciudad Eliminada";
                 lblMsj.ForeColor = Color.Green;

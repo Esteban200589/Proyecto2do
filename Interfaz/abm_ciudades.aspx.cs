@@ -28,7 +28,7 @@ public partial class abm_ciudades : System.Web.UI.Page
         {
             if (txtCodigo.Text != "")
             {
-                Ciudad ciudad = new ServicioClient().BuscarCiudadActiva(txtCodigo.Text);
+                Ciudad ciudad = new ServicioClient().BuscarCiudadActiva(txtCodigo.Text, (Usuario)Session["Usuario"]);
 
                 txtCodigo.ReadOnly = true;
 
@@ -83,7 +83,7 @@ public partial class abm_ciudades : System.Web.UI.Page
                 ciudad.Nombre_ciudad = txtNombre.Text.Trim();
                 ciudad.Pais = txtPais.Text.Trim();
 
-                new ServicioClient().ModificarCiudad(ciudad);
+                new ServicioClient().ModificarCiudad(ciudad, (Usuario)Session["Usuario"]);
 
                 lblMsj.Text = "Ciudad Modificada";
                 lblMsj.ForeColor = Color.Green;
@@ -122,7 +122,7 @@ public partial class abm_ciudades : System.Web.UI.Page
                 Pais = txtPais.Text.Trim()
             };
 
-            new ServicioClient().CrearCiudad(ciudad);
+            new ServicioClient().CrearCiudad(ciudad, (Usuario)Session["Usuario"]);
 
             lblMsj.Text = "Ciudad guardada con exito!";
             lblMsj.ForeColor = Color.Green;
@@ -153,7 +153,7 @@ public partial class abm_ciudades : System.Web.UI.Page
             if (Session["Ciudad"] != null)
             {
                 ciudad = (Ciudad)Session["Ciudad"];
-                new ServicioClient().EliminarCiudad(ciudad);
+                new ServicioClient().EliminarCiudad(ciudad, (Usuario)Session["Usuario"]);
 
                 lblMsj.Text = "Ciudad Eliminada";
                 lblMsj.ForeColor = Color.Green;

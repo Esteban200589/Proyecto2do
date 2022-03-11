@@ -105,5 +105,10 @@ namespace Entidades
             Prob_tormenta = pTorm;
             Prob_lluvias = pLluvia;
         }
+
+        public Pronostico_hora()
+        {
+            // default
+        }
     }
 }

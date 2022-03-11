@@ -10,12 +10,17 @@ using ref_Servicio;
 
 public partial class generar_pronostico : System.Web.UI.Page
 {
-    static int interno = 1;
+    ServicioClient service = new ServicioClient();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         txtInterno.ReadOnly = true;
         txtInterno.Visible = false;
+
+        if (!IsPostBack)
+        {
+            cargar_ciudades();
+        }
     }
 
     protected void btnAgregarPronoHora_Click(object sender, EventArgs e)
@@ -25,21 +30,29 @@ public partial class generar_pronostico : System.Web.UI.Page
 
         try
         {
-            //int pHora, int pMax, int pMin, int pVen, int pLluvia, int pTorm, string pCielo
-            Pronostico_hora prono_hora = new Pronostico_hora();
-            
-            //lblMsj.Text = "Ciudad guardada con exito!";
-            //lblMsj.ForeColor = Color.Green;
+            Pronostico_hora ph = new Pronostico_hora()
+            {
+                Hora = Convert.ToInt32(txtpsHora.Text.Trim()),
+                Temp_max = Convert.ToInt32(txtpsMax.Text.Trim()),
+                Temp_min = Convert.ToInt32(txtpsMin.Text.Trim()),
+                Prob_lluvias = Convert.ToInt32(txtpsLluvias.Text.Trim()),
+                Prob_tormenta = Convert.ToInt32(txtpsTormentas.Text.Trim()),
+                V_viento = Convert.ToInt32(txtpsTormentas.Text.Trim()),
+                Tipo_cielo = ddlCielo.SelectedValue
+            };
 
 
+            var pronosticosGrilla = (List<Pronostico_hora>)ViewState["PronosticosGrilla"];
+            if (pronosticosGrilla == null)
+            {
+                pronosticosGrilla = new List<Pronostico_hora>();
+            }
 
-            //txtUsername.Text = "";
-            //txtPassword.Text = "";
-            //txtNombre.Text = "";
-            //txtTelefono.Text = "";
-            //txtCorreo.Text = "";
+            pronosticosGrilla.Add(ph);
+            ViewState["PronosticosGrilla"] = pronosticosGrilla;
+            this.gvPronosticosHora.DataSource = pronosticosGrilla;
+            this.gvPronosticosHora.DataBind();
 
-            //btnGuardar.Enabled = false;
         }
         catch (Exception ex)
         {
@@ -50,34 +63,39 @@ public partial class generar_pronostico : System.Web.UI.Page
 
     protected void btnGenerar_Click(object sender, EventArgs e)
     {
-        //recorrer lista de pronos horas de session
-
         try
         {
-            //Pronostico_tiempo pronostico = new Pronostico_tiempo(Convert.ToInt32(txtInterno.Text), 
-            //                                                     Convert.ToDateTime(txtFecha.Text),
-            //                                                     ddlCiudades.SelectedItem, 
-            //                                                     txtUsuario.Text.Trim(), 
-            //                                                     gvPronosticosHora.DataSource);      
-            //new ServicioClient().CrearUsuario(usuario);
+            var pronosticosGrilla = (List<Pronostico_hora>)this.gvPronosticosHora.DataSource;
+            var codigo_ciudad = ddlCiudades.SelectedValue;
 
-            //lblMsj.Text = "Ciudad guardada con exito!";
-            //lblMsj.ForeColor = Color.Green;
+            Ciudad ciudad = new ServicioClient().BuscarCiudadActiva(codigo_ciudad, (Usuario)Session["Usuario"]);
+            Usuario usuario = (Usuario)Session["Usuario"];
 
-            
+            Pronostico_tiempo pt = new Pronostico_tiempo()
+            {
+                Interno = 1,
+                Fecha = Convert.ToDateTime(txtFecha.Text),
+                Ciudad = ciudad,
+                Usuario = usuario,
+                LIST_pronosticos_hora = pronosticosGrilla.ToArray()
+            };
 
-            //txtUsername.Text = "";
-            //txtPassword.Text = "";
-            //txtNombre.Text = "";
-            //txtTelefono.Text = "";
-            //txtCorreo.Text = "";
 
-            //btnGuardar.Enabled = false;
+            service.CrearPronosticoTiempo(pt, (Usuario)Session["Usuario"]);
+
         }
         catch (Exception ex)
         {
             lblMsj.Text = ex.Message;
             lblMsj.ForeColor = Color.Red;
         }
+    }
+
+    private void cargar_ciudades()
+    {
+        Ciudad[] ciudades = service.ListarCiudades((Usuario)Session["Usuario"]);
+        this.ddlCiudades.DataSource = ciudades;
+        //this.
+        this.ddlCiudades.DataBind();
     }
 }

@@ -24,60 +24,69 @@ namespace Logica
         static InterfazPersistenciaEmpleados FabricaEmpleados = FabricaPersistencia.getPersistenciaEmpleados();
         static InterfazPersistenciaMeteorologos FabricaMeteorologos = FabricaPersistencia.getPersistenciaMeteorologos();
 
-        public void CrearUsuario(Usuario u)
+        public void CrearUsuario(Usuario u, Usuario user_log)
         {
+            if (user_log.Username != u.Username && user_log.Password != u.Password)
+                throw new Exception("Solo el mismo Usuario puede modificar su contraseña.");
+
             if (u is Empleado)
             {
-                FabricaEmpleados.CrearEmpleado((Empleado)u);
+                FabricaEmpleados.CrearEmpleado((Empleado)u, user_log);
             }
             else
             {
-                FabricaMeteorologos.CrearMeteorologo((Meteorologo)u);
+                FabricaMeteorologos.CrearMeteorologo((Meteorologo)u, user_log);
             }
         }
-        public void ModificarUsuario(Usuario u)
+        public void ModificarUsuario(Usuario u, Usuario user_log)
         {
+            if (user_log.Username != u.Username && user_log.Password != u.Password)
+                throw new Exception("Solo el mismo Usuario puede modificar su contraseña.");
+
             if (u is Empleado)
             {
-                FabricaEmpleados.ModificarEmpleado((Empleado)u);
+                FabricaEmpleados.ModificarEmpleado((Empleado)u, user_log);
             }
             else
             {
-                FabricaMeteorologos.ModificarMeteorologo((Meteorologo)u);
+                FabricaMeteorologos.ModificarMeteorologo((Meteorologo)u, user_log);
             }
         }
-        public void EliminarUsuario(Usuario u)
+        public void EliminarUsuario(Usuario u, Usuario user_log)
         {
             if (u is Empleado)
             {
-                FabricaEmpleados.EliminarEmpleado((Empleado)u);
+                FabricaEmpleados.EliminarEmpleado((Empleado)u, user_log);
             }
             else
             {
-                FabricaMeteorologos.EliminarMeteorologo((Meteorologo)u);
+                FabricaMeteorologos.EliminarMeteorologo((Meteorologo)u, user_log);
             }
         }
 
-        public Usuario LoginUsuario(string username, string password)
+        public Usuario LoginUsuario(string username, string password, Usuario user_log)
         {
             if (username == "")
                 throw new Exception("Datos Incorrectos");
             if (password == "")
                 throw new Exception("Datos Incorrectos");
 
-            Usuario user = FabricaEmpleados.LoginEmpleado(username, password);
+            Usuario user = FabricaEmpleados.LoginEmpleado(username, password, user_log);
 
             if (user == null)
-                user = FabricaMeteorologos.LoginMeteorologo(username, password);
-            
+                user = FabricaMeteorologos.LoginMeteorologo(username, password, user_log);
+
+            if (user == null)
+                throw new Exception("Datos Incorrectos");
+
             return user;
         }
-        public Usuario BuscarUsuario(string username)
+        public Usuario BuscarUsuario(string username, Usuario user_log)
         {
-            Usuario user = FabricaEmpleados.BuscarEmpleado(username);
+            Usuario user = FabricaEmpleados.BuscarEmpleado(username, user_log);
 
             if (user == null)
-                user = FabricaMeteorologos.BuscarMeteorologoActivo(username);
+                user = FabricaMeteorologos.BuscarMeteorologoActivo(username, user_log);
 
             return user;
         }

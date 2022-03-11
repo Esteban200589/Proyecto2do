@@ -12,14 +12,15 @@ public partial class login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Session["Usuario_Logueado"] = null;
+        Session["Usuario"] = null;
     }
 
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         try
         {
-            Usuario user = new ServicioClient().LoginUsuario(txtUser.Text, txtPass.Text);
+            var usuario = Session["Usuario"] != null ? (Usuario)Session["Usuario"] : null;
+            Usuario user = new ServicioClient().LoginUsuario(txtUser.Text, txtPass.Text, usuario);
             if (user != null)
             {
                 Session["Usuario"] = user;

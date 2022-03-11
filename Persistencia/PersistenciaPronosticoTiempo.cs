@@ -24,9 +24,9 @@ namespace Persistencia
         }
 
 
-        public void CrearPronosticoTiempo(Pronostico_tiempo pt)
+        public void CrearPronosticoTiempo(Pronostico_tiempo pt, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             SqlCommand cmd = new SqlCommand("crear_pronostico_tiempo", cnn);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -57,7 +57,7 @@ namespace Persistencia
 
                 foreach (Pronostico_hora ph in pt.LIST_pronosticos_hora)
                 {
-                    PersistenciaPronosticoHora.GetInstanciaPronosticoHora().CrearPronosticoHora(ph,trn);
+                    PersistenciaPronosticoHora.GetInstanciaPronosticoHora().CrearPronosticoHora(ph,trn, user_log);
                 }
 
                 trn.Commit();
@@ -73,10 +73,10 @@ namespace Persistencia
             }
         }
 
-        public List<Pronostico_tiempo> ListarPronosticosFecha(DateTime fecha)
+        public List<Pronostico_tiempo> ListarPronosticosFecha(DateTime fecha, Usuario user_log)
         {
             List<Pronostico_tiempo> lista = new List<Pronostico_tiempo>();
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             List<Pronostico_hora> list_ph = new List<Pronostico_hora>();
             //IFormatProvider formato = new CultureInfo("en-US", true);
@@ -97,9 +97,9 @@ namespace Persistencia
 
                 while (dr.Read())
                 {
-                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]),trn);
-                    city = PersistenciaCiudades.GetInstanciaCiudades().BuscarCiudad(dr["ciudad"].ToString());
-                    user = PersistenciaMeteorologos.GetInstanciaMeteorologos().BuscarMeteorologo(dr["usuario"].ToString());
+                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]),trn, user_log);
+                    city = PersistenciaCiudades.GetInstanciaCiudades().BuscarCiudad(dr["ciudad"].ToString(), user_log);
+                    user = PersistenciaMeteorologos.GetInstanciaMeteorologos().BuscarMeteorologo(dr["usuario"].ToString(), user_log);
                     p = new Pronostico_tiempo(Convert.ToInt32(dr["interno"]), Convert.ToDateTime(dr["fecha"]), city, user, list_ph);
                     lista.Add(p);
                 }
@@ -117,10 +117,10 @@ namespace Persistencia
             return lista;
         }
 
-        public List<Pronostico_tiempo> ListarPronosticosAnioActual()
+        public List<Pronostico_tiempo> ListarPronosticosAnioActual(Usuario user_log)
         {
             List<Pronostico_tiempo> lista = new List<Pronostico_tiempo>();
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             List<Pronostico_hora> list_ph = new List<Pronostico_hora>();
 
@@ -139,9 +139,9 @@ namespace Persistencia
 
                 while (dr.Read())
                 {
-                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]),trn);
-                    city = PersistenciaCiudades.GetInstanciaCiudades().BuscarCiudad(dr["ciudad"].ToString());
-                    user = PersistenciaMeteorologos.GetInstanciaMeteorologos().BuscarMeteorologo(dr["usuario"].ToString());
+                    list_ph = PersistenciaPronosticoHora.GetInstanciaPronosticoHora().ListarPronosticosHora(Convert.ToInt32(dr["interno"]),trn, user_log);
+                    city = PersistenciaCiudades.GetInstanciaCiudades().BuscarCiudad(dr["ciudad"].ToString(), user_log);
+                    user = PersistenciaMeteorologos.GetInstanciaMeteorologos().BuscarMeteorologo(dr["usuario"].ToString(), user_log);
                     p = new Pronostico_tiempo(Convert.ToInt32(dr["interno"]), Convert.ToDateTime(dr["fecha"]), city, user, list_ph);
                     lista.Add(p);
                 }

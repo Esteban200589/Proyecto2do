@@ -30,45 +30,45 @@ namespace PronosticosWCF
         Ciudad BuscarCiudadActiva(string codigo, Usuario user_log);
 
         [OperationContract]
-        List<Ciudad> ListarCiudades();
+        List<Ciudad> ListarCiudades(Usuario user_log);
 
         [OperationContract]
-        List<Ciudad> ListarCiudadesSinPronosticos();
+        List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log);
 
         #endregion
 
         #region usuarios
 
         [OperationContract]
-        void CrearUsuario(Usuario u);
+        void CrearUsuario(Usuario u, Usuario user_log);
 
         [OperationContract]
-        void ModificarUsuario(Usuario u);
+        void ModificarUsuario(Usuario u, Usuario user_log);
 
         [OperationContract]
-        void EliminarUsuario(Usuario u);
+        void EliminarUsuario(Usuario u, Usuario user_log);
 
         [OperationContract]
-        Usuario LoginUsuario(string username, string password);
+        Usuario LoginUsuario(string username, string password, Usuario user_log);
 
         [OperationContract]
-        Usuario BuscarUsuario(string username);
+        Usuario BuscarUsuario(string username, Usuario user_log);
 
         #endregion
 
         #region pronosticos
 
         [OperationContract]
-        void CrearPronosticoTiempo(Pronostico_tiempo pt);
+        void CrearPronosticoTiempo(Pronostico_tiempo pt, Usuario user_log);
 
         [OperationContract]
-        List<Pronostico_tiempo> ListarPronosticosPorFecha(DateTime fecha);
+        List<Pronostico_tiempo> ListarPronosticosPorFecha(DateTime fecha, Usuario user_log);
 
         [OperationContract]
-        List<Pronostico_tiempo> ListarPronosticosAnioActual();
+        List<Pronostico_tiempo> ListarPronosticosAnioActual(Usuario user_log);
 
         [OperationContract]
-        string PronosticosXML(DateTime fecha);
+        string PronosticosXML(DateTime fecha, Usuario user_log);
         #endregion
     }
 }

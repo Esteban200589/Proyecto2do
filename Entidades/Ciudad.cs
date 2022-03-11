@@ -68,6 +68,11 @@ namespace Entidades
             Codigo = pCode;
             Nombre_ciudad = pName;
         }
+
+        public Ciudad()
+        {
+            // default
+        }
     }
 }
 

@@ -6,10 +6,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Pagina de Inicio</title>
     <link href="style/estilos.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="javascript" src="style/bootstrap.min.js"></script>
-    <script type="javascript" src="style/popper.js"></script>
-    <script type="javascript" src="style/jquery-3.0.0-vsdoc.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">      
@@ -17,8 +13,8 @@
 
             <div class="container-fluid">
                 <div class="row">
-                        <!-- general form elements disabled -->
-                        <div class="card card-warning" style="width:100%;">
+                    <!-- general form elements disabled -->
+                    <div class="card card-warning" style="width:100%;">
                             <div class="card-header" style="background-color: #757578; color: #ffffff;">
                                 <h3 class="card-title">PAGINA PRINCIPAL </h3>
                             </div>
@@ -75,9 +71,8 @@
                             </div>
                     
                         </div>
-                    </div>
                 </div>
-
+            </div>
         </section>
     </form>
 
@@ -85,11 +80,6 @@
     <script type="javascript" src="style/bootstrap.min.js"></script>
     <script type="javascript" src="style/popper.js"></script>
     <script type="javascript" src="style/jquery-3.0.0-vsdoc.js"></script>
-
-    <script>
-        //$("#gvNoticias > tbody > tr:nth-child(1) > th:nth-child(1)").css("display", "none");
-        //$("#gvNoticias > tbody > tr > td:nth-child(1)").css("display", "none");
-    </script>
 
     </body>
 </html>

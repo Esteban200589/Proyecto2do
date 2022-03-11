@@ -69,10 +69,16 @@
                                     <div class="form-group col-12">
                                         <label>Tormentas</label>
                                         <asp:TextBox  ID="txtpsTormentas" class="form-control" runat="server" Width="40%" ToolTip=" " ></asp:TextBox>
+                                        
                                     </div>
                                     <div class="form-group col-12">
                                         <label>Cielo</label>
-                                        <asp:TextBox  ID="txtpsCielo" class="form-control" runat="server" Width="40%" ToolTip=" " ></asp:TextBox>
+                                        <%--<asp:TextBox  ID="txtpsCielo" class="form-control" runat="server" Width="40%" ToolTip=" " ></asp:TextBox>--%>
+                                        <asp:DropDownList ID="ddlCielo" class="form-control" runat="server" Width="40%">
+                                            <asp:ListItem Value="nuboso" Text="Nuboso"></asp:ListItem>
+                                            <asp:ListItem Value="parcialmente_nuboso" Text="Parcialmente Nuboso"></asp:ListItem>
+                                            <asp:ListItem Value="despejado" Text="Despejado"></asp:ListItem>
+                                        </asp:DropDownList>
                                     </div>
                                     <div class="form-group col-12">
                                         <label></label>
@@ -120,6 +126,7 @@
                                                 <HeaderStyle BackColor="#7ca3c3"></HeaderStyle>
                                                 <ItemStyle HorizontalAlign="Center" BackColor="White"></ItemStyle>
                                                 </asp:BoundField>
+                                                <asp:ButtonField Text="Quitar" />
                                             </Columns>
 
                                             <FooterStyle BackColor="#CCCC99" ForeColor="Black" />

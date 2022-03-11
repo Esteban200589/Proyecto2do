@@ -37,5 +37,10 @@ namespace Entidades
         {
             Carga_horaria = pHoras;
         }
+
+        public Empleado()
+        {
+            // default
+        }
     }
 }

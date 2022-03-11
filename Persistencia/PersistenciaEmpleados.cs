@@ -23,9 +23,9 @@ namespace Persistencia
         }
 
 
-        public void CrearEmpleado(Empleado e)
+        public void CrearEmpleado(Empleado e, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
@@ -59,14 +59,17 @@ namespace Persistencia
             }
         }
 
-        public void ModificarEmpleado(Empleado e)
+        public void ModificarEmpleado(Empleado e, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
+
+            if (user_log.Username != e.Username && user_log.Password != e.Password)
+                throw new Exception("Solo el mismo Usuario puede modificar su contraseña.");
 
             try
             {
                 cnn.Open();
-                SqlCommand cmd = new SqlCommand("modificar_ususario_empleado", cnn);
+                SqlCommand cmd = new SqlCommand("modificar_usuario_empleado", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("username", e.Username);
                 cmd.Parameters.AddWithValue("nombre", e.Nombre);
@@ -96,14 +99,14 @@ namespace Persistencia
 
         }
 
-        public void EliminarEmpleado(Empleado e)
+        public void EliminarEmpleado(Empleado e, Usuario user_log)
         {
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
                 cnn.Open();
-                SqlCommand cmd = new SqlCommand("eliminar_ususario_empleado", cnn);
+                SqlCommand cmd = new SqlCommand("eliminar_usuario_empleado", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("username", e.Username);
 
@@ -130,10 +133,10 @@ namespace Persistencia
         }
 
 
-        public Empleado LoginEmpleado(string username, string password)
+        public Empleado LoginEmpleado(string username, string password, Usuario user_log)
         {
             Empleado user = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
             try
             {
@@ -150,12 +153,7 @@ namespace Persistencia
                 {
                     user = new Empleado(Convert.ToInt32(dr["carga_horaria"]), 
                         username, password, dr["nombre_completo"].ToString());
-                }
-                else
-                {
-                    throw new Exception("Datos Incorrectos");
-                }
-                    
+                }  
             }
             catch (Exception ex)
             {
@@ -168,10 +166,10 @@ namespace Persistencia
             return user;
         }
 
-        public Empleado BuscarEmpleado(string username)
+        public Empleado BuscarEmpleado(string username, Usuario user_log)
         {
             Empleado u = null;
-            SqlConnection cnn = new SqlConnection(Conexion.Cnn());
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
             try
             {
                 cnn.Open();

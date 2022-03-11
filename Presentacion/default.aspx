@@ -6,14 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Pagina de Inicio</title>
     <link href="style/estilos.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="javascript" src="style/bootstrap.min.js"></script>
-    <script type="javascript" src="style/popper.js"></script>
-    <script type="javascript" src="style/jquery-3.0.0-vsdoc.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
         <section class="content">
+            
             <div class="container-fluid">
                 <div class="row">
                     <!-- general form elements disabled -->
@@ -76,14 +73,6 @@
                     </div>
                 </div>
             </div>
-
-            <br />
-
-            <%--<div class="container">
-                    <div class="row">
-                    
-                    </div>
-                </div>--%>
         </section>
     </form>
         
@@ -91,11 +80,6 @@
     <script type="javascript" src="style/bootstrap.min.js"></script>
     <script type="javascript" src="style/popper.js"></script>
     <script type="javascript" src="style/jquery-3.0.0-vsdoc.js"></script>
-
-    <script>
-    //$("#gvNoticias > tbody > tr:nth-child(1) > th:nth-child(1)").css("display", "none");
-    //$("#gvNoticias > tbody > tr > td:nth-child(1)").css("display", "none");
-    </script>
 
     </body>
 </html>

@@ -24,31 +24,31 @@ namespace Logica
         static InterfazPersistenciaCiudades FabricaCiudades = FabricaPersistencia.getPersistenciaCiudades();
 
 
-        public void CrearCiudad(Ciudad c, Usuario u)
+        public void CrearCiudad(Ciudad c, Usuario user_log)
         {
-            FabricaCiudades.CrearCiudad(c,u);
+            FabricaCiudades.CrearCiudad(c, user_log);
         }
-        public void ModificarCiudad(Ciudad c, Usuario u)
+        public void ModificarCiudad(Ciudad c, Usuario user_log)
         {
-            FabricaCiudades.ModificarCiudad(c,u);
+            FabricaCiudades.ModificarCiudad(c, user_log);
         }
-        public void EliminarCiudad(Ciudad c, Usuario u)
+        public void EliminarCiudad(Ciudad c, Usuario user_log)
         {
-            FabricaCiudades.EliminarCiudad(c,u);
-        }
-
-        public Ciudad BuscarCiudadActiva(string codigo, Usuario u)
-        {
-            return FabricaCiudades.BuscarCiudadActiva(codigo,u);
+            FabricaCiudades.EliminarCiudad(c, user_log);
         }
 
-        public List<Ciudad> ListarCiudades()
+        public Ciudad BuscarCiudadActiva(string codigo, Usuario user_log)
         {
-            return FabricaCiudades.ListarCiudades();
+            return FabricaCiudades.BuscarCiudadActiva(codigo, user_log);
         }
-        public List<Ciudad> ListarCiudadesSinPronosticos()
+
+        public List<Ciudad> ListarCiudades(Usuario user_log)
         {
-            return FabricaCiudades.ListarCiudadesSinPronosticos();
+            return FabricaCiudades.ListarCiudades(user_log);
+        }
+        public List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log)
+        {
+            return FabricaCiudades.ListarCiudadesSinPronosticos(user_log);
         }
     }
 }
