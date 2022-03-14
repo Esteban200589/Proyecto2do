@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
-using System.Xml;
 using Entidades;
 using Logica;
 
@@ -42,9 +41,9 @@ namespace PronosticosWCF
             return FabricaLogica.GetLogicaCiudades().ListarCiudades(user_log);
         }
 
-        List<Ciudad> IServicio.ListarCiudadesSinPronosticos(Usuario user_log)
+        List<Ciudad> IServicio.ListarCiudadesSinPronosticos(Usuario user_log, int anio)
         {
-            return FabricaLogica.GetLogicaCiudades().ListarCiudadesSinPronosticos(user_log);
+            return FabricaLogica.GetLogicaCiudades().ListarCiudadesSinPronosticos(user_log, anio);
         }
 
         #endregion
@@ -71,9 +70,18 @@ namespace PronosticosWCF
             return FabricaLogica.GetLogicaUsuarios().LoginUsuario(username, password, user_log);
         }
 
-        Usuario IServicio.BuscarUsuario(string username, Usuario user_log)
+        Empleado IServicio.TraerEmpleado(string username, Usuario user_log)
         {
-            return FabricaLogica.GetLogicaUsuarios().BuscarUsuario(username, user_log);
+            return FabricaLogica.GetLogicaUsuarios().TraerEmpleado(username,user_log);
+        }
+        Meteorologo IServicio.TraerMeteorologo(string username, Usuario user_log)
+        {
+            return FabricaLogica.GetLogicaUsuarios().TraerMeteorologo(username, user_log);
+        }
+
+        List<Meteorologo> IServicio.ListarMeteorologosSinPronosticos(Usuario user_log, int anio)
+        {
+            return FabricaLogica.GetLogicaUsuarios().ListarMeteorologosSinPronosticos(user_log, anio);
         }
 
         #endregion

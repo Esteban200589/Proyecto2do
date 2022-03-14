@@ -43,6 +43,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfCiudad" nillable="true" type="tns:ArrayOfCiudad" />
+  <xs:complexType name="ArrayOfMeteorologo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Meteorologo" nillable="true" type="tns:Meteorologo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMeteorologo" nillable="true" type="tns:ArrayOfMeteorologo" />
   <xs:complexType name="Pronostico_tiempo">
     <xs:sequence>
       <xs:element minOccurs="0" name="Ciudad" nillable="true" type="tns:Ciudad" />

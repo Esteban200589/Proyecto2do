@@ -24,11 +24,22 @@ public partial class generar_pronostico : System.Web.UI.Page
     {
         try
         {
+            int horas = Convert.ToInt32(txtpsHora.Text.Trim());
+            int minutos = Convert.ToInt32(txtpsHora.Text.Trim());
+           
+            if ((horas < 0 || horas > 23))
+                throw new Exception("Hora Incorrecta");   
+            
+            if (minutos < 0 || minutos > 59)
+                throw new Exception("Minutos Incorrectos");
+
+            string hora = txtpsHora.Text.Trim() + txtpsMin.Text.Trim(); 
+
             Pronostico_hora ph = new Pronostico_hora()
             {
-                Hora = Convert.ToInt32(txtpsHora.Text.Trim()),
-                Temp_max = Convert.ToInt32(txtpsMax.Text.Trim()),
-                Temp_min = Convert.ToInt32(txtpsMin.Text.Trim()),
+                Hora = Convert.ToInt32(hora),
+                Temp_max = Convert.ToInt32(txtpsTmax.Text.Trim()),
+                Temp_min = Convert.ToInt32(txtpsTmin.Text.Trim()),
                 Prob_lluvias = Convert.ToInt32(txtpsLluvias.Text.Trim()),
                 Prob_tormenta = Convert.ToInt32(txtpsTormentas.Text.Trim()),
                 V_viento = Convert.ToInt32(txtpsTormentas.Text.Trim()),
@@ -38,8 +49,14 @@ public partial class generar_pronostico : System.Web.UI.Page
 
             var pronosticosGrilla = (List<Pronostico_hora>)ViewState["PronosticosGrilla"];
             if (pronosticosGrilla == null)
-            {
                 pronosticosGrilla = new List<Pronostico_hora>();
+
+            int hora_value = Convert.ToInt32(hora);
+            bool repetido = pronosticosGrilla.Where(p => p.Hora == hora_value).Any();
+            if (repetido)
+            {
+                lblMsj.Text = "Ya existe un pronostico con la misma hora";
+                return;
             }
 
             pronosticosGrilla.Add(ph);
@@ -59,12 +76,16 @@ public partial class generar_pronostico : System.Web.UI.Page
     {
         try
         {
-            var pronosticosGrilla = (List<Pronostico_hora>)this.gvPronosticosHora.DataSource;
+            var pronosticosGrilla = (List<Pronostico_hora>)ViewState["PronosticosGrilla"];
             var codigo_ciudad = ddlCiudades.SelectedValue;
+
+            if (codigo_ciudad == "AAAAAA")
+                throw new Exception("Debe elegir una Ciudad");
 
             Ciudad ciudad = new ServicioClient().BuscarCiudadActiva(codigo_ciudad, (Usuario)Session["Usuario"]);
             Usuario usuario = (Usuario)Session["Usuario"];
 
+            
             Pronostico_tiempo pt = new Pronostico_tiempo()
             {
                 Interno = 1,
@@ -77,6 +98,9 @@ public partial class generar_pronostico : System.Web.UI.Page
 
             service.CrearPronosticoTiempo(pt, (Usuario)Session["Usuario"]);
 
+            lblMsj.Text = "Se creo exitosamente el Pronostico de Tiempo";
+            lblMsj.ForeColor = Color.Green;
+
         }
         catch (Exception ex)
         {
@@ -87,9 +111,12 @@ public partial class generar_pronostico : System.Web.UI.Page
 
     private void cargar_ciudades()
     {
-        Ciudad[] ciudades = service.ListarCiudades((Usuario)Session["Usuario"]);
-        this.ddlCiudades.DataSource = ciudades;
-        //this.
-        this.ddlCiudades.DataBind();
+        List<Ciudad> lista_ciudades = (List<Ciudad>)Session["Ciudades"];
+        ddlCiudades.DataSource = lista_ciudades;
+        ddlCiudades.DataTextField = "nombre_ciudad";
+        ddlCiudades.DataValueField = "codigo";
+        ddlCiudades.DataBind();
     }
+
+
 }

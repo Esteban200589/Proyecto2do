@@ -46,9 +46,9 @@ namespace Logica
         {
             return FabricaCiudades.ListarCiudades(user_log);
         }
-        public List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log)
+        public List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log, int anio)
         {
-            return FabricaCiudades.ListarCiudadesSinPronosticos(user_log);
+            return FabricaCiudades.ListarCiudadesSinPronosticos(user_log, anio);
         }
     }
 }

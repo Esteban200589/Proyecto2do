@@ -374,9 +374,9 @@ go
 		begin try
 			begin transaction
 				update usuarios set nombre_completo=@nombre, password = @pass where username = @username
-				update meteorologos set telefono = @telefono, correo = @correo where usuario = @username
-			return 1
+				update meteorologos set telefono = @telefono, correo = @correo where usuario = @username			
 			commit transaction
+			return 1
 		end try
 		begin catch
 			rollback transaction
@@ -530,7 +530,7 @@ go
 	create proc listar_ciudades
 	as
 	begin
-		select * from ciudades where deleted = 0
+		select * from ciudades where deleted = 0 order by codigo
 	end
 	go
 
@@ -588,9 +588,19 @@ go
 		@anio int
 	as
 	begin
-		select * from ciudades c 
-		where deleted = 0 
-		and c.codigo not in (select ciudad from pronosticos_tiempo where YEAR(fecha) = @anio)
+		if (LEN(@anio) > 4)
+			return -1
+			
+		if (@anio = 0)
+		begin
+			select * from ciudades c where deleted = 0 
+			and c.codigo not in (select ciudad from pronosticos_tiempo)
+		end
+		else
+		begin
+			select * from ciudades c where deleted = 0 
+			and c.codigo not in (select ciudad from pronosticos_tiempo where YEAR(fecha) = @anio)
+		end
 	end
 	go
 -----------------------------------------------------------------------------------------------------------
@@ -603,10 +613,24 @@ go
 		@anio int
 	as
 	begin
-		select * from meteorologos m
-		inner join usuarios u on u.username = m.usuario
-		where m.usuario not in (select usuario from pronosticos_tiempo where YEAR(fecha) = @anio)
-		and deleted = 0
+		if (LEN(@anio) > 4)
+			return -1
+			
+		if (@anio = 0)
+		begin
+			select * from meteorologos m
+			inner join usuarios u on u.username = m.usuario
+			where m.usuario not in (select usuario from pronosticos_tiempo)
+			and deleted = 0
+		end
+		else
+		begin
+			select * from meteorologos m
+			inner join usuarios u on u.username = m.usuario
+			where m.usuario not in (select usuario from pronosticos_tiempo where YEAR(fecha) = @anio)
+			and deleted = 0
+		end
+		
 	end
 	go
 
@@ -746,7 +770,7 @@ go
 
 grant execute on buscar_ciudad to rol_empleados
 go
-grant execute on buscar_ciudad_activa to rol_meteorologos
+grant execute on buscar_ciudad_activa to rol_empleados
 go
 grant execute on crear_ciudad to rol_empleados
 go
@@ -762,19 +786,23 @@ go
 grant execute on buscar_empleado to rol_empleados
 go
 
-grant execute on listar_pronosticos_anio to rol_empleados
-go
 grant execute on listar_pronosticos_hora to rol_empleados
 go
 grant execute on listar_pronosticos_fecha to rol_empleados
 go
 grant execute on listar_ciudades to rol_empleados
 go
+
 grant execute on listar_ciudades_sin to rol_empleados
 go
 grant execute on listar_meteorologos_sin to rol_empleados
 go
-
+grant execute on listar_pronosticos_anio to rol_empleados
+go
+grant execute on listar_pronosticos_hora to rol_empleados
+go
+grant execute on listar_pronosticos_fecha to rol_empleados
+go
 -----------------------------------------------------------------------------------------------------------
 		-- METEOROLOGOS
 -----------------------------------------------------------------------------------------------------------
@@ -786,23 +814,16 @@ go
 grant execute on modificar_usuario_meteorologo to rol_meteorologos
 go
 
+grant execute on buscar_meteorologo_activo to rol_meteorologos
+go
 grant execute on buscar_ciudad_activa to rol_meteorologos
 go
 grant execute on buscar_ciudad to rol_meteorologos
 go
 
-grant execute on listar_pronosticos_anio to rol_meteorologos
-go
-grant execute on listar_pronosticos_hora to rol_meteorologos
-go
-grant execute on listar_pronosticos_fecha to rol_meteorologos
-go
 grant execute on listar_ciudades to rol_meteorologos
 go
-grant execute on listar_ciudades_sin to rol_meteorologos
-go
-grant execute on listar_meteorologos_sin to rol_meteorologos
-go
+
 
 -----------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------
@@ -849,7 +870,8 @@ exec crear_usuario_meteorologo 'Usuario1',   'Usuario1',		  '000admi**', '094143
 
 
 insert ciudades (codigo,nombre_ciudad,pais)
-	values ('URUMVD', 'Montevideo', 'Uruguay'),
+	values ('AAAAAA', 'Ninguna', ' '),
+		   ('URUMVD', 'Montevideo', 'Uruguay'),
 		   ('URUCAN', 'Canelones', 'Uruguay'),
 		   ('URULPS', 'Las Piedras', 'Uruguay'),
 		   ('URUPAN', 'Pando', 'Uruguay'),

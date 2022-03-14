@@ -26,7 +26,7 @@ public partial class abm_empleados : System.Web.UI.Page
         {
             if (txtUsername.Text != "")
             {
-                Empleado usuario = (Empleado)FabricaLogica.GetLogicaUsuarios().BuscarUsuario(txtUsername.Text, (Usuario)Session["Usuario"]);
+                Empleado usuario = FabricaLogica.GetLogicaUsuarios().TraerEmpleado(txtUsername.Text, (Usuario)Session["Usuario"]);
              
                 txtUsername.ReadOnly = true;
 

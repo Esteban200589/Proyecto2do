@@ -21,30 +21,30 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group col-12">
-                                        <label>USUARIO</label>
+                                        <label ID="lblUser" runat="server" >USUARIO</label>
                                         <asp:TextBox  ID="txtUsername" class="form-control" runat="server"  ToolTip=" " ></asp:TextBox>
                                     </div>
                                     
                                     <div class="form-group col-12">
-                                        <label>CONTRASEÑA</label>
-                                        <asp:TextBox  ID="txtPassword" class="form-control" runat="server"  ToolTip=" " ></asp:TextBox>
+                                        <label  ID="lblPass" runat="server" >CONTRASEÑA</label>
+                                        <asp:TextBox  ID="txtPassword" class="form-control" runat="server"  ToolTip=" " OnTextChanged="txtPassword_TextChanged" ></asp:TextBox>
                                     </div>
                                   
                                     <div class="form-group col-12">
-                                        <label>NOMBRE COMPLETO</label>
+                                        <label ID="lblNom" runat="server" >NOMBRE COMPLETO</label>
                                         <asp:TextBox  ID="txtNombre" class="form-control" runat="server"  ToolTip=" " ></asp:TextBox>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group col-12">
-                                        <label>TELEFONO</label>
-                                        <asp:TextBox  ID="txtTelefono" class="form-control" runat="server" Width="40%" ToolTip=" " ></asp:TextBox>
+                                        <label ID="lblTel" runat="server" >TELEFONO</label>
+                                        <asp:TextBox  ID="txtTelefono" class="form-control" runat="server" Width="70%" ToolTip=" " ></asp:TextBox>
                                     </div>
                                   
                                     <div class="form-group col-12">
-                                        <label>CORREO</label>
-                                        <asp:TextBox  ID="txtCorreo" class="form-control" runat="server" Width="40%" ToolTip=" " ></asp:TextBox>
+                                        <label ID="lblCorreo" runat="server" >CORREO</label>
+                                        <asp:TextBox  ID="txtCorreo" class="form-control" runat="server" Width="70%" ToolTip=" " ></asp:TextBox>
                                     </div>
                                   
                                     <div class="form-group col-12">
@@ -64,6 +64,13 @@
                                     <asp:Button ID="btnEliminar" class="btn btn-secondary" runat="server" Text="Eliminar" Width="90px" OnClick="btnEliminar_Click"/>
                                     <asp:Button ID="btnLimpiar" class="btn btn-secondary" runat="server" Text="Limpiar" Width="90px" OnClick="btnLimpiar_Click"/>  
                                 </div>
+
+                                <%--<script>
+                                    $("#ContentPlaceHolder1_btnModificar").click(function() {
+                                        var pass = $("#ContentPlaceHolder1_txtPassword").text();
+                                        console.log(pass);
+                                    });
+                                </script>--%>
                             </div>
                                         
                             <div class="row">
@@ -78,6 +85,8 @@
                                     <a href="index.aspx">Volver</a>
                                 </div>
                             </div>
+
+                            
                         </div>
                     </div>
                 
@@ -95,15 +104,6 @@
         }
     </style>
 
-    <script>
-        //$("#ContentPlaceHolder1_ddlPeriodistas").append($("<option>ninguno</option>").val(0).html("Ninguno"));
-        //$("#ContentPlaceHolder1_ddlPeriodistas option[value='0']").attr("selected", true);
-
-        //$("#ContentPlaceHolder1_btnAgregar").click(function () {
-        //    if ($("#ContentPlaceHolder1_ddlPeriodistas") == 0) {
-        //        $("#ContentPlaceHolder1_lblMsj").text("Seleccione un Periodista");
-        //    }
-        //});
-    </script>
+    
 
 </asp:Content>

@@ -28,7 +28,19 @@ public partial class abm_empleados : System.Web.UI.Page
         {
             if (txtUsername.Text != "")
             {
-                Empleado usuario = (Empleado)new ServicioClient().BuscarUsuario(txtUsername.Text, (Usuario)base.Session["Usuario"]);
+                Empleado usuario = new ServicioClient().TraerEmpleado(txtUsername.Text, (Usuario)base.Session["Usuario"]);
+
+                if (usuario == null)
+                {
+                    Meteorologo usuario_met = new ServicioClient().TraerMeteorologo(txtUsername.Text, (Usuario)base.Session["Usuario"]);
+
+                    if (usuario_met != null)
+                    {
+                        throw new Exception("El usuario es un Meteorologo");
+                    }
+                }
+
+                
 
                 txtUsername.ReadOnly = true;
 
@@ -56,8 +68,6 @@ public partial class abm_empleados : System.Web.UI.Page
                     btnGuardar.Enabled = false;
                     btnEliminar.Enabled = true;
                     btnModificar.Enabled = true;
-
-                    Session["Usuario"] = usuario;
                 }
             }
             else
@@ -120,8 +130,6 @@ public partial class abm_empleados : System.Web.UI.Page
     {
         try
         {
-            string horas = txtHoras.Text;
-
             Empleado usuario = new Empleado()
             {
                 Username = txtUsername.Text.Trim(),

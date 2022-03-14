@@ -15,7 +15,7 @@ namespace Logica
         Ciudad BuscarCiudadActiva(string codigo, Usuario user_log);
 
         List<Ciudad> ListarCiudades(Usuario user_log);
-        List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log);
+        List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log, int anio);
     }
 
     public interface InterfazLogicaUsuarios
@@ -25,7 +25,10 @@ namespace Logica
         void EliminarUsuario(Usuario u, Usuario user_log);
 
         Usuario LoginUsuario(string username, string password, Usuario user_log);
-        Usuario BuscarUsuario(string username, Usuario user_log);
+        Empleado TraerEmpleado(string username, Usuario user_log);
+        Meteorologo TraerMeteorologo(string username, Usuario user_log);
+
+        List<Meteorologo> ListarMeteorologosSinPronosticos(Usuario user_log, int anio);
     }
 
     public interface InterfazLogicaPronosticosTiempo

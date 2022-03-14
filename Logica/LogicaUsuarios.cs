@@ -40,8 +40,8 @@ namespace Logica
         }
         public void ModificarUsuario(Usuario u, Usuario user_log)
         {
-            if (user_log.Username != u.Username && user_log.Password != u.Password)
-                throw new Exception("Solo el mismo Usuario puede modificar su contraseña.");
+            //if (user_log.Username != u.Username && user_log.Password != u.Password)
+            //    throw new Exception("Solo el mismo Usuario puede modificar su contraseña.");
 
             if (u is Empleado)
             {
@@ -64,6 +64,11 @@ namespace Logica
             }
         }
 
+        public List<Meteorologo> ListarMeteorologosSinPronosticos(Usuario user_log, int anio)
+        {
+            return FabricaMeteorologos.ListarMeteorologosSinPronosticos(user_log, anio);
+        }
+
         public Usuario LoginUsuario(string username, string password, Usuario user_log)
         {
             if (username == "")
@@ -81,14 +86,26 @@ namespace Logica
 
             return user;
         }
-        public Usuario BuscarUsuario(string username, Usuario user_log)
+       
+        private Usuario BuscarUsuario(string username, Usuario user_log, bool esEmpelado)
         {
-            Usuario user = FabricaEmpleados.BuscarEmpleado(username, user_log);
+            if (esEmpelado)
+            {
+                return FabricaEmpleados.BuscarEmpleado(username, user_log);
+            }
+            
+            return FabricaMeteorologos.BuscarMeteorologoActivo(username, user_log);
+          
+        }
 
-            if (user == null)
-                user = FabricaMeteorologos.BuscarMeteorologoActivo(username, user_log);
+        public Empleado TraerEmpleado(string username, Usuario user_log)
+        {
+            return (Empleado)BuscarUsuario(username,user_log,true);
+        }
 
-            return user;
+        public Meteorologo TraerMeteorologo(string username, Usuario user_log)
+        {
+            return (Meteorologo)BuscarUsuario(username, user_log, false);
         }
     }
 }

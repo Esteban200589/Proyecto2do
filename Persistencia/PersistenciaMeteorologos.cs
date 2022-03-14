@@ -175,7 +175,7 @@ namespace Persistencia
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
-                    u = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(), 
+                    u = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(),
                         username, dr["password"].ToString(), dr["nombre_completo"].ToString());
 
                 dr.Close();
@@ -205,7 +205,7 @@ namespace Persistencia
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
-                    p = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(), 
+                    p = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(),
                         username, dr["password"].ToString(), dr["nombre_completo"].ToString());
                 
                 dr.Close();
@@ -219,6 +219,53 @@ namespace Persistencia
                 cnn.Close();
             }
             return p;
+        }
+
+
+        public List<Meteorologo> ListarMeteorologosSinPronosticos(Usuario user_log, int anio)
+        {
+            List<Meteorologo> lista = new List<Meteorologo>();
+            SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
+
+            try
+            {
+                cnn.Open();
+
+                SqlCommand cmd = new SqlCommand("listar_meteorologos_sin", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("anio", anio);
+
+                SqlParameter ret = new SqlParameter();
+                ret.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(ret);
+
+                int valor = Convert.ToInt32(ret.Value);
+
+                if (valor == -1)
+                    throw new Exception("Solo puede digitar hasta 4 cifras máximo.");
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                Meteorologo p = null;
+
+                while (dr.Read())
+                {
+                    p = new Meteorologo(dr["telefono"].ToString(), dr["correo"].ToString(),
+                        dr["username"].ToString(), dr["password"].ToString(), dr["nombre_completo"].ToString());
+                    lista.Add(p);
+                }
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+
+            return lista;
         }
     }
 }

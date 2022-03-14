@@ -21,10 +21,8 @@
         <nav class="navbar navbar-expand-md navbar-dark border-3 border-bottom border-primary" style="opacity:60">
             
             <div class="conteiner-fluid">
-
                 <a href="#" class="navbar-brand">Menú Principal</a>
                 <div id="perfil" class="col-sm-3 col-md-6 col-lg-6 col-xl-6" style="width:30%; text-align:right;float:right;margin-left:1%;">
-                    <%--<span>Fecha: <asp:Label ID="lblFecha" runat="server" Text="Label"></asp:Label></span>--%>
                     <div>
                         <asp:Label ID="lblTipoUser" runat="server"></asp:Label>
                         <asp:Label ID="lblUsername" runat="server"></asp:Label>

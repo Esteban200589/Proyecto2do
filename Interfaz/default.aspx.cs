@@ -19,9 +19,14 @@ public partial class _default : System.Web.UI.Page
         try
         {
             fecha = DateTime.Now;
+            Session["Usuario"] = null;
 
             if (!IsPostBack)
+            {
+                cargar_Ciudades();
                 cargar_Pronosticos(fecha);
+            }
+                
         }
         catch (Exception ex)
         {
@@ -36,14 +41,61 @@ public partial class _default : System.Web.UI.Page
         Response.Redirect("default.aspx");
     }
 
-    protected void cargar_Pronosticos(DateTime fecha)
+    protected void cargar_Pronosticos(DateTime fecha, string ciudad = "", int indice = 0)
     {
         try
         {
             string documento = new ServicioClient().PronosticosXML(fecha, (Usuario)Session["Usuario"]);
             XElement elemento = XElement.Parse(documento);
             Session["XML"] = elemento;
-            Xml_Pronosticos.DocumentContent = elemento.ToString();
+
+            if (ciudad != "")
+            {
+                var query = (from pronostico in elemento.Elements("Pronostico_Tiempo")
+                             where pronostico.Element("Ciudad").Value == ciudad
+                             select new
+                             {
+                                 Interno = pronostico.Element("Interno").Value,
+                                 Pais = pronostico.Element("Pais").Value,
+                                 Ciudad = pronostico.Element("Ciudad").Value
+
+                             }).ToList();
+
+                gvPronosticos.DataSource = query;
+                gvPronosticos.DataBind();
+            }
+            else
+            {
+                var query = (from pronostico in elemento.Elements("Pronostico_Tiempo")
+                             select new
+                             {
+                                 Interno = pronostico.Element("Interno").Value,
+                                 Pais = pronostico.Element("Pais").Value,
+                                 Ciudad = pronostico.Element("Ciudad").Value,
+
+                             }).ToList();
+
+                gvPronosticos.DataSource = query;
+                gvPronosticos.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+            lblMsj.Text = ex.Message;
+            lblMsj.ForeColor = Color.Red;
+        }
+    }
+
+    protected void cargar_Ciudades()
+    {
+        try
+        {
+            List<Ciudad> lista_ciudades = new ServicioClient().ListarCiudades((Usuario)Session["Usuario"]).ToList();
+            Session["Ciudades"] = lista_ciudades;
+            ddlCiudades.DataSource = lista_ciudades;
+            ddlCiudades.DataTextField = "nombre_ciudad";
+            ddlCiudades.DataValueField = "codigo";
+            ddlCiudades.DataBind();
         }
         catch (Exception ex)
         {
@@ -61,109 +113,49 @@ public partial class _default : System.Web.UI.Page
             else
             {
                 fecha = calendario.SelectedDate;
-                cargar_Pronosticos(fecha);
+
+                if (ddlCiudades.SelectedItem.Value != "AAAAAA")
+                    cargar_Pronosticos(fecha, ddlCiudades.SelectedItem.Text);
+                else
+                    cargar_Pronosticos(fecha);         
             }
         }
         catch (Exception ex)
         {
-            throw ex;
+            lblMsj.Text = ex.Message;
+            lblMsj.ForeColor = Color.Red;
         }
 
     }
 
-    //public XmlDocument PronosticosXML(DateTime fecha,)
-    //{
-    //    List<Pronostico_tiempo> lista = new ServicioClient().ListarPronosticosPorFecha(fecha, (Usuario)Session["Usuario"]).ToList();
-    //    //List<Pronostico_tiempo> lista = FabricaLogica.GetLogicaPronosticosTiempo().ListarPronosticosPorFecha(fecha);
 
-    //    XmlDocument documento = new XmlDocument();
-    //    documento.LoadXml("<?xml version='1.0' encoding='utf-8' ?> <Root> </Root>");
-    //    XmlNode root = documento.DocumentElement;
 
-    //    foreach (Pronostico_tiempo pt in lista)
-    //    {
-    //        XmlElement nodo = documento.CreateElement("Pronostico_Tiempo");
+    protected void gvPronosticos_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            string indice = gvPronosticos.SelectedRow.Cells[0].Text;
 
-    //        //XmlElement interno = documento.CreateElement("Interno");
-    //        //interno.InnerText = pt.Interno.ToString();
-    //        //nodo.AppendChild(interno);
+            XElement docu = (XElement)Session["XML"];
 
-    //        nodo.SetAttribute("ID", pt.Interno.ToString());
+            var resultado = (from pt in docu.Elements("Pronostico_Tiempo")
+                             where pt.Element("Interno").Value == indice
+                             from ph in pt.Elements("Pronostico_hora")
+                             select ph);
 
-    //        XmlElement pais = documento.CreateElement("Pais");
-    //        pais.InnerText = pt.Ciudad.Pais.ToString();
-    //        nodo.AppendChild(pais);
+            string result = "<Raiz>";
+            foreach (var nodo in resultado)
+            {
+                result += nodo.ToString();
+            }
+            result += "</Raiz>";
 
-    //        XmlElement ciudad = documento.CreateElement("Ciudad");
-    //        ciudad.InnerText = pt.Ciudad.Nombre_ciudad.ToString();
-    //        nodo.AppendChild(ciudad);
-
-    //        foreach (Pronostico_hora ph in pt.LIST_pronosticos_hora)
-    //        {
-    //            XmlElement nodo_ph = documento.CreateElement("Pronostico_hora");
-    //            //XmlAttribute attr = documento.CreateAttribute("Interno");
-    //            //nodo_ph.SetAttribute("_pt", pt.Interno.ToString());
-
-    //            //XmlElement interno_ref = documento.CreateElement("Interno");
-    //            //interno_ref.InnerText = pt.Interno.ToString();
-    //            //nodo_ph.AppendChild(interno_ref);
-
-    //            XmlElement hora = documento.CreateElement("Hora");
-
-    //            string str_hora = ph.Hora.ToString();
-    //            string str_pad_hora = str_hora.PadLeft(4, '0');
-    //            str_hora = str_pad_hora.Substring(0, 2) + ":" + str_pad_hora.Substring(2, 2);
-    //            hora.InnerText = str_hora + " hrs";
-
-    //            // hora.InnerText = ph.Hora.ToString();
-    //            nodo_ph.AppendChild(hora);
-
-    //            XmlElement max = documento.CreateElement("Temp_Max");
-    //            max.InnerText = ph.Temp_max.ToString() + " °C";
-    //            nodo_ph.AppendChild(max);
-
-    //            XmlElement min = documento.CreateElement("Temp_Min");
-    //            min.InnerText = ph.Temp_min.ToString() + " °C";
-    //            nodo_ph.AppendChild(min);
-
-    //            XmlElement lluvia = documento.CreateElement("Prob_Lluvias");
-    //            lluvia.InnerText = ph.Prob_lluvias.ToString() + " %";
-    //            nodo_ph.AppendChild(lluvia);
-
-    //            XmlElement tormenta = documento.CreateElement("Prob_Tormenta");
-    //            tormenta.InnerText = ph.Prob_tormenta.ToString() + " %";
-    //            nodo_ph.AppendChild(tormenta);
-
-    //            XmlElement viento = documento.CreateElement("Velo_Viento");
-    //            viento.InnerText = ph.V_viento.ToString() + " m/s²";
-    //            nodo_ph.AppendChild(viento);
-
-    //            XmlElement cielo = documento.CreateElement("Tipo_Cielo");
-
-    //            string html_tipo = "";
-    //            string tipo = ph.Tipo_cielo.ToString();
-
-    //            switch (tipo)
-    //            {
-    //                case "nublado":
-    //                    html_tipo = "Nublado";
-    //                    break;
-    //                case "parcialmente_nuboso":
-    //                    html_tipo = "Parcialmente Nublado";
-    //                    break;
-    //                case "despejado":
-    //                    html_tipo = "Despejado";
-    //                    break;
-    //            }
-
-    //            cielo.InnerText = html_tipo;
-    //            nodo_ph.AppendChild(cielo);
-
-    //            nodo.AppendChild(nodo_ph);
-    //        }
-
-    //        root.AppendChild(nodo);
-    //    }
-    //    return documento;
-    //}
+            Xml_Pronosticos.DocumentContent = result.ToString();
+        }
+        catch (Exception ex)
+        {
+            lblMsj.Text = ex.Message;
+            lblMsj.ForeColor = Color.Red;
+        }
+    }
 }

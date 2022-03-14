@@ -29,8 +29,7 @@ namespace Persistencia
 
             try
             {
-                cnn.Open();
-                SqlCommand cmd = new SqlCommand("crear_pronostico_hora", cnn);
+                SqlCommand cmd = new SqlCommand("crear_pronostico_hora", trn.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("hora", ph.Hora);
                 cmd.Parameters.AddWithValue("temp_max", ph.Temp_max);

@@ -12,8 +12,6 @@ public partial class main : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //lblFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-
         try
         {
             if (Session["Usuario"] == null)
@@ -22,27 +20,29 @@ public partial class main : System.Web.UI.MasterPage
             {
                 Usuario user = (Usuario)Session["Usuario"];
 
-                //if (user is Empleado)
-                //{
-                //    this.menuNav1.InnerHtml = "<ul class='navbar-nav ms-6'>";
-                //    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='index.aspx'>Inicio</a></li>";
-                //    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_ciudades.aspx'>Ciudades</a></li>";
-                //    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_empleados.aspx'>Empleados</a></li>";
-                //    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_meteorologos.aspx'>Meteorologos</a></li>";
-                //    this.menuNav1.InnerHtml += "</ul>";
+                if (user is Empleado)
+                {
+                    this.menuNav1.InnerHtml = "<ul class='navbar-nav ms-6'>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='index.aspx'>Inicio</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_ciudades.aspx'>Ciudades</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_empleados.aspx'>Empleados</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_meteorologos.aspx'>Meteorologos</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='listado_pronosticos.aspx'>Listar Pronosticos</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='listado_sin_asignacion.aspx'>Listado Sin Asignación</a></li>";
+                    this.menuNav1.InnerHtml += "</ul>";
 
-                //    lblTipoUser.Text = "Empleado";
-                //}
-                //else {
+                    lblTipoUser.Text = "Empleado";
+                }
+                else
+                {
                     this.menuNav1.InnerHtml = "<ul class='navbar-nav ms-6'>";
                     this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='index.aspx'>Inicio</a></li>";
                     this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='generar_pronostico.aspx'>Generar Pronosticos</a></li>";
-                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='listado_pronosticos.aspx'>Listar Pronosticos</a></li>";
-                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href=' '>Listado Sin Asignación</a></li>";
+                    this.menuNav1.InnerHtml += "<li class='nav-item'><a class='nav-link' href='abm_meteorologos.aspx'>Cambiar Contraseña</a></li>";
                     this.menuNav1.InnerHtml += "</ul>";
 
                     lblTipoUser.Text = "Meteorologo";
-                //}
+                }
                 
                 lblUsername.Text = user.Username;
                 lblUsername.ForeColor = Color.Green;

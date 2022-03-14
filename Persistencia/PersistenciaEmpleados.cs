@@ -180,7 +180,7 @@ namespace Persistencia
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 if (dr.Read())
-                    u = new Empleado(Convert.ToInt32(dr["carga_horaria"]), 
+                    u = new Empleado(Convert.ToInt32(dr["carga_horaria"]),
                         username, dr["password"].ToString(), dr["nombre_completo"].ToString());
 
                 dr.Close();

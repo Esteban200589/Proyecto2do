@@ -26,46 +26,46 @@ public partial class abm_meteorologos : System.Web.UI.Page
     {
         try
         {
-            if (txtUsername.Text != "")
-            {
-                Meteorologo usuario = (Meteorologo)FabricaLogica.GetLogicaUsuarios().BuscarUsuario(txtUsername.Text, (Usuario)Session["Usuario"]);
+            //if (txtUsername.Text != "")
+            //{
+            //    Meteorologo usuario = (Meteorologo)FabricaLogica.GetLogicaUsuarios().BuscarUsuario(txtUsername.Text, (Usuario)Session["Usuario"]);
 
-                txtUsername.ReadOnly = true;
+            //    txtUsername.ReadOnly = true;
 
-                if (usuario == null)
-                {
-                    btnGuardar.Enabled = true;
-                    btnEliminar.Enabled = false;
-                    btnModificar.Enabled = false;
+            //    if (usuario == null)
+            //    {
+            //        btnGuardar.Enabled = true;
+            //        btnEliminar.Enabled = false;
+            //        btnModificar.Enabled = false;
 
-                    lblMsj.Text = "No se encontró el Usuario, puede Crearlo";
-                    lblMsj.ForeColor = Color.DarkOrange;
-                }
+            //        lblMsj.Text = "No se encontró el Usuario, puede Crearlo";
+            //        lblMsj.ForeColor = Color.DarkOrange;
+            //    }
 
-                else
-                {
-                    lblMsj.Text = "Usuario encontrado";
-                    lblMsj.ForeColor = Color.Green;
+            //    else
+            //    {
+            //        lblMsj.Text = "Usuario encontrado";
+            //        lblMsj.ForeColor = Color.Green;
 
-                    txtUsername.Text = usuario.Username;
-                    txtPassword.Text = usuario.Password;
-                    txtPassword.TextMode = TextBoxMode.Password;
-                    txtNombre.Text = usuario.Nombre;
-                    txtTelefono.Text = usuario.Telefono;
-                    txtCorreo.Text = usuario.Correo;
+            //        txtUsername.Text = usuario.Username;
+            //        txtPassword.Text = usuario.Password;
+            //        txtPassword.TextMode = TextBoxMode.Password;
+            //        txtNombre.Text = usuario.Nombre;
+            //        txtTelefono.Text = usuario.Telefono;
+            //        txtCorreo.Text = usuario.Correo;
 
-                    btnGuardar.Enabled = false;
-                    btnEliminar.Enabled = true;
-                    btnModificar.Enabled = true;
+            //        btnGuardar.Enabled = false;
+            //        btnEliminar.Enabled = true;
+            //        btnModificar.Enabled = true;
 
-                    Session["Usuario"] = usuario;
-                }
-            }
-            else
-            {
-                lblMsj.Text = "Debe ingresar un código";
-                lblMsj.ForeColor = Color.DarkOrange;
-            }
+            //        Session["Usuario"] = usuario;
+            //    }
+            //}
+            //else
+            //{
+            //    lblMsj.Text = "Debe ingresar un código";
+            //    lblMsj.ForeColor = Color.DarkOrange;
+            //}
 
         }
         catch (Exception ex)

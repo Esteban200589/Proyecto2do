@@ -215,7 +215,7 @@ namespace Persistencia
             return lista;
         }
 
-        public List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log)
+        public List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log, int anio)
         {
             List<Ciudad> lista = new List<Ciudad>();
             SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
@@ -226,6 +226,17 @@ namespace Persistencia
 
                 SqlCommand cmd = new SqlCommand("listar_ciudades_sin", cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("anio", anio);
+
+                SqlParameter ret = new SqlParameter();
+                ret.Direction = ParameterDirection.ReturnValue;
+                cmd.Parameters.Add(ret);
+
+                int valor = Convert.ToInt32(ret.Value);
+
+                if (valor == -1)
+                    throw new Exception("Solo puede digitar hasta 4 cifras máximo.");
+
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 Ciudad p = null;

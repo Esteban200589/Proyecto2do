@@ -19,7 +19,7 @@ namespace Persistencia
         Ciudad BuscarCiudadActiva(string codigo, Usuario user_log);
 
         List<Ciudad> ListarCiudades(Usuario user_log);
-        List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log);
+        List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log, int anio);
     }
 
     public interface InterfazPersistenciaEmpleados
@@ -39,6 +39,8 @@ namespace Persistencia
 
         Meteorologo LoginMeteorologo(string username, string password, Usuario user_log);
         Meteorologo BuscarMeteorologoActivo(string username, Usuario user_log);
+
+        List<Meteorologo> ListarMeteorologosSinPronosticos(Usuario user_log, int anio);
     }
 
     public interface InterfazPersistenciaPronosticosTiempo

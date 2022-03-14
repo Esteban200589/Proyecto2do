@@ -18,6 +18,12 @@
         <br />
         <div class="container-fluid">
             <div class="row">
+                <div class="col-3" style="background-color:chartreuse"> </div>
+                <div class="col-3" style="background-color:aqua"></div>
+                <div class="col-3" style="background-color:brown"></div>
+                <div class="col-3" style="background-color:blueviolet"></div>
+                <div class="col-3" style="background-color:chocolate"></div>
+                <div class="col-3" style="background-color:darksalmon"></div>
             </div>
         </div>
     </section>

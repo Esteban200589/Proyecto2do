@@ -5,7 +5,6 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 
-using System.Xml;
 using Entidades;
 using Logica;
 
@@ -33,7 +32,7 @@ namespace PronosticosWCF
         List<Ciudad> ListarCiudades(Usuario user_log);
 
         [OperationContract]
-        List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log);
+        List<Ciudad> ListarCiudadesSinPronosticos(Usuario user_log, int anio);
 
         #endregion
 
@@ -52,7 +51,13 @@ namespace PronosticosWCF
         Usuario LoginUsuario(string username, string password, Usuario user_log);
 
         [OperationContract]
-        Usuario BuscarUsuario(string username, Usuario user_log);
+        Empleado TraerEmpleado(string username, Usuario user_log);
+
+        [OperationContract]
+        Meteorologo TraerMeteorologo(string username, Usuario user_log);
+
+        [OperationContract]
+        List<Meteorologo> ListarMeteorologosSinPronosticos(Usuario user_log, int anio);
 
         #endregion
 

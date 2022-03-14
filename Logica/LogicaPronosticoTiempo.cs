@@ -47,17 +47,16 @@ namespace Logica
 
             XmlDocument documento = new XmlDocument();
             documento.LoadXml("<?xml version='1.0' encoding='utf-8' ?> <Root> </Root>");
-            XmlNode root = documento.DocumentElement;
+            //XmlNode root = documento.DocumentElement;
 
             foreach (Pronostico_tiempo pt in lista)
             {
-                XmlElement nodo = documento.CreateElement("Pronostico_Tiempo");
+                XmlNode nodo = documento.CreateNode(XmlNodeType.Element, "Pronostico_Tiempo", "");
+                //XmlElement nodo = documento.CreateElement("Pronostico_Tiempo");
 
-                //XmlElement interno = documento.CreateElement("Interno");
-                //interno.InnerText = pt.Interno.ToString();
-                //nodo.AppendChild(interno);
-                
-                nodo.SetAttribute("ID", pt.Interno.ToString());
+                XmlElement interno = documento.CreateElement("Interno");
+                interno.InnerText = pt.Interno.ToString();
+                nodo.AppendChild(interno);
 
                 XmlElement pais = documento.CreateElement("Pais");
                 pais.InnerText = pt.Ciudad.Pais.ToString();
@@ -67,23 +66,26 @@ namespace Logica
                 ciudad.InnerText = pt.Ciudad.Nombre_ciudad.ToString();
                 nodo.AppendChild(ciudad);
 
-                int cnt = 1;
+                //XmlElement prono_hora = documento.CreateElement("Pronosticos_hora");            
+                //nodo.AppendChild(prono_hora);
+
+                int cnt = 0;   
                 foreach (Pronostico_hora ph in pt.LIST_pronosticos_hora)
                 {
-                    XmlElement nodo_ph = documento.CreateElement("Pronostico_hora_"+cnt);
+                    XmlElement nodo_ph = documento.CreateElement("Pronostico_hora");
                     //XmlAttribute attr = documento.CreateAttribute("Interno");
-                    //nodo_ph.SetAttribute("_pt", pt.Interno.ToString());
+                    //nodo_ph.SetAttribute("ID", cnt.ToString());
 
-                    //XmlElement interno_ref = documento.CreateElement("Interno");
-                    //interno_ref.InnerText = pt.Interno.ToString();
-                    //nodo_ph.AppendChild(interno_ref);
+                    XmlElement id = documento.CreateElement("ID");
+                    id.InnerText = pt.Interno.ToString();
+                    nodo_ph.AppendChild(id);
 
                     XmlElement hora = documento.CreateElement("Hora");
 
                     string str_hora = ph.Hora.ToString();
                     string str_pad_hora = str_hora.PadLeft(4, '0');
                     str_hora = str_pad_hora.Substring(0, 2) + ":" + str_pad_hora.Substring(2, 2);
-                    hora.InnerText = str_hora+" hrs";
+                    hora.InnerText = str_hora + " hrs";
 
                     // hora.InnerText = ph.Hora.ToString();
                     nodo_ph.AppendChild(hora);
@@ -128,16 +130,20 @@ namespace Logica
                             html_tipo = "Despejado";
                             html_color = "background-color:#56aaf3;";
                             break;
-                    }   
-                    cielo.SetAttribute("style", html_color);
+                    }
                     cielo.InnerText = html_tipo;
                     nodo_ph.AppendChild(cielo);
+
+                    XmlElement color = documento.CreateElement("Color");
+                    color.InnerText = html_color.ToString();
+                    nodo_ph.AppendChild(color);
 
                     nodo.AppendChild(nodo_ph);
                     cnt++;
                 }
+                //nodo.AppendChild(prono_hora);
 
-                root.AppendChild(nodo);
+                documento.DocumentElement.AppendChild(nodo);
             }
             return documento.OuterXml;
         }

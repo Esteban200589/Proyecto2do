@@ -20,6 +20,48 @@ public partial class abm_meteorologos : System.Web.UI.Page
             btnModificar.Enabled = false;
             btnEliminar.Enabled = false;
         }
+
+        Usuario user = (Usuario)Session["Usuario"];
+
+        if (user is Meteorologo)
+        {
+            Meteorologo usuario = new ServicioClient().TraerMeteorologo(user.Username, (Usuario)base.Session["Usuario"]);
+
+            txtUsername.Text = user.Username;
+            txtUsername.Enabled = false;
+            txtUsername.Visible = false;
+            lblUser.Visible = false;
+
+            txtPassword.Text = usuario.Password;
+            
+            txtNombre.Text = usuario.Nombre;
+            txtNombre.Enabled = false;
+            txtNombre.Visible = false;
+            lblNom.Visible = false;
+
+            txtTelefono.Text = usuario.Telefono;
+            txtTelefono.Enabled = false;
+            txtTelefono.Visible = false;
+            lblTel.Visible = false;
+
+            txtCorreo.Text = usuario.Correo;
+            txtCorreo.Enabled = false;
+            txtCorreo.Visible = false;
+            lblCorreo.Visible = false;
+
+            btnBuscar.Enabled = false;
+            btnGuardar.Enabled = false;
+            btnEliminar.Enabled = false;
+            btnModificar.Enabled = true;
+            btnLimpiar.Enabled = false;
+        }
+
+        if (user is Empleado)
+        {
+            txtPassword.Enabled = false;
+            txtPassword.Visible = false;
+            lblPass.Visible = false;
+        }
     }
 
     protected void btnBuscar_Click(object sender, EventArgs e)
@@ -28,7 +70,17 @@ public partial class abm_meteorologos : System.Web.UI.Page
         {
             if (txtUsername.Text != "")
             {
-                Meteorologo usuario = (Meteorologo)new ServicioClient().BuscarUsuario(txtUsername.Text, (Usuario)base.Session["Usuario"]);
+                Meteorologo usuario = new ServicioClient().TraerMeteorologo(txtUsername.Text, (Usuario)base.Session["Usuario"]);
+
+                if (usuario == null)
+                {
+                    Empleado usuario_emp = new ServicioClient().TraerEmpleado(txtUsername.Text, (Usuario)base.Session["Usuario"]);
+
+                    if (usuario_emp != null)
+                    {
+                        throw new Exception("El usuario es un Empleado");
+                    }
+                }
 
                 txtUsername.ReadOnly = true;
 
@@ -48,8 +100,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
                     lblMsj.ForeColor = Color.Green;
 
                     txtUsername.Text = usuario.Username;
-                    txtPassword.Text = usuario.Password;
-                    txtPassword.TextMode = TextBoxMode.Password;
+
                     txtNombre.Text = usuario.Nombre;
                     txtTelefono.Text = usuario.Telefono;
                     txtCorreo.Text = usuario.Correo;
@@ -58,7 +109,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
                     btnEliminar.Enabled = true;
                     btnModificar.Enabled = true;
 
-                    Session["Usuario"] = usuario;
+                    Session["Usuario_Encontrado"] = usuario;
                 }
             }
             else
@@ -79,32 +130,42 @@ public partial class abm_meteorologos : System.Web.UI.Page
     {
         try
         {
-            Meteorologo usuario = (Meteorologo)Session["Usuario"];
+            Meteorologo usuario = (Meteorologo)Session["Usuario_Encontrado"];
 
             if (usuario != null)
             {
-                usuario.Username = txtUsername.Text.Trim();
-                usuario.Password = txtPassword.Text.Trim();
-                usuario.Nombre = txtNombre.Text.Trim();
-                usuario.Telefono = txtTelefono.Text.Trim();
-                usuario.Correo = txtCorreo.Text.Trim();
+                if ((Usuario)Session["Usuario"] is Meteorologo)
+                {
+                    usuario.Password = txtPassword.Text.Trim();
+
+                    lblMsj.Text = "Contraseña Modificada";
+                }
+                else
+                {
+                    usuario.Username = txtUsername.Text.Trim();
+                    usuario.Password = usuario.Password;
+                    usuario.Nombre = txtNombre.Text.Trim();
+                    usuario.Telefono = txtTelefono.Text.Trim();
+                    usuario.Correo = txtCorreo.Text.Trim();
+
+                    txtUsername.Text = "";
+                    txtPassword.Text = "";
+                    txtNombre.Text = "";
+                    txtTelefono.Text = "";
+                    txtCorreo.Text = "";
+
+                    txtUsername.ReadOnly = false;
+
+                    btnGuardar.Enabled = false;
+                    btnEliminar.Enabled = false;
+                    btnModificar.Enabled = false;
+
+                    lblMsj.Text = "Usuario Modificado";
+                }
 
                 new ServicioClient().ModificarUsuario(usuario, (Usuario)Session["Usuario"]);
 
-                lblMsj.Text = "Usuario Modificado";
                 lblMsj.ForeColor = Color.Green;
-
-                txtUsername.ReadOnly = false;
-
-                txtUsername.Text = "";
-                txtPassword.Text = "";
-                txtNombre.Text = "";
-                txtTelefono.Text = "";
-                txtCorreo.Text = "";
-
-                btnGuardar.Enabled = false;
-                btnEliminar.Enabled = false;
-                btnModificar.Enabled = false;
             }
             else
             {
@@ -213,5 +274,10 @@ public partial class abm_meteorologos : System.Web.UI.Page
         btnModificar.Enabled = false;
         btnEliminar.Enabled = false;
         btnBuscar.Enabled = true;
+    }
+
+    protected void txtPassword_TextChanged(object sender, EventArgs e)
+    {
+
     }
 }
