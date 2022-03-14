@@ -13,6 +13,7 @@ public partial class abm_ciudades : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         //this.Response.Write(sender);
+        //txtCodigo.ReadOnly = true;
 
         if (!IsPostBack)
         {
@@ -106,6 +107,8 @@ public partial class abm_ciudades : System.Web.UI.Page
         }
         catch (Exception ex)
         {
+            txtCodigo.ReadOnly = false;
+
             lblMsj.Text = ex.Message;
             lblMsj.ForeColor = Color.Red;
         }
@@ -139,6 +142,7 @@ public partial class abm_ciudades : System.Web.UI.Page
         }
         catch (Exception ex)
         {
+            txtCodigo.ReadOnly = false;
             lblMsj.Text = ex.Message;
             lblMsj.ForeColor = Color.Red;
         }

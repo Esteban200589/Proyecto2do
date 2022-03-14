@@ -50,6 +50,9 @@ public partial class abm_empleados : System.Web.UI.Page
                     btnEliminar.Enabled = false;
                     btnModificar.Enabled = false;
 
+                    txtPassword.Visible = true;
+                    lblPass.Visible = true;
+
                     lblMsj.Text = "No se encontró el Usuario, puede Crearlo";
                     lblMsj.ForeColor = Color.DarkOrange;
                 }
@@ -61,13 +64,29 @@ public partial class abm_empleados : System.Web.UI.Page
 
                     txtUsername.Text = usuario.Username;
                     txtPassword.Text = usuario.Password;
-                    txtPassword.TextMode = TextBoxMode.Password;
+                    //txtPassword.TextMode = TextBoxMode.Password;
+
+                    Usuario log = (Usuario)base.Session["Usuario"];
+                    if (usuario.Username.ToLower() != log.Username.ToLower())
+                    {
+                        txtPassword.Visible = false;
+                        lblPass.Visible = false;
+                    }
+                    else
+                    {
+                        txtPassword.Visible = true;
+                        lblPass.Visible = true;
+                    }
+                    //txtPassword.Attributes.CssStyle.Add("background-color", "black");
+
                     txtNombre.Text = usuario.Nombre;
                     txtHoras.Text = usuario.Carga_horaria.ToString();
 
                     btnGuardar.Enabled = false;
                     btnEliminar.Enabled = true;
                     btnModificar.Enabled = true;
+
+                    Session["Usuario_Encontrado"] = usuario;
                 }
             }
             else
@@ -88,7 +107,7 @@ public partial class abm_empleados : System.Web.UI.Page
     {
         try
         {
-            Empleado usuario = (Empleado)Session["Usuario"];
+            Empleado usuario = (Empleado)Session["Usuario_Encontrado"];
 
             if (usuario != null)
             {
@@ -130,6 +149,13 @@ public partial class abm_empleados : System.Web.UI.Page
     {
         try
         {
+            if (txtHoras.Text == "")
+                throw new Exception("Ingrese las horas");
+            if (String.IsNullOrEmpty(txtPassword.Text))
+                throw new Exception("Por favor, Ingrese la Contraseña");
+            if (txtNombre.Text == "")
+                throw new Exception("Por favor, Ingrese el Nombre");
+
             Empleado usuario = new Empleado()
             {
                 Username = txtUsername.Text.Trim(),
@@ -140,7 +166,7 @@ public partial class abm_empleados : System.Web.UI.Page
 
             new ServicioClient().CrearUsuario(usuario, (Usuario)base.Session["Usuario"]);
 
-            lblMsj.Text = "Ciudad guardada con exito!";
+            lblMsj.Text = "Usuario guardado con exito!";
             lblMsj.ForeColor = Color.Green;
 
             txtUsername.ReadOnly = false;
@@ -165,14 +191,13 @@ public partial class abm_empleados : System.Web.UI.Page
     {
         try
         {
-            Empleado usuario = null;
+            Empleado usuario = (Empleado)Session["Usuario_Encontrado"];
 
-            if (Session["Ciudad"] != null)
+            if (usuario != null)
             {
-                usuario = (Empleado)Session["Usuario"];
                 new ServicioClient().EliminarUsuario(usuario, (Usuario)Session["Usuario"]);
 
-                lblMsj.Text = "Ciudad Eliminada";
+                lblMsj.Text = "Usuario Eliminado";
                 lblMsj.ForeColor = Color.Green;
 
                 txtUsername.ReadOnly = false;
@@ -188,7 +213,7 @@ public partial class abm_empleados : System.Web.UI.Page
             }
             else
             {
-                lblMsj.Text = "Debe elegir una Ciudad";
+                lblMsj.Text = "Debe buscar un Usuario primero";
                 lblMsj.ForeColor = Color.DarkOrange;
                 return;
             }

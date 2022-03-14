@@ -26,8 +26,8 @@ namespace Logica
 
         public void CrearUsuario(Usuario u, Usuario user_log)
         {
-            if (user_log.Username != u.Username && user_log.Password != u.Password)
-                throw new Exception("Solo el mismo Usuario puede modificar su contraseña.");
+            //if (user_log.Username != u.Username && user_log.Password != u.Password)
+            //    throw new Exception("Solo el mismo Usuario puede modificar su contraseña.");
 
             if (u is Empleado)
             {

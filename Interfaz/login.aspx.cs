@@ -22,12 +22,6 @@ public partial class login : System.Web.UI.Page
             var usuario = Session["Usuario"] != null ? (Usuario)Session["Usuario"] : null;
             Usuario user = new ServicioClient().LoginUsuario(txtUser.Text, txtPass.Text, usuario);
 
-            //Usuario user = new Usuario
-            //{
-            //    Username = "Carlos29",
-            //    Password = "129carl**"
-            //};
-
             Session["Usuario"] = user;
 
             if (user != null)
@@ -38,6 +32,16 @@ public partial class login : System.Web.UI.Page
         }
         catch (Exception ex)
         {
+            //var ex_sub = ex.Message.ToString();
+            //if (ex_sub.Substring(0,20) == "Cannot open database")
+            //{
+            //    lblMsj.Text = "No hay conexion con la Base de datos!";
+            //}
+            //else
+            //{
+            //    lblMsj.Text = ex.Message;
+            //}
+
             lblMsj.Text = ex.Message;
             txtPass.Text = "";
             txtUser.Text = "";

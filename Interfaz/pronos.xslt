@@ -12,8 +12,8 @@
 				<div class="col-md-2 col-sm-2 label" ><span>Hora</span></div>
 				<div class="col-md-2 col-sm-2 label" ><span>Temp</span><span>(Max/Min)</span></div>
 				<div class="col-md-3 col-sm-3 label" ><span>Lluvias</span>/<span>Tormentas</span></div>
-				<div class="col-md-2 col-sm-2 label" ><span>Viento</span></div>
-				<div class="col-md-2 col-sm-2 label" ><span>Cielo</span></div>
+				<div class="col-md-2 col-sm-2 label" style="text-align:left;" ><span>Viento</span></div>
+				<div class="col-md-2 col-sm-2 label" style="text-align:left;"><span>Cielo</span></div>
 			</div>
 			
 			<xsl:for-each select="Raiz/Pronostico_hora">							

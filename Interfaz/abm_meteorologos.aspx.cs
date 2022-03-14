@@ -25,14 +25,16 @@ public partial class abm_meteorologos : System.Web.UI.Page
 
         if (user is Meteorologo)
         {
-            Meteorologo usuario = new ServicioClient().TraerMeteorologo(user.Username, (Usuario)base.Session["Usuario"]);
+            titulo.InnerText = "Cambiar Contraseña";
+
+            Meteorologo usuario = new ServicioClient().TraerMeteorologo(user.Username, null);
 
             txtUsername.Text = user.Username;
             txtUsername.Enabled = false;
             txtUsername.Visible = false;
             lblUser.Visible = false;
 
-            txtPassword.Text = usuario.Password;
+            //txtPassword.Text = user.Password;
             
             txtNombre.Text = usuario.Nombre;
             txtNombre.Enabled = false;
@@ -90,6 +92,10 @@ public partial class abm_meteorologos : System.Web.UI.Page
                     btnEliminar.Enabled = false;
                     btnModificar.Enabled = false;
 
+                    txtPassword.Enabled = true;
+                    txtPassword.Visible = true;
+                    lblPass.Visible = true;
+
                     lblMsj.Text = "No se encontró el Usuario, puede Crearlo";
                     lblMsj.ForeColor = Color.DarkOrange;
                 }
@@ -130,14 +136,18 @@ public partial class abm_meteorologos : System.Web.UI.Page
     {
         try
         {
-            Meteorologo usuario = (Meteorologo)Session["Usuario_Encontrado"];
+            Meteorologo usuario = (Meteorologo)Session["Usuario"];
 
             if (usuario != null)
             {
                 if ((Usuario)Session["Usuario"] is Meteorologo)
                 {
-                    usuario.Password = txtPassword.Text.Trim();
+                    string pass = txtPassword.Text.Trim();
+                    usuario.Password = pass;
 
+                    new ServicioClient().ModificarUsuario(usuario, null);
+
+                    txtPassword.Text = "";
                     lblMsj.Text = "Contraseña Modificada";
                 }
                 else
@@ -160,10 +170,10 @@ public partial class abm_meteorologos : System.Web.UI.Page
                     btnEliminar.Enabled = false;
                     btnModificar.Enabled = false;
 
+                    new ServicioClient().ModificarUsuario(usuario, (Usuario)Session["Usuario"]);
+
                     lblMsj.Text = "Usuario Modificado";
                 }
-
-                new ServicioClient().ModificarUsuario(usuario, (Usuario)Session["Usuario"]);
 
                 lblMsj.ForeColor = Color.Green;
             }
@@ -184,6 +194,15 @@ public partial class abm_meteorologos : System.Web.UI.Page
     {
         try
         {
+            if (txtNombre.Text == "")
+                throw new Exception("Por favor, Ingrese la Contraseña");
+            if (txtTelefono.Text == "")
+                throw new Exception("Ingrese el Telefono");
+            if (txtNombre.Text == "")
+                throw new Exception("Por favor, Ingrese el Nombre");
+            if (txtCorreo.Text == "")
+                throw new Exception("Ingrese el Correo");
+
             Meteorologo usuario = new Meteorologo()
             {
                 Username = txtUsername.Text.Trim(),
@@ -195,7 +214,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
 
             new ServicioClient().CrearUsuario(usuario, (Usuario)base.Session["Usuario"]);
 
-            lblMsj.Text = "Ciudad guardada con exito!";
+            lblMsj.Text = "Usuario guardado con exito!";
             lblMsj.ForeColor = Color.Green;
 
             txtUsername.ReadOnly = false;
@@ -221,14 +240,13 @@ public partial class abm_meteorologos : System.Web.UI.Page
     {
         try
         {
-            Meteorologo usuario = null;
+            Meteorologo usuario = (Meteorologo)Session["Usuario_Encontrado"];
 
-            if (Session["Ciudad"] != null)
-            {
-                usuario = (Meteorologo)Session["Usuario"];
+            if (usuario != null)
+            { 
                 new ServicioClient().EliminarUsuario(usuario, (Usuario)Session["Usuario"]);
 
-                lblMsj.Text = "Ciudad Eliminada";
+                lblMsj.Text = "Usuario Eliminado";
                 lblMsj.ForeColor = Color.Green;
 
                 txtUsername.ReadOnly = false;
@@ -245,7 +263,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
             }
             else
             {
-                lblMsj.Text = "Debe elegir una Ciudad";
+                lblMsj.Text = "Debe buscar un Usuario primero";
                 lblMsj.ForeColor = Color.DarkOrange;
                 return;
             }

@@ -86,14 +86,14 @@
     </style>
 
     <script>
-        //$("#ContentPlaceHolder1_ddlPeriodistas").append($("<option>ninguno</option>").val(0).html("Ninguno"));
-        //$("#ContentPlaceHolder1_ddlPeriodistas option[value='0']").attr("selected", true);
 
-        //$("#ContentPlaceHolder1_btnAgregar").click(function () {
-        //    if ($("#ContentPlaceHolder1_ddlPeriodistas") == 0) {
-        //        $("#ContentPlaceHolder1_lblMsj").text("Seleccione un Periodista");
-        //    }
-        //});
+        $("#ContentPlaceHolder1_btnGuardar").click(function () {
+            console.log($("#ContentPlaceHolder1_lblMsj").attr("style"));
+            if ($("#ContentPlaceHolder1_lblMsj").attr("style") == 'color:Red;') {
+                $("#ContentPlaceHolder1_txtCodigo").removeAttr("readonly");
+            }
+        });
+
     </script>
 
 </asp:Content>

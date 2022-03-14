@@ -37,7 +37,7 @@ namespace Entidades
                 Regex exp = new Regex(@"[0-9]{3}[a-zA-Z]{4}[^A-Za-z0-9]{2}");
 
                 if (value.Trim().Replace(" ","").Length != 9)
-                    throw new Exception("El Password es incorrecto - debe contener 9 caracteres!");
+                    throw new Exception("El Password es incorrecto - debe contener 9 caracteres! \n En el siguiente formato: '123aaaa**'");
                 else if (string.IsNullOrEmpty(value))
                     throw new Exception("Ingrese el Password");
                 else if (!exp.IsMatch(value))

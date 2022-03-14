@@ -25,12 +25,18 @@
                             <div class="col-3">
                                 <asp:Button  ID="btnListarMeteorologos" class="btn btn-secondary" runat="server" Text="Listar Meteorologos Sin Pronosticos"  OnClick="btnListarMeteorologos_Click" />
                             </div>
-                                        
-                            <div  class="col-3">
-                                <asp:TextBox ID="txtAnio" class="form-control" runat="server" TextMode="SingleLine">  </asp:TextBox>
-                            </div>
                                     
-                            <div  class="col-3">
+                            <div  class="col-4 row">
+                                <div class="col-4 col-form-label">
+                                    Año:
+                                </div>
+                                <div  class="col-5">
+                                    <asp:TextBox ID="txtAnio" class="form-control" runat="server" TextMode="SingleLine">  </asp:TextBox>
+                                </div>
+                            </div>
+                            
+                                    
+                            <div  class="col-2">
                                 <asp:Button ID="txtLimpiar" class="btn btn-secondary" runat="server" Text="Limpiar" OnClick="txtLimpiar_Click" >  </asp:Button>
                             </div>
 

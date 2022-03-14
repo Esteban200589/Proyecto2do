@@ -151,10 +151,13 @@ go
 			exec (@var_sentencia)
 			
 			set @rol = 'rol_empleados'
-			exec sp_addrolemember @rolename=@rol, @membername=@username
-			exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
-			exec sp_addsrvrolemember @loginame=@username, @rolename='securityadmin'
 			
+			exec sp_addrolemember @rolename=@rol, @membername=@username
+			exec sp_addrolemember @rolename = 'db_owner' , @membername = @username
+			exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
+			exec sp_addsrvrolemember @loginame=@username, @rolename='dbcreator'
+			exec sp_addsrvrolemember @loginame=@username, @rolename='securityadmin'
+
 			return 1
 		end	  
 		else
@@ -214,7 +217,7 @@ go
 			exec sp_addrolemember @rolename=@rol, @membername=@username
 			exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
 			exec sp_addsrvrolemember @loginame=@username, @rolename= 'dbcreator'
-			  
+
 			return 1
 		end	  
 		else
@@ -814,6 +817,8 @@ go
 grant execute on modificar_usuario_meteorologo to rol_meteorologos
 go
 
+grant execute on buscar_meteorologo to rol_meteorologos
+go
 grant execute on buscar_meteorologo_activo to rol_meteorologos
 go
 grant execute on buscar_ciudad_activa to rol_meteorologos
@@ -859,14 +864,14 @@ exec crear_usuario_meteorologo 'Laura36663', 'Larua Setevelatan', '123laur**', '
 exec crear_usuario_meteorologo 'Usuario1',   'Usuario1',		  '000admi**', '094143100', 'usuario1@gmail.com'
 
 
---exec eliminar_ususario_empleado 'Esteban89'
---exec eliminar_ususario_empleado 'Analia123'
---exec eliminar_ususario_empleado 'Admin'
---exec eliminar_ususario_empleado 'Usuario2'
+--exec eliminar_usuario_empleado 'Esteban89'
+--exec eliminar_usuario_empleado 'Analia123'
+--exec eliminar_usuario_empleado 'Admin'
+--exec eliminar_usuario_empleado 'Usuario2'
 
---exec eliminar_ususario_meteorologo 'Carlos29'
---exec eliminar_ususario_meteorologo 'Laura36663'
---exec eliminar_ususario_meteorologo 'Usuario1'
+--exec eliminar_usuario_meteorologo 'Carlos29'
+--exec eliminar_usuario_meteorologo 'Laura36663'
+--exec eliminar_usuario_meteorologo 'Usuario1'
 
 
 insert ciudades (codigo,nombre_ciudad,pais)

@@ -98,6 +98,8 @@
                                 </div>
 
                                 <script>
+                                    $('#ContentPlaceHolder1_ddlCiudades > option[value="AAAAAA"]').text('Todas');
+
                                     var fechas = $("#ContentPlaceHolder1_gvListadoPronosticos > tbody > tr > td:nth-child(2)");
                                     $.each(fechas, function (i, v) {
                                         //console.log(v);

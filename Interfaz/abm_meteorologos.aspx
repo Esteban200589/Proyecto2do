@@ -14,7 +14,7 @@
                     <div role="form" id="frm" >
                         <!-- /.card-header -->
                         <div class="card-header" style="text-align:center; background-color: #757578; color: #ffffff;">
-                            <h3 class="card-title">METEOROLOGOS</h3>
+                            <h3 id="titulo" runat="server" class="card-title">METEOROLOGOS</h3>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-body">

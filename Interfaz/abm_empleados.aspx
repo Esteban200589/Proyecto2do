@@ -26,8 +26,8 @@
                                     </div>
                                     
                                     <div class="form-group col-12">
-                                        <label>CONTRASEÑA</label>
-                                        <asp:TextBox  ID="txtPassword" class="form-control" runat="server" TextMode="Password"></asp:TextBox>
+                                        <label ID="lblPass" runat="server" >CONTRASEÑA</label>
+                                        <asp:TextBox  ID="txtPassword" class="form-control" runat="server" ></asp:TextBox>
                                     </div>
                                   
                                     <div class="form-group col-12">
