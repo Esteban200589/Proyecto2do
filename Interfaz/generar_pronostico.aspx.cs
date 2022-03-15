@@ -79,8 +79,12 @@ public partial class generar_pronostico : System.Web.UI.Page
             var pronosticosGrilla = (List<Pronostico_hora>)ViewState["PronosticosGrilla"];
             var codigo_ciudad = ddlCiudades.SelectedValue;
 
+            if(pronosticosGrilla == null)
+                throw new Exception("No agregó ningun pronóstico por hora");
             if (codigo_ciudad == "AAAAAA")
                 throw new Exception("Debe elegir una Ciudad");
+
+
 
             Ciudad ciudad = new ServicioClient().BuscarCiudadActiva(codigo_ciudad, (Usuario)Session["Usuario"]);
             Usuario usuario = (Usuario)Session["Usuario"];
@@ -119,4 +123,9 @@ public partial class generar_pronostico : System.Web.UI.Page
     }
 
 
+
+    protected void btnLimpiar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("default.aspx");
+    }
 }

@@ -23,6 +23,7 @@
                                     <div class="form-group col-12">
                                         <label>CODIGO</label>
                                         <asp:TextBox  ID="txtCodigo" class="form-control" runat="server"  ToolTip=" " ></asp:TextBox>
+                                        <span runat="server" style="color:darkred">* Formato de Codigo: 'URUMVD' (Ejemplo: Uruguay Montevideo)</span>
                                     </div>
                                     
                                     <div class="form-group col-12">

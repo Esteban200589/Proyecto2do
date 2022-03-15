@@ -23,6 +23,7 @@ public partial class listado_pronosticos : System.Web.UI.Page
                 gvListadoPronosticos.DataSource = lista;
                 gvListadoPronosticos.DataBind();
 
+                this.popup.Visible = false;
             }
             catch (Exception ex)
             {
@@ -130,20 +131,44 @@ public partial class listado_pronosticos : System.Web.UI.Page
 
     protected void gvListadoPronosticos_SelectedIndexChanged(object sender, EventArgs e)
     {
-        List<Pronostico_tiempo> lista = (List<Pronostico_tiempo>)Session["Pronosticos"];
+        List<Pronostico_tiempo> source = (List<Pronostico_tiempo>)Session["Pronosticos"];
 
         try
         {
-            string indice = gvListadoPronosticos.SelectedRow.Cells[0].Text;
+            int indice = Convert.ToInt32(gvListadoPronosticos.SelectedRow.Cells[0].Text);
 
+            foreach (var item in source)
+            {
+                if (item.Interno == indice)
+                {
+                    foreach (var ph in item.LIST_pronosticos_hora)
+                    {
+                        this.popup.InnerHtml = 
+                            "<div class='row col-6'>" +
+                                "<div id='my-modal' role='dialog' aria-hidden='true'>" +
+                                    "<div id='my-modal' class='row col-12' role='dialog' aria-hidden='true'>" +
+                                        "<div class='modal-dialog' role='document'>" +
+                                            "<div class='modal-content'>" +
+                                                "<div class='row col-6'><span>hora</span><input type='text' value='" + ph.Hora + "'></div>" +
+                                                "<div class='row col-6'><span>max</span><input type='text' value='" + ph.Temp_max + "'></div>" +
+                                                "<div class='row col-6'><span>min</span><input type='text' value='" + ph.Temp_min + "'></div>" +
+                                                "<div class='row col-6'><span>lluvias</span><input type='text' value='" + ph.Prob_lluvias + "'></div>" +
+                                                "<div class='row col-6'><span>tormenta</span><input type='text' value='" + ph.Prob_tormenta + "'></div>" +
+                                                "<div class='row col-6'><span>viento</span><input type='text' value='" + ph.V_viento + "'></div>" +
+                                                "<div class='row col-6'><span>cielo</span><input type='text' value='" + ph.Tipo_cielo + "'></div>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<a class='nav-link' style='z-index:10;' href='listado_pronosticos.aspx'>Volver</a>" +
+                                "</div>" +
+                            "</div>";
 
+                        this.grilla.Visible = false;
+                        this.popup.Visible = true;
+                    }
+                }
+            }
 
-            //< div id = "my-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-            //    <div class="modal-dialog" role="document">
-            //        <div class="modal-content"><div id = "p-modal" class="modal-body" style="float:center; padding:2%; font-size:large;"></div></div>
-            //        <button style = "float: right" type="button" class="btn btn-default" data-dismiss="modal" id="btnModal";">Aceptar</button>
-            //    </div>
-            //</div>
         }
         catch (Exception ex)
         {

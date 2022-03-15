@@ -32,7 +32,7 @@
                                   
                                     <div class="form-group col-12">
                                         <label>CIUDAD</label>
-                                        <asp:DropDownList ID="ddlCiudades" class="btn btn-default" runat="server" > </asp:DropDownList>
+                                        <asp:DropDownList ID="ddlCiudades" class="btn btn-default" runat="server" style="background-color:#999999;text-align:left;"> </asp:DropDownList>
                                     </div>
 
                                     <%--<div class="form-group col-12">
@@ -162,6 +162,26 @@
                                             <SortedDescendingHeaderStyle BackColor="#242121" />
                                         </asp:GridView>
                                     </div><br/>
+
+
+                                    <script>
+                                        $.each($("#ContentPlaceHolder1_gvPronosticosHora > tbody > tr > td:nth-child(1)"), function (i, v) {
+                                            var horas = $(v).text().substring(0,2);
+                                            var minutos = $(v).text().substring(2,4);
+                                            $(v).text(horas + ':' + minutos);
+                                        });
+
+                                        let tipo_cielo = {
+                                            'nuboso': 'Nuboso',
+                                            'parcialmente_nuboso': 'Parcialmente Nuboso',
+                                            'despejado': 'Despejado',
+                                        };
+
+                                        $.each($("#ContentPlaceHolder1_gvPronosticosHora > tbody > tr > td:nth-child(7)"), function (i, v) {
+                                            var tipo = $(v).text();
+                                            $(v).text(tipo_cielo[tipo]);
+                                        });
+                                    </script>
                                 </div>   
                             </div>
                         </div>
@@ -171,7 +191,7 @@
                             <div class="row">
                                 <div class="col-sm-12" style="text-align:center;">
                                     <asp:Button ID="btnGenerar" class="btn btn-secondary" runat="server" Text="Generar" Width="90px" OnClick="btnGenerar_Click" />                       
-                                    <asp:Button ID="btnLimpiar" class="btn btn-secondary" runat="server" Text="Limpiar" Width="90px" />
+                                    <asp:Button ID="btnLimpiar" class="btn btn-secondary" runat="server" Text="Limpiar" Width="90px" OnClick="btnLimpiar_Click" />
                                 </div>
                             </div>
                                         
@@ -203,16 +223,5 @@
             margin:3px;
         }
     </style>
-
-    <script>
-        //$("#ContentPlaceHolder1_ddlPeriodistas").append($("<option>ninguno</option>").val(0).html("Ninguno"));
-        //$("#ContentPlaceHolder1_ddlPeriodistas option[value='0']").attr("selected", true);
-
-        //$("#ContentPlaceHolder1_btnAgregar").click(function () {
-        //    if ($("#ContentPlaceHolder1_ddlPeriodistas") == 0) {
-        //        $("#ContentPlaceHolder1_lblMsj").text("Seleccione un Periodista");
-        //    }
-        //});
-    </script>
 
 </asp:Content>
