@@ -50,9 +50,28 @@
     margin-bottom: 10px;
 }
 
-@media screen and (min-width: 280px) and (max-width: 768px) {
-    #perfil{
-        display:none;
-        visibility:hidden;
-    }
+#login {
+    float: right;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding:1%;
+}
+
+.ciudad {
+    text-align: center;
+    margin-left: 2%;
+    font:30px;
+}
+
+#lblCiudad {
+    margin-right: 10px;
+}
+
+#ddlCiudades {
+    background-color: #999999;
+    text-align: left;
+}
+
+@media screen and (min-width: 300px) and (max-width: 800px) {
 }

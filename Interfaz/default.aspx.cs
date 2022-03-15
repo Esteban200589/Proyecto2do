@@ -23,6 +23,11 @@ public partial class _default : System.Web.UI.Page
 
             if (!IsPostBack)
             {
+                string endpoint_url = new ServicioClient().Endpoint.Address.ToString();
+                string endpoint_sys = new ServicioClient().Endpoint.IsSystemEndpoint.ToString();
+                string endpoint_bin = new ServicioClient().Endpoint.Binding.ToString();
+                string endpoint_ = new ServicioClient().Endpoint.Binding.MessageVersion.ToString();
+
                 cargar_Ciudades();
                 cargar_Pronosticos(fecha);
             }
@@ -38,7 +43,7 @@ public partial class _default : System.Web.UI.Page
     protected void btnLimpiarfiltros_Click(object sender, EventArgs e)
     {
         fecha = DateTime.Now;
-        Response.Redirect("default.aspx");
+        Response.Redirect("~/default.aspx");
     }
 
     protected void cargar_Pronosticos(DateTime fecha, string ciudad = "", int indice = 0)

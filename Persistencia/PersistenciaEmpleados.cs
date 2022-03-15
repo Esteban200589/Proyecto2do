@@ -63,9 +63,6 @@ namespace Persistencia
         {
             SqlConnection cnn = new SqlConnection(Conexion.Cnn(user_log));
 
-            if (user_log.Username != e.Username && user_log.Password != e.Password)
-                throw new Exception("Solo el mismo Usuario puede modificar su contraseña.");
-
             try
             {
                 cnn.Open();

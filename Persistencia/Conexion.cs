@@ -11,8 +11,8 @@ namespace Persistencia
     internal class Conexion
     {
         //private static string Server = ".";
-        private static string Server = "(local);";
-        //private static string Server = "DESKTOP-MGR3B3L\\SQLEXPRESS;";
+        //private static string Server = "(local);";
+        private static string Server = "DESKTOP-MGR3B3L\\SQLPRUEBA;";
         private static string DataBase = "Proyecto_Pronosticos;";
 
         internal static string Cnn(Usuario user = null)

@@ -28,6 +28,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
             titulo.InnerText = "Cambiar Contraseña";
 
             Meteorologo usuario = new ServicioClient().TraerMeteorologo(user.Username, null);
+            Session["Usuario_Encontrado"] = usuario;
 
             txtUsername.Text = user.Username;
             txtUsername.Enabled = false;
@@ -136,7 +137,7 @@ public partial class abm_meteorologos : System.Web.UI.Page
     {
         try
         {
-            Meteorologo usuario = (Meteorologo)Session["Usuario"];
+            Meteorologo usuario = (Meteorologo)Session["Usuario_Encontrado"];
 
             if (usuario != null)
             {
@@ -149,6 +150,13 @@ public partial class abm_meteorologos : System.Web.UI.Page
 
                     txtPassword.Text = "";
                     lblMsj.Text = "Contraseña Modificada";
+
+                    Usuario u = (Usuario)base.Session["Usuario"];
+                    if (usuario.Username.ToLower() == u.Username.ToLower())
+                    {
+                        System.Threading.Thread.Sleep(2000);
+                        Response.Redirect("~/login.aspx");
+                    }
                 }
                 else
                 {

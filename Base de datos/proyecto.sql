@@ -158,6 +158,7 @@ go
 			exec sp_addsrvrolemember @loginame=@username, @rolename='dbcreator'
 			exec sp_addsrvrolemember @loginame=@username, @rolename='securityadmin'
 
+
 			return 1
 		end	  
 		else
@@ -217,6 +218,7 @@ go
 			exec sp_addrolemember @rolename=@rol, @membername=@username
 			exec sp_addrolemember @rolename='db_securityAdmin', @membername=@username
 			exec sp_addsrvrolemember @loginame=@username, @rolename= 'dbcreator'
+			exec sp_addsrvrolemember @loginame=@username, @rolename='securityadmin'
 
 			return 1
 		end	  
@@ -247,7 +249,9 @@ go
 		
 		set @rol = 'rol_empleados'
 		exec sp_droprolemember @rolename=@rol, @membername=@username 
+		exec sp_droprolemember @rolename = 'db_owner' , @membername = @username
 		exec sp_droprolemember @rolename='db_securityadmin', @membername=@username
+		exec sp_dropsrvrolemember @loginame=@username, @rolename='dbcreator'
 		exec sp_dropsrvrolemember @loginame=@username, @rolename='securityadmin'
 
 		begin try
@@ -336,17 +340,22 @@ go
 		@hrs int
 	as
 	begin
+		declare @var_sentencia varchar(max)
+
 		if not(exists(select * from usuarios where username = @username))
 			return -1
 		if not(exists(select * from empleados where usuario = @username))
 			return -2
+
+		set @var_sentencia ='alter login ['+@username+'] with password = '+QUOTENAME(@pass, '''')
+		exec (@var_sentencia)
 
 		begin try
 			begin transaction
 				update usuarios set nombre_completo=@nombre, password = @pass where username = @username
 				update empleados set carga_horaria = @hrs where usuario = @username
 			commit transaction
-			return 1		
+			return 1	
 		end try
 		begin catch
 			rollback transaction
@@ -364,15 +373,20 @@ go
 		@username varchar(20),
 		@nombre varchar(50),
 		@pass varchar(9),
-		
+	
 		@telefono varchar(20),
 		@correo varchar(30)
 	as
 	begin
+		declare @var_sentencia varchar(max)
+
 		if not(exists(select * from usuarios where username = @username))
 			return -1
 		if not(exists(select * from meteorologos where usuario = @username))
 			return -2
+
+		set @var_sentencia ='alter login ['+@username+'] with password = '+QUOTENAME(@pass, '''')
+		exec (@var_sentencia)
 
 		begin try
 			begin transaction
@@ -487,7 +501,7 @@ go
 		begin try	
 			insert into pronosticos_tiempo (fecha, usuario, ciudad)
 				values (@fecha, @usuario, @ciudad)		
-			return 1
+			return @@IDENTITY
 		end try
 		begin catch
 			return @@error
@@ -501,6 +515,7 @@ go
 		drop proc crear_pronostico_hora
 	go
 	create proc crear_pronostico_hora  
+		@interno int,
 		@hora int,
 		@temp_max int,
 		@temp_min int,
@@ -511,12 +526,16 @@ go
 	as
 	begin
 		begin try	
-			insert into pronosticos_hora (hora, temp_max, temp_min, v_viento, tipo_cielo, prob_lluvias, prob_tormenta)
-				values (@hora, @temp_max, @temp_min, @v_viento, @tipo_cielo, @prob_lluvias, @prob_tormenta)		
+
+			if not exists (select * from pronosticos_tiempo where interno = @interno)
+				return -1
+
+			insert into pronosticos_hora (interno, hora, temp_max, temp_min, v_viento, tipo_cielo, prob_lluvias, prob_tormenta)
+				values (@interno, @hora, @temp_max, @temp_min, @v_viento, @tipo_cielo, @prob_lluvias, @prob_tormenta)		
 			return 1
 		end try
 		begin catch
-			return @@error
+			return -1
 		end catch
 	end
 	go
@@ -959,3 +978,6 @@ insert pronosticos_hora (interno,hora,temp_max,temp_min,v_viento,tipo_cielo,prob
 go
 
 -- exec buscar_meteorologo 'Carlos29'
+
+sp_addsrvrolemember @loginame= [IIS APPPOOL\DefaultAppPool], 
+					@rolename= 'securityadmin'

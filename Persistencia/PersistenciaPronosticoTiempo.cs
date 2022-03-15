@@ -57,7 +57,7 @@ namespace Persistencia
 
                 foreach (Pronostico_hora ph in pt.LIST_pronosticos_hora)
                 {
-                    PersistenciaPronosticoHora.GetInstanciaPronosticoHora().CrearPronosticoHora(ph,trn, user_log);
+                    PersistenciaPronosticoHora.GetInstanciaPronosticoHora().CrearPronosticoHora(valor,ph, trn, user_log);
                 }
 
                 trn.Commit();

@@ -131,6 +131,13 @@ public partial class abm_empleados : System.Web.UI.Page
                 btnGuardar.Enabled = false;
                 btnEliminar.Enabled = false;
                 btnModificar.Enabled = false;
+
+                Usuario u = (Usuario)base.Session["Usuario"];
+                if (usuario.Username.ToLower() == u.Username.ToLower())
+                {
+                    System.Threading.Thread.Sleep(2000);
+                    Response.Redirect("~/login.aspx");
+                }
             }
             else
             {

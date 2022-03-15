@@ -23,7 +23,7 @@ namespace Persistencia
         }
 
 
-        public void CrearPronosticoHora(Pronostico_hora ph, SqlTransaction trn, Usuario user_log)
+        public void CrearPronosticoHora(int interno, Pronostico_hora ph, SqlTransaction trn, Usuario user_log)
         {
             SqlConnection cnn = new SqlConnection(Conexion.Cnn());
 
@@ -31,6 +31,7 @@ namespace Persistencia
             {
                 SqlCommand cmd = new SqlCommand("crear_pronostico_hora", trn.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("interno", interno);
                 cmd.Parameters.AddWithValue("hora", ph.Hora);
                 cmd.Parameters.AddWithValue("temp_max", ph.Temp_max);
                 cmd.Parameters.AddWithValue("temp_min", ph.Temp_min);

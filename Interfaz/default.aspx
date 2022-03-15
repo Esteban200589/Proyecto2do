@@ -16,20 +16,24 @@
                     <!-- general form elements disabled -->
                     <div class="card card-warning" style="width:100%;height:80%;">
                         <div class="card-header" style="background-color: #757578; color: #ffffff;">
-                            <h3 class="card-title">PAGINA PRINCIPAL </h3>
-
-                            <div id="login">
-                                <a href="login.aspx" class="btn btn-secondary" style="float:right;position:absolute;right:10%;top:15px;color:white;">LOGIN</a>
+                            <div class="row col-12">
+                                <div class="col-8">
+                                    <h1 id="titulo" class="card-title">PAGINA PRINCIPAL </h1>
+                                </div>
+                                <div class="col-4">
+                                    <a id="login" href="login.aspx" class="btn btn-secondary">LOGIN</a>
+                                </div>
                             </div>
+                            
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="row" style="margin: 2%;height:500px;">
                                     
-                                <div class="row col-12" style="text-align: center;margin-left:2%;">
-                                    <div class="col-form-label" style="margin-right:10px;">Ciudad: </div>
+                                <div class="row col-12 ciudad">
+                                    <div id="lblCiudad" class="col-form-label">Ciudad: </div>
                                     <div>
-                                        <asp:DropDownList ID="ddlCiudades" class="btn btn-default" runat="server" style="background-color:#999999;text-align:left;"> </asp:DropDownList>
+                                        <asp:DropDownList ID="ddlCiudades" class="btn btn-default" runat="server"> </asp:DropDownList>
                                     </div>
                                 </div>
 

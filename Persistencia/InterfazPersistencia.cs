@@ -53,7 +53,7 @@ namespace Persistencia
 
     public interface InterfazPersistenciaPronosticosHora
     {
-        void CrearPronosticoHora(Pronostico_hora ph, SqlTransaction trn, Usuario user_log);
+        void CrearPronosticoHora(int interno, Pronostico_hora ph, SqlTransaction trn, Usuario user_log);
 
         List<Pronostico_hora> ListarPronosticosHora(int interno, SqlTransaction trn, Usuario user_log);
     }

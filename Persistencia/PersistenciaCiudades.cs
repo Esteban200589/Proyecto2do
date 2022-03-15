@@ -188,6 +188,7 @@ namespace Persistencia
 
             try
             {
+                string sts = cnn.State.ToString();
                 cnn.Open();
 
                 SqlCommand cmd = new SqlCommand("listar_ciudades", cnn);
